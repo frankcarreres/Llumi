@@ -1,1 +1,1 @@
-Hola, som LLumí
+Hola, som LLumí ʕ•́ᴥ•̀ʔっ
