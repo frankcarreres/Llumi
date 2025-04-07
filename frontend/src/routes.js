@@ -3,6 +3,7 @@ import Icon from "@mui/material/Icon";
 
 // Pages
 import SignIn from "layouts/pages/authentication/sign-in";
+import PageHeaders from "./layouts/sections/page-sections/page-headers";
 
 const routes = [
   {
@@ -11,17 +12,17 @@ const routes = [
     collapse: [
       {
         name: "Recursos informatius",
-        route: "/pages/authentication/sign-in",
-        component: <SignIn />,
+        route: "/sections/page-sections/page-headers",
+        component: <PageHeaders />,
       },
       {
         name: "Recursos visuals",
-        route: "/pages/authentication/sign-in",
+        route: "/sections/page-sections/page-headers",
         component: <SignIn />,
       },
       {
         name: "Recursos audiovisuals",
-        route: "/pages/authentication/sign-in",
+        route: "/sections/page-sections/page-headers",
         component: <SignIn />,
       },
     ],

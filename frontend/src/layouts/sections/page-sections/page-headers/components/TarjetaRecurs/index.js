@@ -1,18 +1,3 @@
-/*
-=========================================================
-* Material Kit 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -27,7 +12,7 @@ import MKTypography from "components/MKTypography";
 // Images
 import bgImage from "assets/images/bg-coworking.jpeg";
 
-function HeaderOne() {
+function TarjetaRecurs() {
   return (
     <MKBox component="header" position="relative" height="100%">
       <MKBox component="nav" position="absolute" top="0.5rem" width="100%">
@@ -188,4 +173,4 @@ function HeaderOne() {
   );
 }
 
-export default HeaderOne;
+export default TarjetaRecurs;

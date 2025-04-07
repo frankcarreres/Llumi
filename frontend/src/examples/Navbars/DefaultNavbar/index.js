@@ -500,7 +500,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
 
 // Setting default values for the props of DefaultNavbar
 DefaultNavbar.defaultProps = {
-  brand: "Material Kit 2",
+  brand: "Llumí",
   transparent: false,
   light: false,
   action: false,
