@@ -9,10 +9,7 @@ function PageHeaders() {
   return (
     <BaseLayout
       title="Recursos"
-      breadcrumb={[
-        { label: "Inici", route: "/sections/page-sections/featuers" },
-        { label: "Recursos" },
-      ]}
+      breadcrumb={[{ label: "Inici", route: "/pages/presentation" }, { label: "Recursos" }]}
     >
       <CarruselTarjetes />
     </BaseLayout>

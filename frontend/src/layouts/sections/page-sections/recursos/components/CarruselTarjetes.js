@@ -3,23 +3,26 @@ import MKBox from "components/MKBox";
 import TarjetaRecurs from "./Tarjeta";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import cardImage2 from "assets/images/ojo.png";
+import cardImage3 from "assets/images/bg2.jpg";
 
 const tarjetas = [
   {
     titulo: "Recursos informatius",
-    descripcion: "Informate de las ultimas noticias sobre el bullyng y el acoso escolar...",
-    imagen: "/assets/images/recursos-visuales.jpg",
+    descripcion: "Informa't de les ultimes notícies sobre l'assetjament escolar...",
+    imagen:
+      "https://imagenes.elpais.com/resizer/v2/LA6RA2T3PNAQZLVJM3BHHXBPOQ.JPG?auth=de95b1678277a2928808ece5714ecfdef498c9a78bec4745cff177cec933001e&width=1200",
   },
   {
     titulo: "Recursos visuals",
-    descripcion: "Descubre recursos visuales para sensibilizar y actuar contra el bullying.",
-    imagen: "/assets/images/recursos-visuales.jpg", // Otra imagen local
+    descripcion: "Descobrix recursos visuals per a sensibilitzar i actuar contra l'assetjament.",
+    imagen: cardImage2,
   },
   {
     titulo: "Recursos audiovisuals",
     descripcion:
-      "Accede a contenido audiovisual para informar, sensibilizar y combatir el bullying.",
-    imagen: "/assets/images/recursos-audiovisuales.jpg", // Otra imagen local
+      "Accedix a contingut audiovisual per a informar, sensibilitzar i combatre l'assetjament",
+    imagen: cardImage3,
   },
 ];
 
@@ -28,22 +31,22 @@ function CarruselTarjetas() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1, // Mostrar solo 1 tarjeta a la vez
+    slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true, // Habilitar las flechas
-    autoplay: true, // Habilitar autoplay
-    autoplaySpeed: 20000, // Cambiar de tarjeta cada 20 segundos
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 5000, // 5 segundos
     responsive: [
       {
-        breakpoint: 960, // tablets
+        breakpoint: 960,
         settings: {
-          slidesToShow: 1, // Mostrar solo 1 tarjeta en tablets también
+          slidesToShow: 1,
         },
       },
       {
-        breakpoint: 600, // móviles
+        breakpoint: 600,
         settings: {
-          slidesToShow: 1, // Mostrar solo 1 tarjeta en móviles
+          slidesToShow: 1,
         },
       },
     ],
@@ -57,14 +60,13 @@ function CarruselTarjetas() {
             key={index}
             mx={1}
             sx={{
-              height: "100%", // Asegura que cada tarjeta ocupe el 100% de la altura disponible del carrusel
+              height: "100%",
             }}
           >
-            {/* Aquí se usa el componente TarjetaRecurs y se pasan las props necesarias */}
             <TarjetaRecurs
               titulo={tarjeta.titulo}
               descripcion={tarjeta.descripcion}
-              imagen={tarjeta.imagen} // Pasar la ruta de la imagen desde `tarjetas`
+              imagen={tarjeta.imagen}
             />
           </MKBox>
         ))}

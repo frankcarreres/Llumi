@@ -12,21 +12,20 @@ import PropTypes from "prop-types";
 
 function TarjetaRecurs({ titulo, descripcion, imagen }) {
   return (
-    <MKBox component="header" position="relative" height="300px">
-      {/* Contenedor de la imagen de fondo */}
+    <MKBox component="header" position="relative" height="100%">
       <MKBox
         display="flex"
         alignItems="center"
-        justifyContent="flex-start" // Asegura que el contenido esté alineado a la izquierda
-        minHeight="100%" // Asegura que la imagen cubra toda el área
+        justifyContent="flex-start"
+        minHeight="500px"
+        height="100%"
         sx={{
-          backgroundImage: `url(${imagen})`, // Usar imagen como fondo
-          backgroundSize: "cover", // Asegura que la imagen cubra toda el área
-          backgroundPosition: "center", // Centra la imagen de fondo
-          position: "relative", // Asegura que el contenido esté sobre la imagen
+          backgroundImage: `url(${imagen})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "relative",
         }}
       >
-        {/* Superposición oscura para mejorar la legibilidad */}
         <MKBox
           sx={{
             position: "absolute",
@@ -34,14 +33,12 @@ function TarjetaRecurs({ titulo, descripcion, imagen }) {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Fondo oscuro para mejorar contraste
-            zIndex: 1, // Asegura que la superposición esté sobre la imagen
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1,
           }}
         />
-        {/* Contenedor de contenido dentro de la imagen */}
         <Container sx={{ position: "relative", zIndex: 2 }}>
           <Grid container item xs={12} md={7} lg={6} flexDirection="column" justifyContent="center">
-            {/* Título */}
             <MKTypography
               variant="h1"
               color="white"
@@ -54,11 +51,9 @@ function TarjetaRecurs({ titulo, descripcion, imagen }) {
             >
               {titulo}
             </MKTypography>
-            {/* Descripción */}
             <MKTypography variant="body1" color="white" opacity={0.8} pr={6} mr={6}>
               {descripcion}
             </MKTypography>
-            {/* Botón */}
             <Stack direction="row" spacing={1} mt={3}>
               <MKButton color="white">Ver más</MKButton>
             </Stack>
