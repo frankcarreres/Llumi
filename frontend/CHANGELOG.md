@@ -231,7 +231,7 @@ _Warnings might appear while doing an npm install - they do not affect the UI or
 ### Bug fixing
 
 - Rewrote the ISSUE_TEMPLATE
-- Deleted the copyright comments from all files, we only need to keep them inside our index.js and index.html
+- Deleted the copyright comments from all files, we only need to keep them inside our Tarjeta.js and index.html
 - Added script that adds copyrights to the built app
 - Renamed all the files from `.jsx` to `.js`
 - Changed the `withStyles` function from Material-UI with the `makeStyles` function (integration with other frameworks should now be easy)
