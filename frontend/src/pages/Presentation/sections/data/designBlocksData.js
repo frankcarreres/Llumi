@@ -25,7 +25,7 @@ export default [
         image: `${imagesPrefix}/headers.jpg`,
         name: "Page Headers",
         count: 10,
-        route: "/sections/page-sections/page-headers",
+        route: "/sections/page-sections/recursos",
       },
       {
         image: `${imagesPrefix}/features.jpg`,

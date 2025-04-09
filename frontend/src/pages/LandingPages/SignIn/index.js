@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 // react-router-dom components
 import { Link } from "react-router-dom";
 
@@ -7,12 +6,6 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
-
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -22,13 +15,12 @@ import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material Kit 2 React page layout routes
 import routes from "routes";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/inici2.jpg";
 
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -38,7 +30,6 @@ function SignInBasic() {
   return (
     <>
       <DefaultNavbar
-        brand="Llumí"
         routes={routes}
         action={{
           type: "external",
@@ -48,6 +39,7 @@ function SignInBasic() {
         }}
         transparent
         light
+        brand="Llumí"
       />
       <MKBox
         position="absolute"
@@ -71,45 +63,44 @@ function SignInBasic() {
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
           <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
             <Card>
-              <MKBox
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-                mx={2}
-                mt={-3}
-                p={2}
-                mb={1}
-                textAlign="center"
-              >
-                <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Sign in
-                </MKTypography>
-                <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <FacebookIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GitHubIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GoogleIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                </Grid>
-              </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth />
+                    <MKInput
+                      type="text"
+                      fullWidth
+                      placeholder="Usuari"
+                      variant="outlined"
+                      InputProps={{
+                        sx: {
+                          "& .MuiOutlinedInput-root": {
+                            borderRadius: "32px",
+                            "& fieldset": {
+                              borderColor: "gray", // color por defecto
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "rgba(221, 90, 27, 0.7)", // color cuando está activo
+                            },
+                          },
+                        },
+                      }}
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput
+                      type="password"
+                      fullWidth
+                      placeholder="Contrasenya"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: false }}
+                      InputProps={{
+                        sx: {
+                          "& .MuiOutlinedInput-root": {
+                            borderRadius: "32px",
+                          },
+                        },
+                      }}
+                    />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -120,26 +111,42 @@ function SignInBasic() {
                       onClick={handleSetRememberMe}
                       sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
                     >
-                      &nbsp;&nbsp;Remember me
+                      &nbsp;&nbsp;Recorda-m&apos;ho
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
-                      sign in
+                    <MKButton
+                      variant="gradient"
+                      fullWidth
+                      sx={{
+                        backgroundColor: "rgba(221, 90, 27, 0.8)",
+                        color: "#FFFFFF",
+                        "&:hover": {
+                          backgroundColor: "rgba(221, 90, 27, 0.9)", // color al hacer hover
+                        },
+                      }}
+                    >
+                      accedir
                     </MKButton>
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      Don&apos;t have an account?{" "}
+                      No tens un conter?{" "}
                       <MKTypography
                         component={Link}
                         to="/authentication/sign-up/cover"
                         variant="button"
-                        color="info"
                         fontWeight="medium"
-                        textGradient
+                        textGradient={false} // Desactivamos textGradient para que no sobrescriba el color
+                        sx={{
+                          color: "rgba(221, 90, 27, 0.7)",
+                          textDecoration: "none", // por si no quieres subrayado
+                          "&:hover": {
+                            color: "rgba(221, 90, 27, 1)", // un poco más fuerte al hacer hover
+                          },
+                        }}
                       >
-                        Sign up
+                        Registrat
                       </MKTypography>
                     </MKTypography>
                   </MKBox>
@@ -148,9 +155,6 @@ function SignInBasic() {
             </Card>
           </Grid>
         </Grid>
-      </MKBox>
-      <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
-        <SimpleFooter light />
       </MKBox>
     </>
   );
