@@ -1,11 +1,7 @@
-// Sections components
-import BaseLayout from "layouts/sections/components/BaseLayout";
-
-// PageHeaders page components
+import BaseLayout from "../components/BaseLayout";
 import CarruselTarjetes from "./components/CarruselTarjetes";
 
-// PageHeaders page components code
-function PageHeaders() {
+function RecursIni() {
   return (
     <BaseLayout
       title="Recursos"
@@ -16,4 +12,4 @@ function PageHeaders() {
   );
 }
 
-export default PageHeaders;
+export default RecursIni;

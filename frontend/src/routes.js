@@ -2,38 +2,42 @@
 import Icon from "@mui/material/Icon";
 
 // Pages
-import PageHeaders from "./layouts/sections/page-sections/recursos";
-import ContactUs from "./pages/LandingPages/ContactUs";
+import RecursIni from "./layouts/sections/recursos";
 import SignIn from "./pages/LandingPages/SignIn";
-import AboutUs from "./pages/LandingPages/AboutUs";
+import RecursInfo from "./layouts/sections/recursos/info";
+import RecursVisuals from "./layouts/sections/recursos/visuals";
+import RecursAudio from "./layouts/sections/recursos/audio";
 
 const routes = [
   {
     name: "Recursos",
-    route: "/sections/page-sections/recursos",
-    component: <PageHeaders />,
-    //icon: <Icon>article</Icon>,
+    route: "/sections/recursos/inici",
+    component: <RecursIni />,
     collapse: [
       {
+        name: "Inici",
+        route: "/sections/recursos/inici",
+        component: <RecursIni />,
+      },
+      {
         name: "Recursos informatius",
-        route: "/sections/page-sections/info",
-        component: <ContactUs />,
+        route: "/sections/recursos/info",
+        component: <RecursInfo />,
       },
       {
         name: "Recursos visuals",
-        route: "/sections/page-sections/visuals",
-        component: <AboutUs />,
+        route: "/sections/recursos/visuals",
+        component: <RecursVisuals />,
       },
       {
         name: "Recursos audiovisuals",
-        route: "/sections/page-sections/recursos",
-        component: <PageHeaders />,
+        route: "/sections/recursos/audio",
+        component: <RecursAudio />,
       },
     ],
   },
   {
     name: "Denuncia",
-    //icon: <Icon>warning</Icon>,
   },
   {
     name: "Mi cuenta",

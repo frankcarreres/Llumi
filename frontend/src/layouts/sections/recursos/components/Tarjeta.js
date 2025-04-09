@@ -1,16 +1,21 @@
-// @mui material components
+// TarjetaRecurs.js
+import React from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
+import MKBox from "../../../../components/MKBox";
+import MKButton from "../../../../components/MKButton";
+import MKTypography from "../../../../components/MKTypography";
 
-// Material Kit 2 React components
-import MKBox from "../../../../../components/MKBox";
-import MKButton from "../../../../../components/MKButton";
-import MKTypography from "../../../../../components/MKTypography";
+function TarjetaRecurs({ titulo, descripcion, imagen, ruta }) {
+  const navigate = useNavigate();
 
-import PropTypes from "prop-types";
+  const handleClick = () => {
+    navigate(ruta);
+  };
 
-function TarjetaRecurs({ titulo, descripcion, imagen }) {
   return (
     <MKBox component="header" position="relative" height="100%">
       <MKBox
@@ -55,7 +60,9 @@ function TarjetaRecurs({ titulo, descripcion, imagen }) {
               {descripcion}
             </MKTypography>
             <Stack direction="row" spacing={1} mt={3}>
-              <MKButton color="white">Ver más</MKButton>
+              <MKButton color="white" onClick={handleClick}>
+                Ver más
+              </MKButton>
             </Stack>
           </Grid>
         </Container>
@@ -68,6 +75,7 @@ TarjetaRecurs.propTypes = {
   titulo: PropTypes.string.isRequired,
   descripcion: PropTypes.string.isRequired,
   imagen: PropTypes.string.isRequired,
+  ruta: PropTypes.string.isRequired,
 };
 
 export default TarjetaRecurs;
