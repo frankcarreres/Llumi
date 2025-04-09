@@ -15,11 +15,6 @@ const routes = [
     component: <RecursIni />,
     collapse: [
       {
-        name: "Inici",
-        route: "/sections/recursos/inici",
-        component: <RecursIni />,
-      },
-      {
         name: "Recursos informatius",
         route: "/sections/recursos/info",
         component: <RecursInfo />,
@@ -33,6 +28,11 @@ const routes = [
         name: "Recursos audiovisuals",
         route: "/sections/recursos/audio",
         component: <RecursAudio />,
+      },
+      {
+        name: " ",
+        route: "/sections/recursos/inici",
+        component: <RecursIni />,
       },
     ],
   },
