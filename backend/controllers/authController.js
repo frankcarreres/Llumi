@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
   try {
     const [usuarios] = await pool.query(
       `SELECT u.*, c.nombre AS centro FROM usuarios u
-       JOIN centros c ON u.id_centro = c.id_centro
+                                               JOIN centros c ON u.id_centro = c.id_centro
        WHERE u.email = ?`,
       [email]
     );
@@ -25,6 +25,7 @@ exports.login = async (req, res) => {
 
     const usuario = usuarios[0];
     const match = await bcrypt.compare(contrasena, usuario.contrasena);
+
     if (!match) {
       return res.status(401).json({ error: 'Email o contraseña incorrectos.' });
     }
@@ -44,7 +45,6 @@ exports.login = async (req, res) => {
         id_usuario: usuario.id_usuario,
         rol: usuario.rol,
         nombre: usuario.nombre,
-        curso: usuario.curso,
         curso: usuario.curso,
         centro: usuario.centro,
       },

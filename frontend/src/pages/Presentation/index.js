@@ -17,6 +17,7 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/ojo.png";
+import SimuladorFlujo from "./components/chat/SimuladorFlow";
 
 function Presentation() {
   return (
@@ -84,6 +85,7 @@ function Presentation() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
+        <SimuladorFlujo />
         <div />
       </Card>
 
