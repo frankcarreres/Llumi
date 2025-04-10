@@ -1,21 +1,43 @@
-const express = require("express");
-const cors = require("cors");
-const sequelize = require("./config/db");
+// server.js (JavaScript)
+const express = require('express');
+const cron = require('node-cron');
+const { syncNoticias } = require('./controllers/recursController');
 
 const app = express();
-app.use(cors());
-app.use(express.json()); 
 
-// Endpoint para comprobar conexión a la base de datos
-app.get("/test-db", async (req, res) => {
-    try {
-        await sequelize.authenticate();
-        res.json({ message: "Conexión a la base de datos exitosa" });
-    } catch (error) {
-        console.error("Error de conexión a la base de datos:", error);
-        res.status(500).json({ error: "No se pudo conectar a la base de datos" });
-    }
+app.use(express.json());
+
+// Rutas
+app.use('/api', require('./routes/recursRoutes'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
 });
 
-// Iniciar el servidor en el puerto 5000
-app.listen(5000, () => console.log("Servidor corriendo en http://localhost:5000"));
+// Configuración de la tarea programada para pruebas:
+// Para ejecutar cada minuto ('* * * * *')
+// Para ejecutar a las 10:00 ('* 10 * * *')
+cron.schedule(
+    '* 10 * * *',
+    async () => {
+        try {
+            console.log('Iniciando la sincronización programada...');
+            // Se utiliza un objeto dummy para req y res para capturar el resultado en consola
+            const reqDummy = {};
+            const resDummy = {
+                json: (data) => console.log('Resultado:', data),
+                status: (code) => ({
+                    json: (data) => console.error(`Código ${code}:`, data),
+                }),
+            };
+
+            await syncNoticias(reqDummy, resDummy);
+        } catch (error) {
+            console.error('Error en la sincronización programada de prueba:', error);
+        }
+    },
+    {
+        timezone: 'Europe/Madrid',
+    }
+);
