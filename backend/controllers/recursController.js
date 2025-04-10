@@ -4,7 +4,7 @@ require('dotenv').config();
 
 exports.syncNoticias = async (req, res) => {
     const API_KEY = process.env.MEDIASTACK_API_KEY;
-    const ID_USUARIO_ADMIN = 1; // puedes pasarlo desde req.user si hay login
+    const ID_USUARIO_ADMIN = 1;
 
     try {
         const response = await axios.get("http://api.mediastack.com/v1/news", {
