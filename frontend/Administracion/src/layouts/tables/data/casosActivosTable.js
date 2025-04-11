@@ -18,12 +18,11 @@ export default function data() {
     </MDBox>
   );
 
-  const Tipo = ({ title, description }) => (
+  const Tipo = ({ title }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {title}
       </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
     </MDBox>
   );
 
@@ -39,7 +38,7 @@ export default function data() {
     rows: [
       {
         casos: <Casos name="John Michael" email="john@creative-tim.com" />,
-        tipos: <Tipo title="Manager" description="Organization" />,
+        tipos: <Tipo title="Ciberbullying" />,
         estodo: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="En Proceso" color="info" variant="gradient" size="sm" />
@@ -58,7 +57,7 @@ export default function data() {
       },
       {
         casos: <Casos name="Alexa Liras" email="alexa@creative-tim.com" />,
-        tipos: <Tipo title="Programator" description="Developer" />,
+        tipos: <Tipo title="Social" />,
         estodo: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="Resuelto" color="success" variant="gradient" size="sm" />
@@ -77,7 +76,7 @@ export default function data() {
       },
       {
         casos: <Casos name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        tipos: <Tipo title="Executive" description="Projects" />,
+        tipos: <Tipo title="Psicológico" />,
         estodo: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="En proceso" color="info" variant="gradient" size="sm" />
@@ -96,10 +95,10 @@ export default function data() {
       },
       {
         casos: <Casos name="Michael Levi" email="michael@creative-tim.com" />,
-        tipos: <Tipo title="Programator" description="Developer" />,
+        tipos: <Tipo title="Social" />,
         estodo: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="En proceso" color="info" variant="gradient" size="sm" />
+            <MDBadge badgeContent="pendiente" color="warning" variant="gradient" size="sm" />
           </MDBox>
         ),
         fecha: (
@@ -115,7 +114,7 @@ export default function data() {
       },
       {
         casos: <Casos name="Richard Gran" email="richard@creative-tim.com" />,
-        tipos: <Tipo title="Manager" description="Executive" />,
+        tipos: <Tipo title="Ciberbullying" />,
         estodo: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="Resuelto" color="success" variant="gradient" size="sm" />
@@ -134,10 +133,10 @@ export default function data() {
       },
       {
         casos: <Casos name="Miriam Eric" email="miriam@creative-tim.com" />,
-        tipos: <Tipo title="Programator" description="Developer" />,
+        tipos: <Tipo title="Social" />,
         estodo: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="No atentido" color="error" variant="gradient" size="sm" />
+            <MDBadge badgeContent="Rechazada" color="error" variant="gradient" size="sm" />
           </MDBox>
         ),
         fecha: (
