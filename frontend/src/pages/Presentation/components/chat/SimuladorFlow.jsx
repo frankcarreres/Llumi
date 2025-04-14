@@ -1,58 +1,27 @@
 import { useEffect, useRef, useState } from "react";
+import { Box, TextField, Button, CircularProgress } from "@mui/material";
 import { startConversation, sendMessageToBot } from "./services/typebotAPI";
 import BurbujaMensaje from "./BurbujasMensaje";
 import OptionAnimada from "./animaciones/OpcionAnimada";
 import TypingIndicator from "./animaciones/TypingIndicator";
-import { Box, TextField, Button } from "@mui/material";
 
 function SimuladorFlujo() {
+  const [faseLogin, setFaseLogin] = useState("email"); // email | password | hecho
+  const [email, setEmail] = useState("");
+  const [, setPassword] = useState("");
+  const [token, setToken] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+
   const [mensajes, setMensajes] = useState([]);
   const [input, setInput] = useState("");
   const [sessionId, setSessionId] = useState(null);
   const [opcionesActivas, setOpcionesActivas] = useState([]);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [escribiendo, setEscribiendo] = useState(false);
+  const [cargando, setCargando] = useState(false);
   const scrollRef = useRef(null);
 
   const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
-
-  useEffect(() => {
-    const init = async () => {
-      const res = await startConversation();
-      if (!res?.sessionId) return;
-
-      setSessionId(res.sessionId);
-
-      const nuevos = res.messages
-        .filter((msg) => msg.type === "text")
-        .map((msg) => ({
-          autor: "bot",
-          texto: msg.content.richText
-            .map((p) => p.children.map((c) => c.text).join(""))
-            .join("\n\n"),
-        }));
-
-      setMensajes(nuevos);
-
-      if (res.input?.items) {
-        const multiple = res.input?.options?.isMultipleChoice || false;
-        setIsMultipleChoice(multiple);
-        setOpcionesActivas([]);
-
-        await esperar(1000);
-
-        const opciones = res.input.items.map((item) => ({
-          autor: "bot",
-          tipo: "opcion",
-          texto: item.content,
-        }));
-
-        setMensajes((prev) => prev.filter((m) => m.tipo !== "opcion").concat(opciones));
-      }
-    };
-
-    init();
-  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -61,14 +30,136 @@ function SimuladorFlujo() {
     });
   }, [mensajes, escribiendo]);
 
+  useEffect(() => {
+    if (mensajes.length === 0) {
+      setTimeout(() => {
+        agregarMensaje("bot", "Hola 👋 ¿Cuál es tu correo electrónico?");
+      }, 500);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) iniciarFlujo();
+  }, [token]);
+
+  const agregarMensaje = (autor, texto) => {
+    setMensajes((prev) => [...prev, { autor, texto }]);
+  };
+
+  const iniciarFlujo = async () => {
+    agregarMensaje("bot", `¡Hola, ${usuario?.nombre}!`);
+    await esperar(1000);
+
+    const res = await startConversation();
+    if (!res?.sessionId) return;
+
+    setSessionId(res.sessionId);
+
+    const nuevos = res.messages
+      .filter((msg) => msg.type === "text")
+      .map((msg) => ({
+        autor: "bot",
+        texto: msg.content.richText.map((p) => p.children.map((c) => c.text).join("")).join("\n\n"),
+      }));
+
+    setMensajes((prev) => [...prev, ...nuevos]);
+
+    if (res.input?.items) {
+      const multiple = res.input?.options?.isMultipleChoice || false;
+      setIsMultipleChoice(multiple);
+      setOpcionesActivas([]);
+
+      await esperar(1000);
+
+      const opciones = res.input.items.map((item) => ({
+        autor: "bot",
+        tipo: "opcion",
+        texto: item.content,
+      }));
+
+      setMensajes((prev) => prev.filter((m) => m.tipo !== "opcion").concat(opciones));
+    }
+  };
+
   const enviarMensaje = async (msg) => {
     const texto = msg || input;
-    if (!texto || !sessionId) return;
+    if (!texto) return;
 
-    setMensajes((prev) => prev.filter((m) => m.tipo !== "opcion").concat({ autor: "user", texto }));
+    const esLogin = !token;
+
+    setMensajes((prev) =>
+      prev
+        .filter((m) => m.tipo !== "opcion")
+        .concat({
+          autor: "user",
+          texto: faseLogin === "password" ? "********" : texto,
+        })
+    );
+
     setInput("");
     setOpcionesActivas([]);
     setIsMultipleChoice(false);
+
+    if (esLogin && faseLogin === "email") {
+      const esValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
+      if (!esValido) {
+        await esperar(500);
+        agregarMensaje("bot", "El formato del correo no es válido. Intenta de nuevo.");
+        return;
+      }
+
+      setCargando(true);
+      setEmail(texto);
+
+      try {
+        const res = await fetch("http://localhost:3001/auth/verificar-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: texto }),
+        });
+
+        if (!res.ok) throw new Error();
+
+        await esperar(500);
+        setFaseLogin("password");
+        agregarMensaje("bot", "¿Cuál es tu contraseña?");
+      } catch {
+        agregarMensaje("bot", "Ese correo no está registrado. Intenta de nuevo.");
+      } finally {
+        setCargando(false);
+      }
+
+      return;
+    }
+
+    if (esLogin && faseLogin === "password") {
+      setCargando(true);
+      setPassword(texto);
+
+      try {
+        const res = await fetch("http://localhost:3001/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, contrasena: texto }),
+        });
+
+        if (!res.ok) throw new Error();
+
+        const data = await res.json();
+        setToken(data.token);
+        setUsuario(data.usuario);
+        setFaseLogin("hecho");
+      } catch {
+        agregarMensaje("bot", "Contraseña incorrecta. Intenta otra vez.");
+      } finally {
+        setCargando(false);
+      }
+
+      return;
+    }
+
+    // 🔄 Flujo normal del chatbot
+    if (!sessionId) return;
 
     await esperar(1000);
 
@@ -159,15 +250,13 @@ function SimuladorFlujo() {
                     }
                   }}
                   selected={opcionesActivas.includes(m.texto)}
-                  sx={{
-                    color: "#4b4945",
-                  }}
                 />
               ))}
           </Box>
         )}
       </Box>
 
+      {/* Input */}
       <Box
         sx={{
           display: "flex",
@@ -179,11 +268,13 @@ function SimuladorFlujo() {
       >
         <TextField
           fullWidth
-          placeholder="Escribe tu mensaje..."
+          placeholder="Escribe tu respuesta..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && enviarMensaje()}
+          type={faseLogin === "password" && !token ? "password" : "text"}
           variant="outlined"
+          disabled={cargando}
           InputProps={{
             sx: {
               borderRadius: "20px",
@@ -196,15 +287,10 @@ function SimuladorFlujo() {
         />
         <Button
           variant="contained"
-          onClick={() => {
-            if (input.trim()) {
-              enviarMensaje();
-            } else if (isMultipleChoice && opcionesActivas.length > 0) {
-              enviarMensaje(opcionesActivas.join(", "));
-            }
-          }}
-          disabled={!input.trim() && !(isMultipleChoice && opcionesActivas.length > 0)}
-          disableElevation
+          onClick={() => enviarMensaje()}
+          disabled={
+            cargando || (!input.trim() && !(isMultipleChoice && opcionesActivas.length > 0))
+          }
           sx={{
             background: "#FF9E4C",
             color: "#fff",
@@ -215,7 +301,7 @@ function SimuladorFlujo() {
             },
           }}
         >
-          Enviar
+          {cargando ? <CircularProgress size={24} sx={{ color: "#fff" }} /> : "Enviar"}
         </Button>
       </Box>
     </Box>

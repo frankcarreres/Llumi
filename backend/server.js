@@ -3,13 +3,7 @@ const express = require('express');
 const cron = require('node-cron');
 const { syncNoticias } = require('./controllers/recursController');
 
-const app = express();
-
-app.use(express.json());
-
-// Rutas
-app.use('/api', require('./routes/recursRoutes'));
-
+const app= require('./app');
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
