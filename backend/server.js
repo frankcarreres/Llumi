@@ -1,9 +1,16 @@
+// server.js
 const express = require('express');
+const cors = require('cors'); // Importa el módulo cors
 const { syncNoticias } = require('./controllers/recursController');
 
 const app = express();
 
 app.use(express.json());
+
+// Configuración de CORS para permitir solicitudes desde http://localhost:3000
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 
 // Rutas
 app.use('/recursos', require('./routes/recursRoutes'));
