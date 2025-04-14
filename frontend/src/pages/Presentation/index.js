@@ -16,7 +16,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/ojo.png";
+import bgImage from "assets/images/inici2.jpg";
 import SimuladorFlujo from "./components/chat/SimuladorFlow";
 
 function Presentation() {
