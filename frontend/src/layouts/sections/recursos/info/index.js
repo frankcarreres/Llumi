@@ -22,7 +22,7 @@ function RecursInfo() {
       <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
         Notícies Destacades{" "}
       </MKTypography>
-      <CarruselNoticias />
+      <CarruselNoticias destacadas={true} />
     </BaseLayout>
   );
 }

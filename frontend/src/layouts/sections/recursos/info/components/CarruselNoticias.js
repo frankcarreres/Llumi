@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import MKBox from "../../../../../components/MKBox";
 import TarjetaNoticia from "./TarjetaNoticia";
 
-function CarruselNoticias() {
+function CarruselNoticias({ destacadas }) {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +15,14 @@ function CarruselNoticias() {
     const fetchNoticias = async () => {
       try {
         const response = await axios.get("http://localhost:3001/recursos/noticias");
-        setNoticias(response.data);
+        const data = response.data;
+        if (destacadas) {
+          // Filtra solo las noticias destacadas
+          setNoticias(data.filter((noticia) => noticia.destacada === 1));
+        } else {
+          // Todas las noticias disponibles
+          setNoticias(data);
+        }
       } catch (error) {
         console.error("Error al cargar las noticias:", error);
       } finally {
@@ -23,7 +31,7 @@ function CarruselNoticias() {
     };
 
     fetchNoticias();
-  }, []);
+  }, [destacadas]);
 
   const settings = {
     dots: false,
@@ -73,5 +81,13 @@ function CarruselNoticias() {
     </MKBox>
   );
 }
+
+CarruselNoticias.propTypes = {
+  destacadas: PropTypes.bool,
+};
+
+CarruselNoticias.defaultProps = {
+  destacadas: false,
+};
 
 export default CarruselNoticias;
