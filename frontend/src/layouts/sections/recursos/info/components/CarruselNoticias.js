@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MKBox from "../../../../../components/MKBox";
 import TarjetaNoticia from "./TarjetaNoticia";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function CarruselNoticias({ destacadas }) {
   const [noticias, setNoticias] = useState([]);
@@ -17,10 +18,8 @@ function CarruselNoticias({ destacadas }) {
         const response = await axios.get("http://localhost:3001/recursos/noticias");
         const data = response.data;
         if (destacadas) {
-          // Filtra solo las noticias destacadas
           setNoticias(data.filter((noticia) => noticia.destacada === 1));
         } else {
-          // Todas las noticias disponibles
           setNoticias(data);
         }
       } catch (error) {
@@ -36,12 +35,12 @@ function CarruselNoticias({ destacadas }) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 500, // Duración de la transición
     slidesToShow: 4,
     slidesToScroll: 4,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 7000, // Tiempo de espera antes de cambiar de slide
     responsive: [
       {
         breakpoint: 960,
@@ -61,11 +60,22 @@ function CarruselNoticias({ destacadas }) {
   };
 
   if (loading) {
-    return <div>Cargando noticias...</div>;
+    return (
+      <MKBox
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "400px",
+        }}
+      >
+        <CircularProgress />
+      </MKBox>
+    );
   }
 
   return (
-    <MKBox sx={{ width: "100%", mx: "auto", mt: 4, height: "500px" }}>
+    <MKBox sx={{ width: "100%", mx: "auto", mt: 2, height: "400px" }}>
       <Slider {...settings}>
         {noticias.map((noticia, index) => (
           <MKBox key={index} mx={1} sx={{ height: "100%" }}>
