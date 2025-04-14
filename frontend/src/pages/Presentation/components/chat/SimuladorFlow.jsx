@@ -9,7 +9,7 @@ function SimuladorFlujo() {
   const [mensajes, setMensajes] = useState([]);
   const [input, setInput] = useState("");
   const [sessionId, setSessionId] = useState(null);
-  const [, setOpcionesActivas] = useState([]);
+  const [opcionesActivas, setOpcionesActivas] = useState([]);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [escribiendo, setEscribiendo] = useState(false);
   const scrollRef = useRef(null);
@@ -39,7 +39,7 @@ function SimuladorFlujo() {
         setIsMultipleChoice(multiple);
         setOpcionesActivas([]);
 
-        await esperar(1000); // delay antes de mostrar opciones
+        await esperar(1000);
 
         const opciones = res.input.items.map((item) => ({
           autor: "bot",
@@ -70,7 +70,7 @@ function SimuladorFlujo() {
     setOpcionesActivas([]);
     setIsMultipleChoice(false);
 
-    await esperar(1000); // delay tras mensaje del usuario
+    await esperar(1000);
 
     const data = await sendMessageToBot(sessionId, texto);
 
@@ -81,11 +81,11 @@ function SimuladorFlujo() {
           .join("\n\n");
 
         setEscribiendo(true);
-        await esperar(1500); // animación de "escribiendo..."
+        await esperar(1200);
         setEscribiendo(false);
 
         setMensajes((prev) => [...prev, { autor: "bot", texto }]);
-        await esperar(1000); // delay entre mensajes
+        await esperar(1000);
       }
     }
 
@@ -94,7 +94,7 @@ function SimuladorFlujo() {
       setIsMultipleChoice(multiple);
       setOpcionesActivas([]);
 
-      await esperar(800); // delay antes de mostrar opciones
+      await esperar(800);
 
       const opciones = data.input.items.map((item) => ({
         autor: "bot",
@@ -121,7 +121,6 @@ function SimuladorFlujo() {
         my: 4,
       }}
     >
-      {/* Mensajes */}
       <Box
         ref={scrollRef}
         sx={{
@@ -148,14 +147,20 @@ function SimuladorFlujo() {
                 <OptionAnimada
                   key={i}
                   texto={m.texto}
-                  onClick={() => enviarMensaje(m.texto)}
-                  variant={isMultipleChoice ? "outlined" : "contained"}
+                  onClick={() => {
+                    if (isMultipleChoice) {
+                      setOpcionesActivas((prev) =>
+                        prev.includes(m.texto)
+                          ? prev.filter((o) => o !== m.texto)
+                          : [...prev, m.texto]
+                      );
+                    } else {
+                      enviarMensaje(m.texto);
+                    }
+                  }}
+                  selected={opcionesActivas.includes(m.texto)}
                   sx={{
-                    bgcolor: isMultipleChoice ? "#fff" : "#1A2249",
-                    color: isMultipleChoice ? "#000" : "#fff",
-                    "&:hover": {
-                      bgcolor: isMultipleChoice ? "#f0f0f0" : "#161d3b",
-                    },
+                    color: "#4b4945",
                   }}
                 />
               ))}
@@ -163,7 +168,6 @@ function SimuladorFlujo() {
         )}
       </Box>
 
-      {/* Input */}
       <Box
         sx={{
           display: "flex",
@@ -192,14 +196,22 @@ function SimuladorFlujo() {
         />
         <Button
           variant="contained"
-          onClick={() => enviarMensaje()}
+          onClick={() => {
+            if (input.trim()) {
+              enviarMensaje();
+            } else if (isMultipleChoice && opcionesActivas.length > 0) {
+              enviarMensaje(opcionesActivas.join(", "));
+            }
+          }}
+          disabled={!input.trim() && !(isMultipleChoice && opcionesActivas.length > 0)}
+          disableElevation
           sx={{
+            background: "#FF9E4C",
+            color: "#fff",
             borderRadius: "20px",
             px: 3,
-            bgcolor: "#1A2249",
-            color: "#fff",
             "&:hover": {
-              backgroundColor: "#161d3b",
+              background: "rgba(221, 90, 27, 0.9)",
             },
           }}
         >
