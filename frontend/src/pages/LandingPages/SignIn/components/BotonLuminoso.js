@@ -4,7 +4,7 @@ import styled from "styled-components";
 const BotonLuminoso = () => {
   return (
     <StyledWrapper>
-      <button id="bottone1">
+      <button id="botonInicio">
         <strong>ACCEDIR</strong>
       </button>
     </StyledWrapper>
@@ -12,10 +12,10 @@ const BotonLuminoso = () => {
 };
 
 const StyledWrapper = styled.div`
-  text-align: center; /* Centra el botón */
+  text-align: center;
 
-  #bottone1 {
-    padding-left: 70px; /* Aumentamos el padding horizontal */
+  #botonInicio {
+    padding-left: 70px;
     padding-right: 70px;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -26,14 +26,14 @@ const StyledWrapper = styled.div`
     text-align: center;
     cursor: pointer;
     transition: 0.4s;
-    color: #ffffff; /* Texto en blanco */
+    color: #ffffff;
   }
 
-  #bottone1:hover {
+  #botonInicio:hover {
     box-shadow: 7px 5px 56px -14px #ea8100;
   }
 
-  #bottone1:active {
+  #botonInicio:active {
     transform: scale(0.97);
     box-shadow: 7px 5px 56px -10px #ea8100;
   }

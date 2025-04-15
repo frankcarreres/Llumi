@@ -73,7 +73,11 @@ function SignInBasic() {
                     <InputAnimado type="password" placeholder="Contrasenya" />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
-                    <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+                    <Switch
+                      checked={rememberMe}
+                      onChange={handleSetRememberMe}
+                      sx={{ ml: "32px" }} // Agrega margin-left de 16px
+                    />
                     <MKTypography
                       variant="button"
                       fontWeight="regular"
