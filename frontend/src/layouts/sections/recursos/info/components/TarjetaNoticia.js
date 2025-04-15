@@ -43,7 +43,6 @@ function TarjetaNoticia({ titulo, imagen, url }) {
             zIndex: 1,
           }}
         />
-        {/* Contenedor para el título y el botón con separación */}
         <MKBox
           zIndex={2}
           p={2}

@@ -35,12 +35,12 @@ function CarruselNoticias({ destacadas }) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500, // Duración de la transición
+    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 7000, // Tiempo de espera antes de cambiar de slide
+    autoplaySpeed: 10000, // 10s
     responsive: [
       {
         breakpoint: 960,

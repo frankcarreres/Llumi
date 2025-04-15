@@ -16,13 +16,13 @@ function RecursInfo() {
     >
       <MKBox mt={2} />
       <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        Últimes Notícies{" "}
-      </MKTypography>
-      <CarruselNoticias />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
         Notícies Destacades{" "}
       </MKTypography>
       <CarruselNoticias destacadas={true} />
+      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
+        Últimes Notícies{" "}
+      </MKTypography>
+      <CarruselNoticias />
     </BaseLayout>
   );
 }
