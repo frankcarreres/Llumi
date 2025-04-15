@@ -1,7 +1,9 @@
-// Sections components
+import React from "react";
 import BaseLayout from "../../components/BaseLayout";
+import CarruselNoticias from "./components/CarruselNoticias";
+import MKBox from "../../../../components/MKBox";
+import MKTypography from "../../../../components/MKTypography";
 
-// PageHeaders page components code
 function RecursInfo() {
   return (
     <BaseLayout
@@ -11,7 +13,17 @@ function RecursInfo() {
         { label: "Recursos", route: "/sections/recursos/inici" },
         { label: "Recursos informatius" },
       ]}
-    ></BaseLayout>
+    >
+      <MKBox mt={2} />
+      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
+        Notícies Destacades{" "}
+      </MKTypography>
+      <CarruselNoticias destacadas={true} />
+      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
+        Últimes Notícies{" "}
+      </MKTypography>
+      <CarruselNoticias />
+    </BaseLayout>
   );
 }
 
