@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,8 +14,9 @@ function CarruselNoticias({ destacadas }) {
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/recursos/noticias");
-        const data = response.data;
+        const response = await fetch("http://localhost:3001/recursos/noticias");
+        const data = await response.json(); // 🔧 aquí el cambio
+
         if (destacadas) {
           setNoticias(data.filter((noticia) => noticia.destacada === 1));
         } else {

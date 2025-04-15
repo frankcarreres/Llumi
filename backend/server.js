@@ -1,6 +1,5 @@
 // server.js
-const cron = require('node-cron');
-const app = require('./app'); // Importa la app configurada
+const app = require('./app');
 
 const PORT = process.env.PORT || 3000;
 
