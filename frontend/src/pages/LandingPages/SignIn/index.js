@@ -1,5 +1,4 @@
-import { useState } from "react";
-// react-router-dom components
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // @mui material components
@@ -10,17 +9,19 @@ import Grid from "@mui/material/Grid";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import MKInput from "components/MKInput";
-import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
-// Material Kit 2 React page layout routes
+// Layout routes
 import routes from "routes";
 
-// Images
+// Imagenes
 import bgImage from "assets/images/inici2.jpg";
+import InputAnimado from "./components/InputAnimado";
+import BotonLuminoso from "./components/BotonLuminoso";
+
+// Importación del componente InputAnimado
 
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -66,41 +67,10 @@ function SignInBasic() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput
-                      type="text"
-                      fullWidth
-                      placeholder="Usuari"
-                      variant="outlined"
-                      InputProps={{
-                        sx: {
-                          "& .MuiOutlinedInput-root": {
-                            borderRadius: "32px",
-                            "& fieldset": {
-                              borderColor: "gray", // color por defecto
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "rgba(221, 90, 27, 0.7)", // color cuando está activo
-                            },
-                          },
-                        },
-                      }}
-                    />
+                    <InputAnimado type="text" placeholder="Usuari" />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput
-                      type="password"
-                      fullWidth
-                      placeholder="Contrasenya"
-                      variant="outlined"
-                      InputLabelProps={{ shrink: false }}
-                      InputProps={{
-                        sx: {
-                          "& .MuiOutlinedInput-root": {
-                            borderRadius: "32px",
-                          },
-                        },
-                      }}
-                    />
+                    <InputAnimado type="password" placeholder="Contrasenya" />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -115,19 +85,7 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <MKButton
-                      variant="gradient"
-                      fullWidth
-                      sx={{
-                        backgroundColor: "rgba(221, 90, 27, 0.8)",
-                        color: "#FFFFFF",
-                        "&:hover": {
-                          backgroundColor: "rgba(221, 90, 27, 0.9)", // color al hacer hover
-                        },
-                      }}
-                    >
-                      accedir
-                    </MKButton>
+                    <BotonLuminoso />
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
@@ -137,12 +95,12 @@ function SignInBasic() {
                         to="/authentication/sign-up/cover"
                         variant="button"
                         fontWeight="medium"
-                        textGradient={false} // Desactivamos textGradient para que no sobrescriba el color
+                        textGradient={false}
                         sx={{
                           color: "rgba(221, 90, 27, 0.7)",
-                          textDecoration: "none", // por si no quieres subrayado
+                          textDecoration: "none",
                           "&:hover": {
-                            color: "rgba(221, 90, 27, 1)", // un poco más fuerte al hacer hover
+                            color: "rgba(221, 90, 27, 1)",
                           },
                         }}
                       >
