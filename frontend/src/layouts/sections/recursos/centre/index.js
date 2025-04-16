@@ -2,17 +2,17 @@
 import BaseLayout from "../../components/BaseLayout";
 
 // PageHeaders page components code
-function RecursAudio() {
+function RecursCentre() {
   return (
     <BaseLayout
-      title="Recursos audiovisuals"
+      title="Recursos centre"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },
-        { label: "Recursos audiovisuals" },
+        { label: "Recursos centre" },
       ]}
     ></BaseLayout>
   );
 }
 
-export default RecursAudio;
+export default RecursCentre;
