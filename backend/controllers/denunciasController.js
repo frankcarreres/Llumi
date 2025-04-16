@@ -1,10 +1,8 @@
-const express = require('express');
-const pool = require('../models/db'); // Asegúrate de tener configurada la conexión a la base de datos
+const pool = require('../models/db');
 
-// Importa tu middleware existente
 exports.getDenuncias =  async (req, res) => {
   try {
-    // Se espera que al generar el token incluyas id_centro en el payload.
+    // Espera el id del centro del token
     const { id_centro } = req.user;
 
     // Consulta a la base de datos para obtener las denuncias asociadas a ese id_centro
