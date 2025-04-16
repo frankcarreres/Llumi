@@ -15,17 +15,17 @@ const tarjetas = [
     ruta: "/sections/recursos/info",
   },
   {
-    titulo: "Recursos visuals",
-    descripcion: "Descobrix recursos visuals per a sensibilitzar i actuar contra l'assetjament.",
+    titulo: "Recursos multimèdia",
+    descripcion:
+      "Descobrix recursos multimedia i audiovisual per a sensibilitzar i actuar contra l'assetjament.",
     imagen: cardImage2,
-    ruta: "/sections/recursos/visuals",
+    ruta: "/sections/recursos/multimedia",
   },
   {
-    titulo: "Recursos audiovisuals",
-    descripcion:
-      "Accedix a contingut audiovisual per a informar, sensibilitzar i combatre l'assetjament",
+    titulo: "Recursos centre",
+    descripcion: "",
     imagen: cardImage3,
-    ruta: "/sections/recursos/audio",
+    ruta: "/sections/recursos/centre",
   },
 ];
 
