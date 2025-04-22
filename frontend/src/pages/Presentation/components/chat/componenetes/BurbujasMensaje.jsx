@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 function BurbujaMensaje({ texto, autor }) {
   const isUser = autor === "user";
   const align = isUser ? "flex-end" : "flex-start";
-  const bg = isUser ? "rgba(255, 183, 77, 0.8)" : "rgba(255, 224, 130, 1)";
-  const color = "#2a2a2a";
+  const bg = isUser ? "rgba(245, 198, 137, 1.0)" : "rgba(228, 228, 228, 1.0)";
+  const color = "rgba(58, 58, 58, 1.0)";
 
   return (
     <Box display="flex" justifyContent={align} width="100%">

@@ -5,7 +5,7 @@ function TypingIndicator() {
     <Box
       sx={{
         alignSelf: "flex-start",
-        background: "linear-gradient(to right, rgba(255, 210, 133, 0.7), rgba(254, 179, 77, 0.7))",
+        background: "rgba(228, 228, 228, 1.0)",
         borderRadius: 3,
         px: 2,
         py: 1,
