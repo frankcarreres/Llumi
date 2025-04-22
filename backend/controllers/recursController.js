@@ -71,3 +71,87 @@ exports.getNoticias = async (req, res) => {
         res.status(500).json({ error: "Error al obtener noticias de tipo 'artículo'" });
     }
 };
+
+exports.syncMultimedia = async (req, res) => {
+    const API_KEY = process.env.YOUTUBE_API_KEY;
+    const ID_USUARIO_ADMIN = 1;
+
+    try {
+        const query = "acoso escolar";
+        const maxResults = 20;
+
+        const url = new URL("https://www.googleapis.com/youtube/v3/search");
+        url.searchParams.append("part", "snippet");
+        url.searchParams.append("q", query);
+        url.searchParams.append("type", "video");
+        url.searchParams.append("maxResults", maxResults);
+        url.searchParams.append("key", API_KEY);
+        url.searchParams.append("regionCode", "ES");
+        url.searchParams.append("relevanceLanguage", "es");
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`YouTube API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const videos = data.items;
+
+        const connection = await pool.getConnection();
+        let guardados = 0;
+
+        for (const video of videos) {
+            const videoId = video.id.videoId;
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+            const [existe] = await connection.query(
+              "SELECT id_recurso FROM recursos WHERE url = ?",
+              [embedUrl]
+            );
+
+            if (existe.length === 0) {
+                await connection.query(
+                  `INSERT INTO recursos
+                         (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
+                     VALUES (?, 'video', ?, ?, ?, ?, ?)`,
+                  [
+                      video.snippet.title,
+                      video.snippet.description || "Sin descripción",
+                      new Date(video.snippet.publishedAt),
+                      ID_USUARIO_ADMIN,
+                      embedUrl,
+                      video.snippet.thumbnails?.medium?.url || null,
+                  ]
+                );
+                guardados++;
+            }
+        }
+
+        connection.release();
+
+        res.json({
+            message: `Se han sincronizado ${guardados} videos de YouTube correctamente.`,
+        });
+    } catch (error) {
+        console.error("Error al sincronizar videos de YouTube:", error);
+        res.status(500).json({ error: "Error al sincronizar videos de YouTube" });
+    }
+};
+
+exports.getMultimedia = async (req, res) => {
+    try {
+        const connection = await pool.getConnection();
+
+        const [videos] = await connection.query(
+          "SELECT * FROM recursos WHERE tipo = 'video'"
+        );
+
+        connection.release();
+
+        res.json(videos);
+    } catch (error) {
+        console.error("Error al obtener los recursos multimedia:", error);
+        res.status(500).json({ error: "Error al obtener los recursos multimedia" });
+    }
+};
