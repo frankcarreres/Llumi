@@ -5,8 +5,8 @@ import Icon from "@mui/material/Icon";
 import RecursIni from "./layouts/sections/recursos";
 import SignIn from "./pages/LandingPages/SignIn";
 import RecursInfo from "./layouts/sections/recursos/info";
-import RecursVisuals from "./layouts/sections/recursos/visuals";
-import RecursAudio from "./layouts/sections/recursos/audio";
+import RecursMultimedia from "./layouts/sections/recursos/multimedia";
+import RecursCentre from "./layouts/sections/recursos/centre";
 
 const routes = [
   {
@@ -20,14 +20,14 @@ const routes = [
         component: <RecursInfo />,
       },
       {
-        name: "Recursos visuals",
-        route: "/sections/recursos/visuals",
-        component: <RecursVisuals />,
+        name: "Recursos multimèdia",
+        route: "/sections/recursos/multimedia",
+        component: <RecursMultimedia />,
       },
       {
-        name: "Recursos audiovisuals",
-        route: "/sections/recursos/audio",
-        component: <RecursAudio />,
+        name: "Recursos centre",
+        route: "/sections/recursos/centre",
+        component: <RecursCentre />,
       },
       {
         name: " ",

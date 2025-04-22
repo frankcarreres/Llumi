@@ -1,23 +1,60 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-
+import React, { useEffect, useState } from "react";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
 
-export default function data() {
-  const Casos = ({ name, email }) => (
+export default function Data() {
+  const [rowsData, setRowsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Función para obtener los datos de la API
+  // Suponiendo que el token se obtiene, por ejemplo, desde localStorage:
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ0Nzk2OTE4LCJleHAiOjE3NDU0MDE3MTh9.TZQcEFWb-wm56mhxP6IuNTwX6gtnO-mSHGolFsC5a90";
+
+  // Función para obtener los datos de la API con petición POST
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/denuncias/denuncias", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({}),
+      });
+      if (!response.ok) {
+        new Error("Error al obtener datos de la API");
+      }
+      const data = await response.json();
+      // Se espera que la respuesta tenga una propiedad "denuncias"
+      setRowsData(data.denuncias);
+    } catch (error) {
+      console.error("Error fetching API data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // eslint-disable-next-line react/prop-types
+  const Denuncia = ({ id_denuncia, descripcion }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDBox>
         <MDTypography display="block" variant="button" fontWeight="medium">
-          {name}
+          {`Denuncia #${id_denuncia}`}
         </MDTypography>
-        <MDTypography variant="caption">{email}</MDTypography>
+        <MDTypography variant="caption">{descripcion}</MDTypography>
       </MDBox>
     </MDBox>
   );
 
+  // Componente para la columna "Tipo de acoso"
+  // eslint-disable-next-line react/prop-types
   const Tipo = ({ title }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
@@ -26,130 +63,51 @@ export default function data() {
     </MDBox>
   );
 
+  // Función para convertir la respuesta de la API en las filas del DataTable
+  const getRows = () => {
+    if (loading) return [];
+
+    return rowsData.map((row) => {
+      // Determinar el color del badge en función del estado
+      // Se utiliza toLowerCase() para una comparación insensible a mayúsculas/minúsculas.
+      let badgeColor = "error";
+      if (row.estado.toLowerCase() === "resuelto") badgeColor = "success";
+      else if (row.estado.toLowerCase() === "en proceso") badgeColor = "info";
+      else if (row.estado.toLowerCase() === "pendiente") badgeColor = "warning";
+
+      // Formatear la fecha de denuncia a un formato legible
+      const formattedDate = new Date(row.fecha_denuncia).toLocaleDateString();
+
+      return {
+        casos: <Denuncia id_denuncia={row.id_denuncia} descripcion={row.descripcion} />,
+        tipos: <Tipo title={row.tipo_acoso} />,
+        estodo: (
+          <MDBox ml={-1}>
+            <MDBadge badgeContent={row.estado} color={badgeColor} variant="gradient" size="sm" />
+          </MDBox>
+        ),
+        fecha: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            {formattedDate}
+          </MDTypography>
+        ),
+        action: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit
+          </MDTypography>
+        ),
+      };
+    });
+  };
+
   return {
     columns: [
-      { Header: "Casos", accessor: "casos", width: "30%", align: "left" },
+      { Header: "Denuncia", accessor: "casos", width: "30%", align: "left" },
       { Header: "Tipo de acoso", accessor: "tipos", align: "left" },
       { Header: "Estado", accessor: "estodo", align: "center" },
       { Header: "Fecha de incidencia", accessor: "fecha", align: "center" },
       { Header: "Acciones", accessor: "action", align: "center" },
     ],
-
-    rows: [
-      {
-        casos: <Casos name="John Michael" email="john@creative-tim.com" />,
-        tipos: <Tipo title="Ciberbullying" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="En Proceso" color="info" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        casos: <Casos name="Alexa Liras" email="alexa@creative-tim.com" />,
-        tipos: <Tipo title="Social" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="Resuelto" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        casos: <Casos name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        tipos: <Tipo title="Psicológico" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="En proceso" color="info" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        casos: <Casos name="Michael Levi" email="michael@creative-tim.com" />,
-        tipos: <Tipo title="Social" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="pendiente" color="warning" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        casos: <Casos name="Richard Gran" email="richard@creative-tim.com" />,
-        tipos: <Tipo title="Ciberbullying" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="Resuelto" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        casos: <Casos name="Miriam Eric" email="miriam@creative-tim.com" />,
-        tipos: <Tipo title="Social" />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="Rechazada" color="error" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-    ],
+    rows: getRows(),
   };
 }
