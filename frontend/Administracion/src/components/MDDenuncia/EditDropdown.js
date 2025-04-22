@@ -27,7 +27,7 @@ export default function EditDropdown({ row, setRowsData, updateData }) {
   return (
     <FormControl variant="standard" sx={{ minWidth: 120 }}>
       <Select value={value} onChange={handleChange} disableUnderline>
-        <MenuItem value="resuelto">Resuelto</MenuItem>
+        <MenuItem value="resuelta">Resuelta</MenuItem>
         <MenuItem value="en_progreso">En progreso</MenuItem>
         <MenuItem value="pendiente">Pendiente</MenuItem>
         <MenuItem value="rechazada">Rechazada</MenuItem>
