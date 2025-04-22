@@ -67,37 +67,39 @@ export default function Data() {
   const getRows = () => {
     if (loading) return [];
 
-    return rowsData.map((row) => {
-      // Determinar el color del badge en función del estado
-      // Se utiliza toLowerCase() para una comparación insensible a mayúsculas/minúsculas.
-      let badgeColor = "error";
-      if (row.estado.toLowerCase() === "resuelto") badgeColor = "success";
-      else if (row.estado.toLowerCase() === "en proceso") badgeColor = "info";
-      else if (row.estado.toLowerCase() === "pendiente") badgeColor = "warning";
+    return rowsData
+      .filter((row) => row.estado.toLowerCase() === "en progreso")
+      .map((row) => {
+        // Determinar el color del badge en función del estado
+        // Se utiliza toLowerCase() para una comparación insensible a mayúsculas/minúsculas.
+        let badgeColor = "error";
+        if (row.estado.toLowerCase() === "resuelto") badgeColor = "success";
+        else if (row.estado.toLowerCase() === "en progreso") badgeColor = "info";
+        else if (row.estado.toLowerCase() === "pendiente") badgeColor = "warning";
 
-      // Formatear la fecha de denuncia a un formato legible
-      const formattedDate = new Date(row.fecha_denuncia).toLocaleDateString();
+        // Formatear la fecha de denuncia a un formato legible
+        const formattedDate = new Date(row.fecha_denuncia).toLocaleDateString();
 
-      return {
-        casos: <Denuncia id_denuncia={row.id_denuncia} descripcion={row.descripcion} />,
-        tipos: <Tipo title={row.tipo_acoso} />,
-        estodo: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent={row.estado} color={badgeColor} variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        fecha: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            {formattedDate}
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      };
-    });
+        return {
+          casos: <Denuncia id_denuncia={row.id_denuncia} descripcion={row.descripcion} />,
+          tipos: <Tipo title={row.tipo_acoso} />,
+          estodo: (
+            <MDBox ml={-1}>
+              <MDBadge badgeContent={row.estado} color={badgeColor} variant="gradient" size="sm" />
+            </MDBox>
+          ),
+          fecha: (
+            <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+              {formattedDate}
+            </MDTypography>
+          ),
+          action: (
+            <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+              Edit
+            </MDTypography>
+          ),
+        };
+      });
   };
 
   return {
