@@ -6,18 +6,18 @@ import useDenunciasTable from "../../../../../hook/useDenunciasTable";
 
 export default function Data() {
   const { rowsData, setRowsData, updateData, loading } = useDenunciasTable({
-    filterEstado: "en_progreso",
     withEdit: true,
   });
+  let rows = [];
   try {
-    const rows = !loading
+    rows = !loading
       ? rowsData
           .filter((row) => row.estado.toLowerCase())
           .map((row) => ({
             casos: <DenunciaCell {...row} />,
             tipos: <TipoCell title={row.tipo_acoso} />,
             estado: <EstadoCell estado={row.estado} />,
-            fecha: new Date(row.fecha_denuncia).toLocaleDateString(),
+            fecha: new Date(row.fecha_denuncia).toLocaleDateString("es-ES", {}),
             action: <EditDropdown row={row} setRowsData={setRowsData} updateData={updateData} />,
           }))
       : [];

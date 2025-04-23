@@ -9,18 +9,22 @@ export default function Data() {
     filterEstado: "en_progreso",
     withEdit: true,
   });
-
-  const rows = !loading
-    ? rowsData
-        .filter((row) => row.estado.toLowerCase() === "en_progreso")
-        .map((row) => ({
-          casos: <DenunciaCell {...row} />,
-          tipos: <TipoCell title={row.tipo_acoso} />,
-          estado: <EstadoCell estado={row.estado} />,
-          fecha: new Date(row.fecha_denuncia).toLocaleDateString(),
-          action: <EditDropdown row={row} setRowsData={setRowsData} updateData={updateData} />,
-        }))
-    : [];
+  let rows = [];
+  try {
+    rows = !loading
+      ? rowsData
+          .filter((row) => row.estado.toLowerCase() === "en_progreso")
+          .map((row) => ({
+            casos: <DenunciaCell {...row} />,
+            tipos: <TipoCell title={row.tipo_acoso} />,
+            estado: <EstadoCell estado={row.estado} />,
+            fecha: new Date(row.fecha_denuncia).toLocaleDateString("es-ES", {}),
+            action: <EditDropdown row={row} setRowsData={setRowsData} updateData={updateData} />,
+          }))
+      : [];
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     columns: [

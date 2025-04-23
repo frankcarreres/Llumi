@@ -32,7 +32,7 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
+import Projects from "layouts/dashboard/components/Casos";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
