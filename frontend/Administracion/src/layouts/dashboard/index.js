@@ -32,11 +32,11 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Casos";
+import Casos from "layouts/dashboard/components/Casos";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -93,24 +93,24 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="website views"
+                  title="Casos en los ultimos 7 dias"
                   description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
+                  date=""
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
                 <ReportsLineChart
-                  color="success"
-                  title="daily sales"
+                  color="warning"
+                  title="Casos"
                   description={
                     <>
                       (<strong>+15%</strong>) increase in today sales.
                     </>
                   }
-                  date="updated 4 min ago"
+                  date=""
                   chart={sales}
                 />
               </MDBox>
@@ -118,11 +118,11 @@ function Dashboard() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
                 <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
+                  color="success"
+                  title="Casos resueltos"
+                  description="1"
                   chart={tasks}
+                  date=""
                 />
               </MDBox>
             </Grid>
@@ -131,7 +131,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Projects />
+              <Casos />
             </Grid>
           </Grid>
         </MDBox>
