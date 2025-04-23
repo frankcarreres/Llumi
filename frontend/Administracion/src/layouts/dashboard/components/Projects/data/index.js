@@ -1,26 +1,29 @@
-import useDenunciasTable from "../../../../../hook/useDenunciasTable";
 import DenunciaCell from "../../../../../components/MDDenuncia/DenunciaCell";
 import TipoCell from "../../../../../components/MDDenuncia/TipoCell";
 import EstadoCell from "../../../../../components/MDDenuncia/EstadoCell";
 import EditDropdown from "../../../../../components/MDDenuncia/EditDropdown";
+import useDenunciasTable from "../../../../../hook/useDenunciasTable";
 
 export default function Data() {
   const { rowsData, setRowsData, updateData, loading } = useDenunciasTable({
     filterEstado: "en_progreso",
     withEdit: true,
   });
-
-  const rows = !loading
-    ? rowsData
-        .filter((row) => row.estado.toLowerCase())
-        .map((row) => ({
-          casos: <DenunciaCell {...row} />,
-          tipos: <TipoCell title={row.tipo_acoso} />,
-          estado: <EstadoCell estado={row.estado} />,
-          fecha: new Date(row.fecha_denuncia).toLocaleDateString(),
-          action: <EditDropdown row={row} setRowsData={setRowsData} updateData={updateData} />,
-        }))
-    : [];
+  try {
+    const rows = !loading
+      ? rowsData
+          .filter((row) => row.estado.toLowerCase())
+          .map((row) => ({
+            casos: <DenunciaCell {...row} />,
+            tipos: <TipoCell title={row.tipo_acoso} />,
+            estado: <EstadoCell estado={row.estado} />,
+            fecha: new Date(row.fecha_denuncia).toLocaleDateString(),
+            action: <EditDropdown row={row} setRowsData={setRowsData} updateData={updateData} />,
+          }))
+      : [];
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     columns: [

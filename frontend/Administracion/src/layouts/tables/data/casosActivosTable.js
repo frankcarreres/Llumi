@@ -1,8 +1,8 @@
 import useDenunciasTable from "hook/useDenunciasTable";
+import DenunciaCell from "../../../components/MDDenuncia/DenunciaCell";
 import TipoCell from "../../../components/MDDenuncia/TipoCell";
 import EstadoCell from "../../../components/MDDenuncia/EstadoCell";
 import EditDropdown from "../../../components/MDDenuncia/EditDropdown";
-import DenunciaCell from "../../../components/MDDenuncia/DenunciaCell";
 
 export default function Data() {
   const { rowsData, setRowsData, updateData, loading } = useDenunciasTable({
