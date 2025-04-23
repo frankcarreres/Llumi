@@ -5,7 +5,7 @@ export default function useDenunciasTable({ filterEstado, withEdit = false }) {
   const [loading, setLoading] = useState(true);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ0Nzk2OTE4LCJleHAiOjE3NDU0MDE3MTh9.TZQcEFWb-wm56mhxP6IuNTwX6gtnO-mSHGolFsC5a90"; // reemplaza por lógica con localStorage si quieres
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ1NDA3ODAwLCJleHAiOjE3NDYwMTI2MDB9.IvkhLHB2gyEre8mGk-76XG-apSHPeSJR0f9HJK5xSg8"; // reemplaza por lógica con localStorage si quieres
 
   const fetchData = async () => {
     try {
