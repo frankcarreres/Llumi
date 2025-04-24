@@ -8,13 +8,19 @@ export default function Data({ filters = { tipo: "", estado: "", fecha: "" } }) 
   const { rowsData, setRowsData, updateData, loading } = useDenunciasTable({
     withEdit: true,
   });
+
   // Prints para verificar los filtros y los datos originales
   console.log("Filters recibidos:", filters);
   console.log("rowsData original:", rowsData);
 
+  const normalizedRows = rowsData.map((r) => ({
+    ...r,
+    id_denuncia: r.id_denuncia ? Number(r.id_denuncia) : 0,
+  }));
+
   const filteredData = loading
     ? []
-    : rowsData.filter(
+    : normalizedRows.filter(
         (row) =>
           (!filters.tipo || row.tipo_acoso === filters.tipo) &&
           (!filters.estado || row.estado === filters.estado) &&
@@ -22,7 +28,7 @@ export default function Data({ filters = { tipo: "", estado: "", fecha: "" } }) 
       );
   console.log("Datos filtrados:", filteredData);
 
-  let rows = {};
+  let rows = [];
   try {
     rows = filteredData.map((row) => ({
       casos: <DenunciaCell {...row} />,

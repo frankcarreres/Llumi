@@ -26,17 +26,25 @@ import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Casos from "layouts/dashboard/components/Casos";
-import { useEffect, useState } from "react";
+import useDenunciasTable from "../../hook/useDenunciasTable";
+import { useMemo } from "react";
+import buildAllCharts from "layouts/dashboard/data/reportsBarChartData";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const { rowsData, loading } = useDenunciasTable({ withEdit: false });
+  //ignore
+  const barCharts = useMemo(() => {
+    if (loading) return { year: { labels: [], datasets: {} } };
+    return buildAllCharts(rowsData);
+  }, [rowsData, loading]);
+  console.log(barCharts);
+  console.log(sales);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -93,9 +101,9 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="Casos en los ultimos 7 dias"
-                  description="Last Campaign Performance"
-                  chart={reportsBarChartData}
+                  title="Casos por año"
+                  description="Distribución anual de denuncias"
+                  chart={barCharts}
                   date=""
                 />
               </MDBox>

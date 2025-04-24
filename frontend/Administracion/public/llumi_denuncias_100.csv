@@ -1,0 +1,101 @@
+id_denuncia,id_usuario,id_centro,fecha_denuncia,tipo_acoso,descripcion,estado,evidencias,fecha_resolucion
+1,15,1,2025-01-27 13:51:27,físico,Denuncia de tipo físico generada para pruebas #1,rechazada,https://ejemplo.com/evidencia/c3916718-c95b-427d-9b08-314bf6c775d4.jpg,2025-03-09 12:59:27
+2,25,1,2024-11-13 16:17:27,social,Denuncia de tipo social generada para pruebas #2,pendiente,https://ejemplo.com/evidencia/eaa0e904-7294-482e-8f2d-653b21700be5.jpg,
+3,26,1,2024-12-31 02:24:27,verbal,Denuncia de tipo verbal generada para pruebas #3,resuelta,,2025-03-12 05:15:27
+4,6,1,2024-12-19 17:52:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #4,resuelta,https://ejemplo.com/evidencia/f782a08e-21ce-4e36-9a38-cb578ad2f8d9.jpg,2025-03-06 00:56:27
+5,3,1,2025-03-03 16:50:27,social,Denuncia de tipo social generada para pruebas #5,resuelta,https://ejemplo.com/evidencia/7c9d46b8-9e94-4db9-bb00-9bf6d96a7004.jpg,2025-04-07 00:59:27
+6,2,1,2024-12-23 03:35:27,social,Denuncia de tipo social generada para pruebas #6,en_progreso,https://ejemplo.com/evidencia/c2dfe5f4-e9b8-4af1-8f8c-4d0725c7b908.jpg,
+7,18,1,2025-03-09 22:51:27,otros,Denuncia de tipo otros generada para pruebas #7,resuelta,https://ejemplo.com/evidencia/cf057069-596b-4924-8561-a6f81e74e1aa.jpg,2025-04-02 01:16:27
+8,12,1,2025-02-08 10:11:27,otros,Denuncia de tipo otros generada para pruebas #8,en_progreso,https://ejemplo.com/evidencia/85bef340-31bf-499a-a605-fa9b99e49e80.jpg,
+9,14,1,2024-11-12 08:58:27,físico,Denuncia de tipo físico generada para pruebas #9,pendiente,,
+10,25,1,2024-10-25 23:35:27,psicológico,Denuncia de tipo psicológico generada para pruebas #10,pendiente,https://ejemplo.com/evidencia/28ce671c-b693-4fde-9b1a-c1f182ca52a1.jpg,
+11,21,1,2025-02-02 16:35:27,otros,Denuncia de tipo otros generada para pruebas #11,resuelta,https://ejemplo.com/evidencia/f86f91b6-b5a4-4dff-92e6-7ada7c98b409.jpg,2025-04-22 05:25:27
+12,8,1,2025-02-27 11:46:27,físico,Denuncia de tipo físico generada para pruebas #12,pendiente,,
+13,12,1,2025-02-13 21:14:27,social,Denuncia de tipo social generada para pruebas #13,pendiente,https://ejemplo.com/evidencia/70026d59-9231-4367-8bb7-cd0e4723dbcd.jpg,
+14,2,1,2024-12-02 17:24:27,físico,Denuncia de tipo físico generada para pruebas #14,en_progreso,https://ejemplo.com/evidencia/1fcc94db-eecd-4961-9674-b1af1a20816e.jpg,
+15,12,1,2025-03-15 03:42:27,verbal,Denuncia de tipo verbal generada para pruebas #15,pendiente,https://ejemplo.com/evidencia/5456efff-67d1-4eba-9dd8-9ee285a890c1.jpg,
+16,6,1,2025-01-03 02:45:27,psicológico,Denuncia de tipo psicológico generada para pruebas #16,resuelta,https://ejemplo.com/evidencia/8c35f443-0da3-4a89-b777-26a1249fe2e1.jpg,2025-01-29 17:58:27
+17,7,1,2024-10-25 16:40:27,verbal,Denuncia de tipo verbal generada para pruebas #17,en_progreso,https://ejemplo.com/evidencia/f3fb4eec-bf8d-4b2e-bdb3-3d92a6d1a3ad.jpg,
+18,24,1,2024-12-04 18:08:27,social,Denuncia de tipo social generada para pruebas #18,pendiente,,
+19,19,1,2025-02-14 04:04:27,verbal,Denuncia de tipo verbal generada para pruebas #19,en_progreso,https://ejemplo.com/evidencia/3219e036-ec3a-4b74-ba76-37cfad8d20ad.jpg,
+20,27,1,2025-02-15 10:52:27,otros,Denuncia de tipo otros generada para pruebas #20,pendiente,,
+21,21,1,2025-03-05 12:32:27,otros,Denuncia de tipo otros generada para pruebas #21,en_progreso,https://ejemplo.com/evidencia/08b71c1f-5b1e-4e9a-beaf-77510ca78eda.jpg,
+22,9,1,2025-03-16 07:34:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #22,resuelta,https://ejemplo.com/evidencia/e49c957f-5202-4e89-995a-bf03dbb050fc.jpg,2025-03-23 03:00:27
+23,7,1,2025-01-17 12:05:27,verbal,Denuncia de tipo verbal generada para pruebas #23,rechazada,,2025-02-11 01:38:27
+24,1,1,2024-11-21 03:15:27,físico,Denuncia de tipo físico generada para pruebas #24,resuelta,https://ejemplo.com/evidencia/fa430a0e-3ba8-4f72-990e-166f61ac625b.jpg,2025-01-05 08:06:27
+25,9,1,2025-01-14 00:44:27,social,Denuncia de tipo social generada para pruebas #25,pendiente,,
+26,27,1,2025-02-25 09:33:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #26,resuelta,https://ejemplo.com/evidencia/4561c4ab-7882-4b30-a78a-3e22bb11033f.jpg,2025-03-30 08:08:27
+27,26,1,2025-02-22 15:07:27,físico,Denuncia de tipo físico generada para pruebas #27,rechazada,,2025-04-10 07:49:27
+28,1,1,2025-03-17 00:53:27,físico,Denuncia de tipo físico generada para pruebas #28,resuelta,,2025-04-10 20:44:27
+29,3,1,2025-02-16 13:00:27,otros,Denuncia de tipo otros generada para pruebas #29,rechazada,,2025-03-03 19:17:27
+30,18,1,2025-03-26 05:23:27,otros,Denuncia de tipo otros generada para pruebas #30,resuelta,https://ejemplo.com/evidencia/b8e9c1a9-ed5a-46ed-a91f-67bfd3a12529.jpg,2025-04-02 15:34:27
+31,21,1,2024-11-11 13:06:27,psicológico,Denuncia de tipo psicológico generada para pruebas #31,en_progreso,https://ejemplo.com/evidencia/c379b24b-ef42-44d2-bbea-322347fd9c43.jpg,
+32,19,1,2025-01-04 08:24:27,verbal,Denuncia de tipo verbal generada para pruebas #32,resuelta,https://ejemplo.com/evidencia/1c245b8c-b179-4eea-ac05-4908163bcfce.jpg,2025-01-27 06:51:27
+33,5,1,2025-03-05 14:03:27,verbal,Denuncia de tipo verbal generada para pruebas #33,pendiente,,
+34,12,1,2024-11-20 17:35:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #34,resuelta,,2025-02-16 06:34:27
+35,8,1,2025-03-26 15:40:27,otros,Denuncia de tipo otros generada para pruebas #35,pendiente,,
+36,20,1,2024-11-04 00:11:27,verbal,Denuncia de tipo verbal generada para pruebas #36,pendiente,,
+37,5,1,2024-11-21 19:57:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #37,rechazada,https://ejemplo.com/evidencia/a604fb1f-ee6f-48df-9be5-7f0fe3946544.jpg,2025-03-26 19:27:27
+38,18,1,2025-04-17 02:19:27,otros,Denuncia de tipo otros generada para pruebas #38,resuelta,https://ejemplo.com/evidencia/a65bb313-64e8-4ebe-8c7e-08eb5763dfa1.jpg,2025-04-20 05:52:27
+39,3,1,2024-11-11 23:23:27,otros,Denuncia de tipo otros generada para pruebas #39,rechazada,https://ejemplo.com/evidencia/e818ffc0-80e6-409c-9014-ba7c3a1dec16.jpg,2025-02-17 08:39:27
+40,20,1,2025-04-07 22:45:27,físico,Denuncia de tipo físico generada para pruebas #40,resuelta,,2025-04-14 01:48:27
+41,19,1,2025-01-08 10:59:27,social,Denuncia de tipo social generada para pruebas #41,rechazada,,2025-03-28 12:47:27
+42,25,1,2025-04-06 18:45:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #42,pendiente,,
+43,14,1,2025-03-07 23:42:27,físico,Denuncia de tipo físico generada para pruebas #43,resuelta,,2025-04-16 01:47:27
+44,23,1,2025-01-03 04:40:27,psicológico,Denuncia de tipo psicológico generada para pruebas #44,pendiente,,
+45,9,1,2024-10-28 06:00:27,verbal,Denuncia de tipo verbal generada para pruebas #45,resuelta,https://ejemplo.com/evidencia/98582fd7-3c9e-45de-a41e-9fd912c9f25c.jpg,2025-01-26 14:31:27
+46,4,1,2025-04-12 21:02:27,verbal,Denuncia de tipo verbal generada para pruebas #46,en_progreso,,
+47,25,1,2025-02-21 12:20:27,verbal,Denuncia de tipo verbal generada para pruebas #47,pendiente,https://ejemplo.com/evidencia/310bb001-2c39-498b-a885-ae79cf55702b.jpg,
+48,16,1,2024-11-25 15:43:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #48,resuelta,https://ejemplo.com/evidencia/7b495ab7-db51-4779-9edf-846264e1e313.jpg,2025-01-21 02:56:27
+49,17,1,2025-03-19 13:03:27,físico,Denuncia de tipo físico generada para pruebas #49,en_progreso,https://ejemplo.com/evidencia/f848d5d5-e592-4463-8a6b-103aa6dd5d17.jpg,
+50,29,1,2024-12-02 08:05:27,psicológico,Denuncia de tipo psicológico generada para pruebas #50,resuelta,https://ejemplo.com/evidencia/6e1e30e1-cb23-4a8c-b601-0ec7c53ad370.jpg,2025-04-14 15:31:27
+51,8,1,2025-01-10 04:52:27,otros,Denuncia de tipo otros generada para pruebas #51,pendiente,,
+52,2,1,2025-04-18 11:11:27,psicológico,Denuncia de tipo psicológico generada para pruebas #52,en_progreso,https://ejemplo.com/evidencia/6fd88ee5-9464-4609-a787-8ccdc7de49a7.jpg,
+53,8,1,2024-11-19 21:40:27,social,Denuncia de tipo social generada para pruebas #53,en_progreso,https://ejemplo.com/evidencia/2704a229-45a8-4ac0-a6e0-90dd503cd804.jpg,
+54,4,1,2025-03-04 00:23:27,psicológico,Denuncia de tipo psicológico generada para pruebas #54,en_progreso,https://ejemplo.com/evidencia/ea805915-fe48-4966-9a2a-fe579ddad5df.jpg,
+55,9,1,2025-01-15 21:30:27,social,Denuncia de tipo social generada para pruebas #55,pendiente,https://ejemplo.com/evidencia/9277c59f-0a5d-4b5b-ac8a-37f76360397f.jpg,
+56,29,1,2024-12-05 12:23:27,psicológico,Denuncia de tipo psicológico generada para pruebas #56,pendiente,,
+57,8,1,2025-02-13 19:26:27,social,Denuncia de tipo social generada para pruebas #57,pendiente,https://ejemplo.com/evidencia/70edb999-b0a8-4fad-b585-a6a9c64813fc.jpg,
+58,11,1,2025-01-16 09:23:27,verbal,Denuncia de tipo verbal generada para pruebas #58,rechazada,https://ejemplo.com/evidencia/f1a08f7c-a1cc-4e70-9721-ae034115242d.jpg,2025-02-06 19:48:27
+59,7,1,2024-12-01 23:12:27,otros,Denuncia de tipo otros generada para pruebas #59,rechazada,,2025-04-16 02:09:27
+60,30,1,2025-01-18 01:04:27,físico,Denuncia de tipo físico generada para pruebas #60,resuelta,https://ejemplo.com/evidencia/a1ed8acb-612b-482a-a50d-ee9dddd172af.jpg,2025-04-08 02:21:27
+61,23,1,2024-11-24 07:03:27,social,Denuncia de tipo social generada para pruebas #61,rechazada,https://ejemplo.com/evidencia/33bb40eb-6325-4195-b888-a832818e82d3.jpg,2025-03-26 08:29:27
+62,7,1,2025-04-21 00:09:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #62,pendiente,https://ejemplo.com/evidencia/a956e09a-dcac-425f-b40b-46c73ab2a8f0.jpg,
+63,12,1,2024-11-27 13:30:27,físico,Denuncia de tipo físico generada para pruebas #63,en_progreso,,
+64,30,1,2025-04-17 23:10:27,social,Denuncia de tipo social generada para pruebas #64,rechazada,https://ejemplo.com/evidencia/9eafee08-58c9-48b4-9799-a89151334706.jpg,2025-04-20 22:57:27
+65,21,1,2025-04-05 05:04:27,psicológico,Denuncia de tipo psicológico generada para pruebas #65,pendiente,https://ejemplo.com/evidencia/85fbdcba-1fcf-4e15-86b9-1ec6d884f4e8.jpg,
+66,18,1,2025-01-05 16:14:27,social,Denuncia de tipo social generada para pruebas #66,resuelta,,2025-02-18 04:34:27
+67,1,1,2025-01-10 12:06:27,verbal,Denuncia de tipo verbal generada para pruebas #67,pendiente,,
+68,28,1,2025-03-16 04:30:27,verbal,Denuncia de tipo verbal generada para pruebas #68,resuelta,https://ejemplo.com/evidencia/44d036f6-313c-4acb-a381-37581c4ab31f.jpg,2025-04-19 03:36:27
+69,28,1,2025-02-25 15:50:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #69,en_progreso,,
+70,16,1,2024-11-15 18:03:27,físico,Denuncia de tipo físico generada para pruebas #70,resuelta,,2025-01-21 19:20:27
+71,1,1,2025-04-10 11:30:27,físico,Denuncia de tipo físico generada para pruebas #71,resuelta,https://ejemplo.com/evidencia/2dddce87-3dd2-4088-91f2-31ef6b2f6205.jpg,2025-04-12 08:43:27
+72,29,1,2025-02-07 04:58:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #72,rechazada,https://ejemplo.com/evidencia/f48eea2c-8a53-41bf-be17-413fd5d10ef7.jpg,2025-04-12 01:04:27
+73,5,1,2024-11-21 10:27:27,psicológico,Denuncia de tipo psicológico generada para pruebas #73,rechazada,https://ejemplo.com/evidencia/91b27e42-8dc3-4506-9e62-a385e9c8a6c7.jpg,2025-01-27 18:34:27
+74,10,1,2025-02-06 17:54:27,verbal,Denuncia de tipo verbal generada para pruebas #74,rechazada,https://ejemplo.com/evidencia/7fc289a9-43ce-4ae5-abd3-9435107631e9.jpg,2025-02-16 21:01:27
+75,8,1,2024-11-28 07:20:27,otros,Denuncia de tipo otros generada para pruebas #75,pendiente,,
+76,23,1,2025-04-08 06:48:27,social,Denuncia de tipo social generada para pruebas #76,rechazada,https://ejemplo.com/evidencia/c7651dfa-175c-4fb8-a19b-bbe444642ccf.jpg,2025-04-22 18:46:27
+77,24,1,2024-11-11 08:24:27,psicológico,Denuncia de tipo psicológico generada para pruebas #77,en_progreso,,
+78,30,1,2024-12-14 04:00:27,psicológico,Denuncia de tipo psicológico generada para pruebas #78,rechazada,https://ejemplo.com/evidencia/bfea5990-f61f-4146-aeac-a9d702a5eb45.jpg,2024-12-16 22:10:27
+79,23,1,2025-01-14 03:44:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #79,en_progreso,https://ejemplo.com/evidencia/ebfd83c7-85a0-4e7f-9b9b-9315b0b0b35b.jpg,
+80,2,1,2024-11-02 18:49:27,social,Denuncia de tipo social generada para pruebas #80,rechazada,,2025-01-04 18:07:27
+81,6,1,2024-11-07 21:20:27,verbal,Denuncia de tipo verbal generada para pruebas #81,en_progreso,https://ejemplo.com/evidencia/b3aa7398-74e2-4b48-9484-6d79082f3d0e.jpg,
+82,3,1,2025-02-04 05:42:27,físico,Denuncia de tipo físico generada para pruebas #82,pendiente,,
+83,1,1,2024-12-16 22:30:27,psicológico,Denuncia de tipo psicológico generada para pruebas #83,rechazada,,2024-12-26 07:21:27
+84,9,1,2025-03-12 05:58:27,psicológico,Denuncia de tipo psicológico generada para pruebas #84,pendiente,https://ejemplo.com/evidencia/f50bb4bb-1723-48a9-92d9-c777f3b2b603.jpg,
+85,7,1,2025-03-19 03:44:27,psicológico,Denuncia de tipo psicológico generada para pruebas #85,pendiente,,
+86,22,1,2025-02-09 18:20:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #86,en_progreso,,
+87,1,1,2025-01-31 02:30:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #87,resuelta,https://ejemplo.com/evidencia/c5e3f029-bb2f-437a-bbb0-bed2fca62f7c.jpg,2025-04-03 21:31:27
+88,3,1,2025-03-01 08:37:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #88,resuelta,,2025-03-22 20:07:27
+89,21,1,2025-03-02 20:23:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #89,en_progreso,https://ejemplo.com/evidencia/2e6ba155-4303-4f69-b5e1-d7b2a8a522d5.jpg,
+90,3,1,2025-01-29 22:06:27,psicológico,Denuncia de tipo psicológico generada para pruebas #90,pendiente,,
+91,11,1,2025-04-06 15:14:27,ciberbullying,Denuncia de tipo ciberbullying generada para pruebas #91,resuelta,,2025-04-16 09:07:27
+92,23,1,2025-02-16 00:51:27,social,Denuncia de tipo social generada para pruebas #92,pendiente,https://ejemplo.com/evidencia/094e475f-cb71-4fc0-930c-8b241ef3907d.jpg,
+93,21,1,2024-12-07 02:42:27,otros,Denuncia de tipo otros generada para pruebas #93,pendiente,https://ejemplo.com/evidencia/991c5e46-480d-43bd-a762-c9913f634a84.jpg,
+94,22,1,2025-02-16 06:27:27,físico,Denuncia de tipo físico generada para pruebas #94,resuelta,,2025-02-27 19:27:27
+95,26,1,2025-03-02 00:09:27,social,Denuncia de tipo social generada para pruebas #95,rechazada,https://ejemplo.com/evidencia/f50b5970-81a2-4b80-9708-6fa76d03a9fe.jpg,2025-04-23 23:30:27
+96,15,1,2024-10-26 13:07:27,otros,Denuncia de tipo otros generada para pruebas #96,resuelta,,2024-12-31 17:22:27
+97,5,1,2024-11-23 00:31:27,otros,Denuncia de tipo otros generada para pruebas #97,rechazada,https://ejemplo.com/evidencia/8d086152-f82c-4abc-bce3-8b6ad4cf6ba4.jpg,2025-01-26 14:27:27
+98,5,1,2024-10-24 08:29:27,físico,Denuncia de tipo físico generada para pruebas #98,resuelta,https://ejemplo.com/evidencia/1ca05ab3-e5bf-4152-b538-57c10431a72a.jpg,2025-03-18 05:30:27
+99,9,1,2025-03-18 08:03:27,físico,Denuncia de tipo físico generada para pruebas #99,rechazada,https://ejemplo.com/evidencia/ec2c90c1-05e2-4fe0-958d-653c8808ebb1.jpg,2025-04-09 18:48:27
+100,17,1,2025-04-05 15:01:27,social,Denuncia de tipo social generada para pruebas #100,rechazada,https://ejemplo.com/evidencia/4cf885a7-e96a-406b-acbd-14a7698e8405.jpg,2025-04-08 02:07:27
