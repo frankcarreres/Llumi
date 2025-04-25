@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -25,76 +10,40 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-// Data
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Casos from "layouts/dashboard/components/Casos";
 import useDenunciasTable from "../../hook/useDenunciasTable";
 import { useMemo } from "react";
-import buildAllCharts from "layouts/dashboard/data/reportsBarChartData";
-
+//data
+import casosResueltos from "./data/casoResueltos";
+import casosPorTiempo from "./data/casosPorTiempo";
+import casosActivosPorMes from "./data/casosActivoPorMes";
 function Dashboard() {
-  const { sales, tasks } = reportsLineChartData;
   const { rowsData, loading } = useDenunciasTable({ withEdit: false });
   //ignore
-  const barCharts = useMemo(() => {
+  const casos_por_tiempo = useMemo(() => {
     if (loading) return { year: { labels: [], datasets: {} } };
-    return buildAllCharts(rowsData);
+    return casosPorTiempo(rowsData);
   }, [rowsData, loading]);
-  console.log(barCharts);
-  console.log(sales);
+
+  const cResueltos = useMemo(() => {
+    if (loading) return { cResueltos: { labels: [], datasets: {} } };
+    return casosResueltos(rowsData);
+  }, [rowsData, loading]);
+
+  const cActivos = useMemo(() => {
+    if (loading) return { cResueltos: { labels: [], datasets: {} } };
+    return casosActivosPorMes(rowsData);
+  }, [rowsData, loading]);
+
+  console.log("Casos por cada año", casosPorTiempo);
+  console.log("Casos resueltos en este año ", cResueltos);
+  console.log("Casos activos en este año ", cActivos);
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="cases"
-                title="Casos Detectados"
-                count={0}
-                percentage={{
-                  color: "success",
-                  amount: "+ 0",
-                  label: " Respecto al mes pasado",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="bolt"
-                title="Casos Activos"
-                count="0"
-                percentage={{
-                  color: "success",
-                  amount: "+ 0",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Casos Resueltos"
-                count="0"
-                percentage={{
-                  color: "success",
-                  amount: "+ 0",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
@@ -103,7 +52,7 @@ function Dashboard() {
                   color="info"
                   title="Casos por año"
                   description="Distribución anual de denuncias"
-                  chart={barCharts}
+                  chart={casos_por_tiempo}
                   date=""
                 />
               </MDBox>
@@ -119,7 +68,7 @@ function Dashboard() {
                     </>
                   }
                   date=""
-                  chart={sales}
+                  chart={cActivos}
                 />
               </MDBox>
             </Grid>
@@ -129,7 +78,7 @@ function Dashboard() {
                   color="success"
                   title="Casos resueltos"
                   description="1"
-                  chart={tasks}
+                  chart={cResueltos}
                   date=""
                 />
               </MDBox>

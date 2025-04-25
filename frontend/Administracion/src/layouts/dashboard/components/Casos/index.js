@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 // Material Dashboard 2 React components
@@ -109,24 +108,25 @@ function Casos() {
           </Select>
         </FormControl>
       </MenuItem>
-
       <MenuItem dense>
-        <TextField
-          fullWidth
-          variant="outlined"
-          size="small"
-          margin="dense"
-          label="Fecha de incidencia"
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          sx={{
-            "& .MuiOutlinedInput-notchedOutline": { top: 0 },
-            height: 40,
-            "& .MuiOutlinedInput-input": { padding: "10px 14px" },
-          }}
-          value={menuFilters.fecha}
-          onChange={handleMenuChange("fecha")}
-        />
+        <FormControl fullWidth variant="outlined" size="small" margin="dense">
+          <InputLabel>Año de incidencia</InputLabel>
+          <Select
+            label="Año de incidencia"
+            value={menuFilters.fecha}
+            onChange={handleMenuChange("fecha")}
+            sx={{ "& .MuiOutlinedInput-notchedOutline": { top: 0 }, height: 40 }}
+          >
+            {Array.from({ length: 21 }).map((_, index) => {
+              const year = new Date().getFullYear() - index;
+              return (
+                <MenuItem key={year} value={year.toString()}>
+                  {year}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       </MenuItem>
 
       <MenuItem>

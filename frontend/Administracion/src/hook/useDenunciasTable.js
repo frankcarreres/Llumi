@@ -43,7 +43,7 @@ export default function useDenunciasTable({ filterEstado, withEdit = false }) {
         },
         body: JSON.stringify({}),
       });
-      if (!res.ok) throw new Error(`API responded ${res.status}`);
+      if (!res.ok) new Error(`API responded ${res.status}`);
       const json = await res.json();
       setRowsData(json.denuncias);
     } catch (apiError) {
