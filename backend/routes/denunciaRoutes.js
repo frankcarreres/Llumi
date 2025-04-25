@@ -5,6 +5,7 @@ const verifyToken = require('../middlewares/verificarToken');
 
 // Ruta protegida para obtener las denuncias del centro autenticado
 router.post('/denuncias', verifyToken, denunciasController.getDenuncias);
+router.post('/denuncias/:id_denuncia', verifyToken, denunciasController.getDenunciasPorId);
 router.patch('/updateEstado/:id_denuncia', verifyToken, denunciasController.updateEstado);
 
 module.exports = router;
