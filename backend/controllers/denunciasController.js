@@ -1,8 +1,51 @@
+// controllers/denunciasController.js
+const pool = require('../models/db');
 const {
   fetchDenunciasPorCentro,
   fetchDenunciaById,
   updateEstadoDenuncia,
 } = require('../services/denunciasService');
+
+exports.guardarDenuncia = async (req, res) => {
+  const { id_usuario, id_centro, datosDenuncia } = req.body;
+
+  if (!id_usuario || !id_centro || !datosDenuncia) {
+    return res.status(400).json({ error: "Faltan datos obligatorios." });
+  }
+
+  const {
+    tipo_acoso,
+    descripcion,
+    evidencias,
+    es_testigo,
+    nombre_victima,
+    relacion_victima,
+    nombre_acosador,
+    testigos,
+    nombre_testigo_extra,
+    intervencion_docente,
+    nombre_docente
+  } = datosDenuncia;
+
+  try {
+    await pool.query(
+      `INSERT INTO denuncias (
+          id_usuario, id_centro, tipo_acoso, descripcion, evidencias,
+          es_testigo, nombre_victima, relacion_victima, nombre_acosador,
+          testigos, nombre_testigo_extra, intervencion_docente, nombre_docente, estado
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')`,
+      [
+        id_usuario, id_centro, tipo_acoso, descripcion, evidencias,
+        es_testigo, nombre_victima, relacion_victima, nombre_acosador,
+        testigos, nombre_testigo_extra, intervencion_docente, nombre_docente
+      ]
+    );
+
+    res.status(201).json({ mensaje: "Denuncia guardada correctamente." });
+  } catch (err) {
+    res.status(500).json({ error: "Error en el servidor al guardar la denuncia", detalle: err.message });
+  }
+};
 
 exports.getDenuncias = async (req, res) => {
   const { id_centro } = req.user;
