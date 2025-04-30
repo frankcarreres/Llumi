@@ -15,7 +15,7 @@ function CarruselNoticias({ destacadas }) {
     const fetchNoticias = async () => {
       try {
         const response = await fetch("http://localhost:3001/recursos/noticias");
-        const data = await response.json(); // 🔧 aquí el cambio
+        const data = await response.json();
 
         if (destacadas) {
           setNoticias(data.filter((noticia) => noticia.destacada === 1));
@@ -36,8 +36,8 @@ function CarruselNoticias({ destacadas }) {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: destacadas ? 3 : 4,
+    slidesToScroll: destacadas ? 3 : 4,
     arrows: true,
     autoplay: true,
     autoplaySpeed: 10000, // 10s
@@ -78,7 +78,7 @@ function CarruselNoticias({ destacadas }) {
     <MKBox sx={{ width: "100%", mx: "auto", mt: 2, height: "400px" }}>
       <Slider {...settings}>
         {noticias.map((noticia, index) => (
-          <MKBox key={index} mx={1} sx={{ height: "100%" }}>
+          <MKBox key={index} mx={0.5} sx={{ height: "100%" }}>
             <TarjetaNoticia
               titulo={noticia.titulo}
               descripcion={noticia.contenido}

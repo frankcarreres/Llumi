@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { syncNoticias, getMultimedia, getNoticias, syncMultimedia } = require('../controllers/recursController');
+const { syncNoticias, getMultimedia, getNoticias, syncMultimedia, syncPodcasts, getPodcasts} = require('../controllers/recursController');
+const {get} = require("axios");
 
 // Ruta para sincronizar noticias
 router.get('/syncNoticias', syncNoticias);
@@ -13,5 +14,12 @@ router.get('/syncMultimedia', syncMultimedia);
 
 // Ruta para obtener las videos
 router.get('/multimedia', getMultimedia);
+
+// Ruta para sincronizar los videos de podcast
+router.get('/syncPodcasts', syncPodcasts);
+
+router.get('/podcast', getPodcasts);
+
+
 
 module.exports = router;

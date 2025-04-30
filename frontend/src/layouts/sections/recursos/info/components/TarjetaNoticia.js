@@ -23,12 +23,14 @@ function TarjetaNoticia({ titulo, imagen, url }) {
         minHeight="300px"
         height="100%"
         sx={{
-          width: "95%",
+          width: "98%",
           margin: "0 auto",
           backgroundImage: `url(${imagen})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
+          borderRadius: "16px",
+          overflow: "hidden",
         }}
       >
         {/* Overlay para oscurecer la imagen */}
@@ -41,8 +43,10 @@ function TarjetaNoticia({ titulo, imagen, url }) {
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 1,
+            borderRadius: "inherit", // <- Coincide con el borde del contenedor
           }}
         />
+
         <MKBox
           zIndex={2}
           p={2}

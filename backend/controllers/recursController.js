@@ -78,7 +78,7 @@ exports.syncMultimedia = async (req, res) => {
 
     try {
         const query = "acoso escolar";
-        const maxResults = 20;
+        const maxResults = 10;
 
         const url = new URL("https://www.googleapis.com/youtube/v3/search");
         url.searchParams.append("part", "snippet");
@@ -153,6 +153,87 @@ exports.getMultimedia = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener los recursos multimedia:", error);
         res.status(500).json({ error: "Error al obtener los recursos multimedia" });
+    }
+};
+
+exports.syncPodcasts = async (req, res) => {
+    const API_KEY = process.env.YOUTUBE_API_KEY;
+    const ID_USUARIO_ADMIN = 1;
+
+    try {
+        const query = "podcast bullying";
+        const maxResults = 10;
+
+        const url = new URL("https://www.googleapis.com/youtube/v3/search");
+        url.searchParams.append("part", "snippet");
+        url.searchParams.append("q", query);
+        url.searchParams.append("type", "video");
+        url.searchParams.append("maxResults", maxResults);
+        url.searchParams.append("key", API_KEY);
+        url.searchParams.append("regionCode", "ES");
+        url.searchParams.append("relevanceLanguage", "es");
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`YouTube API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const podcasts = data.items;
+
+        const connection = await pool.getConnection();
+        let guardados = 0;
+
+        for (const podcast of podcasts) {
+            const videoId = podcast.id.videoId;
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+            const [existe] = await connection.query(
+                "SELECT id_recurso FROM recursos WHERE url = ?",
+                [embedUrl]
+            );
+
+            if (existe.length === 0) {
+                await connection.query(
+                    `INSERT INTO recursos
+            (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
+           VALUES (?, 'podcast', ?, ?, ?, ?, ?)`,
+                    [
+                        podcast.snippet.title,
+                        podcast.snippet.description || "Sin descripción",
+                        new Date(podcast.snippet.publishedAt),
+                        ID_USUARIO_ADMIN,
+                        embedUrl,
+                        podcast.snippet.thumbnails?.medium?.url || null,
+                    ]
+                );
+                guardados++;
+            }
+        }
+
+        connection.release();
+
+        res.json({
+            message: `Se han sincronizado ${guardados} podcasts correctamente.`,
+        });
+    } catch (error) {
+        console.error("Error al sincronizar podcasts:", error);
+        res.status(500).json({ error: "Error al sincronizar podcasts" });
+    }
+};
+
+exports.getPodcasts = async (req, res) => {
+    try {
+        const connection = await pool.getConnection();
+        const [rows] = await connection.query(
+            "SELECT * FROM recursos WHERE tipo = 'podcast'"
+        );
+        connection.release();
+        res.json(rows);
+    } catch (error) {
+        console.error("Error al obtener los recursos podcast:", error);
+        res.status(500).json({ error: "Error al obtener los recursos podcast" });
     }
 };
 
