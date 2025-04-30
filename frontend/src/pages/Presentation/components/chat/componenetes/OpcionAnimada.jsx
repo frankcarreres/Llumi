@@ -15,16 +15,27 @@ function OptionAnimada({ texto, onClick, variant = "contained", selected = false
         sx={{
           mb: 1,
           background: selected
-            ? "linear-gradient(to right, rgba(255, 170, 100, 1), rgba(240, 130, 60, 1))"
-            : "linear-gradient(to right, rgba(255, 210, 133, 0.9), rgba(254, 179, 77, 0.9))",
-          color: selected ? "#fff" : "#1f1f1f",
+            ? "rgba(228, 228, 228, 1.0)" // Mercury normal cuando está seleccionado
+            : "rgba(200, 200, 200, 1.0)", // Mercury oscuro por defecto
+          color: "rgba(58, 58, 58, 1.0)", // Mine Shaft para todos
           border: selected ? "2px solid #fff" : "1px solid transparent",
           opacity: selected ? 1 : 0.95,
           textTransform: "none",
           "&:hover": {
             background: selected
-              ? "linear-gradient(to right, rgba(180, 80, 25, 1), rgba(150, 60, 15, 1))"
-              : "linear-gradient(to right, rgba(255, 200, 120, 1), rgba(254, 179, 77, 1))",
+              ? "rgba(214, 214, 214, 1.0)" // Hover sutilmente más cálido para seleccionados
+              : "rgba(214, 214, 200, 1.0)", // Hover sutil para no seleccionados
+          },
+          "&:active": {
+            background: selected ? "rgba(214, 214, 214, 1.0)" : "rgba(220, 220, 220, 1.0)", // Sutil presión visual
+          },
+          "&:focus": {
+            outline: "none !important", // quita el contorno azul
+            boxShadow: "none !important", // quita sombra azul de MUI
+          },
+          "&:focus-visible": {
+            outline: "none !important",
+            boxShadow: "none !important",
           },
           ...sx,
         }}
