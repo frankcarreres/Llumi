@@ -7,10 +7,9 @@ const verifyToken = require('../middlewares/verificarToken');
 // Ruta protegida para guardar una denuncia desde Typebot
 router.post('/typebot', verifyToken, denunciasController.guardarDenuncia);
 
-// Ruta protegida para obtener todas las denuncias del centro
-// router.post('/', verifyToken, denunciasController.getDenuncias);
-
-// Ruta protegida para actualizar el estado de una denuncia
-// router.patch('/updateEstado/:id_denuncia', verifyToken, denunciasController.updateEstado);
+// Ruta protegida para obtener las denuncias del centro autenticado
+router.post('/denuncias', verifyToken, denunciasController.getDenuncias);
+router.post('/denuncias/:id_denuncia', verifyToken, denunciasController.getDenunciasPorId);
+router.patch('/updateEstado/:id_denuncia', verifyToken, denunciasController.updateEstado);
 
 module.exports = router;
