@@ -54,3 +54,20 @@ export async function obtenerVariablesTest(resultId) {
   if (!res.ok) throw new Error("No se pudieron obtener las variables del test");
   return await res.json();
 }
+
+/**
+ * Envía el resultId de una denuncia para ser procesado y guardado en el backend.
+ */
+export async function guardarDenuncia(token, id_usuario, id_centro, datosDenuncia) {
+  const res = await fetch(`${BASE_URL}/denuncias/typebot`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ id_usuario, id_centro, datosDenuncia }),
+  });
+
+  if (!res.ok) throw new Error("No se pudo registrar la denuncia");
+  return await res.json();
+}

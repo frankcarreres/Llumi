@@ -6,7 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const testRoutes = require('./routes/testRoutes');
 const recursRoutes = require('./routes/recursRoutes');
 const typebotRoutes = require('./routes/typebotRoutes');
-const denunciasRoutes = require('./routes/denunciaRoutes');
+const denunciaRoutes = require('./routes/denunciaRoutes');
 
 const app = express();
 app.use(cors());
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/api/test', testRoutes);
 app.use('/recursos', recursRoutes);
-app.use('/denuncias', denunciasRoutes);
+app.use('/denuncias', denunciaRoutes);
 app.use('/typebot', typebotRoutes);
 
 module.exports = app;
