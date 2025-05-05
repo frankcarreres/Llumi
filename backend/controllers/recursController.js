@@ -237,3 +237,60 @@ exports.getPodcasts = async (req, res) => {
     }
 };
 
+
+exports.postNoticias = async (req, res) => {
+    try {
+        const {
+            titulo,
+            tipo,
+            contenido,
+            fecha_publicacion,
+            id_usuario,
+            url,
+            img,
+            destacada,
+            id_centro,
+        } = req.body;
+
+        if (!tipo || !id_usuario) {
+            return res.status(400).json({
+                error: "Campos requeridos: 'tipo' e 'id_usuario' 😖",
+            });
+        }
+
+
+        const cols   = [];
+        const marks  = [];
+        const values = [];
+
+        const push = (col, val) => {
+            if (val !== undefined) {
+                cols.push(col);
+                marks.push("?");
+                values.push(val);
+            }
+        };
+
+        push("titulo",            titulo);
+        push("tipo",              tipo);
+        push("contenido",         contenido);
+        push("fecha_publicacion", fecha_publicacion);
+        push("id_usuario",        id_usuario);
+        push("url",               url);
+        push("img",               img);
+        push("destacada",         destacada);
+        push("id_centro",         id_centro);
+
+        const sql = `INSERT INTO recursos (${cols.join(",")}) VALUES (${marks.join(",")})`;
+        const [result] = await pool.execute(sql, values);
+
+        res.status(201).json({
+            message: "Recurso creado con éxito ✨",
+            id_recurso: result.insertId,
+        });
+    } catch (err) {
+        console.error("Error creando recurso:", err);
+        res.status(500).json({ error: "Error interno 😵" });
+    }
+};
+

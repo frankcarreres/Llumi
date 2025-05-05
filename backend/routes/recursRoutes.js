@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { syncNoticias, getMultimedia, getNoticias, syncMultimedia, syncPodcasts, getPodcasts} = require('../controllers/recursController');
+const { syncNoticias, getMultimedia, getNoticias, syncMultimedia, syncPodcasts, getPodcasts, postNoticias } = require('../controllers/recursController');
 const {get} = require("axios");
 
 // Ruta para sincronizar noticias
@@ -20,6 +20,6 @@ router.get('/syncPodcasts', syncPodcasts);
 
 router.get('/podcast', getPodcasts);
 
-
+router.post('/addNoticia', postNoticias);
 
 module.exports = router;
