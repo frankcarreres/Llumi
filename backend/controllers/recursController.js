@@ -254,7 +254,7 @@ exports.postNoticias = async (req, res) => {
 
         if (!tipo || !id_usuario) {
             return res.status(400).json({
-                error: "Campos requeridos: 'tipo' e 'id_usuario' 😖",
+                error: "Campos requeridos: 'tipo' e 'id_usuario'",
             });
         }
 
@@ -285,12 +285,15 @@ exports.postNoticias = async (req, res) => {
         const [result] = await pool.execute(sql, values);
 
         res.status(201).json({
-            message: "Recurso creado con éxito ✨",
+            message: "Recurso creado con éxito",
             id_recurso: result.insertId,
         });
     } catch (err) {
+        if (err.code === "ER_NO_REFERENCED_ROW_2") {
+            return res.status(404).json({ error: "El usuario no existe" });
+        }
         console.error("Error creando recurso:", err);
-        res.status(500).json({ error: "Error interno 😵" });
+        res.status(500).json({ error: "Error interno" });
     }
 };
 
