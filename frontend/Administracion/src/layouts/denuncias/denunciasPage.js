@@ -1,8 +1,7 @@
-// src/layouts/denuncias/DenunciaPage.jsx
 import React from "react";
 import { useParams } from "react-router-dom";
 import DenunciaDetail from "components/MDDenuncia/DenunciaDetail";
-import useDenunciasTable from "hook/useDenunciasTable";
+import denunciasPeticiones from "../../hook/denunciasPeticiones";
 import MDBox from "components/MDBox";
 import CircularProgress from "@mui/material/CircularProgress";
 import MDTypography from "components/MDTypography";
@@ -13,7 +12,7 @@ import Footer from "examples/Footer";
 
 export default function DenunciaPage() {
   const { id_denuncia } = useParams();
-  const { rowsData, loading } = useDenunciasTable({
+  const { rowsData, loading } = denunciasPeticiones({
     idDenuncia: Number(id_denuncia),
     withEdit: false,
   });
