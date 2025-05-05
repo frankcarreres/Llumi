@@ -13,14 +13,14 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 
 // Dashboard components
 import Casos from "layouts/dashboard/components/Casos";
-import useDenunciasTable from "../../hook/useDenunciasTable";
+import denunciasPeticiones from "../../hook/denunciasPeticiones";
 import { useMemo } from "react";
 //data
 import casosResueltos from "./data/casoResueltos";
 import casosPorTiempo from "./data/casosPorTiempo";
 import casosActivosPorMes from "./data/casosActivoPorMes";
 function Dashboard() {
-  const { rowsData, loading } = useDenunciasTable({ withEdit: false });
+  const { rowsData, loading } = denunciasPeticiones({ withEdit: false });
   //ignore
   const casos_por_tiempo = useMemo(() => {
     if (loading) return { year: { labels: [], datasets: {} } };

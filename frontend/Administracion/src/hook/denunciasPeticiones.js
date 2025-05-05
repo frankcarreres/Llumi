@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function useDenunciasTable({ filterEstado, withEdit = false }) {
+export default function denunciasPeticiones({ idDenuncia, filterEstado, withEdit = false }) {
   const [rowsData, setRowsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ1NDA3ODAwLCJleHAiOjE3NDYwMTI2MDB9.IvkhLHB2gyEre8mGk-76XG-apSHPeSJR0f9HJK5xSg8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ2NDMwMzg1LCJleHAiOjE3NDcwMzUxODV9.bgvxhCxNUSBAHjrDW42FKx9US-koIfVzlqO93CHmxOY";
 
   // Parse CSV a array de objetos
   const parseCSV = (csvText) => {
@@ -32,22 +32,37 @@ export default function useDenunciasTable({ filterEstado, withEdit = false }) {
     }
   };
 
+  const buildRequest = () => {
+    const base = "http://localhost:3001/denuncias/denuncias";
+    let url = idDenuncia ? `${base}/${idDenuncia}` : base;
+    if (!idDenuncia && filterEstado) url += `?estado=${encodeURIComponent(filterEstado)}`;
+
+    return {
+      url,
+      options: {
+        method: "POST", // tu API usa POST tanto para lista como para detalle
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}), // no se usa, pero muchos fetch piden algo
+      },
+    };
+  };
+
   // Intenta la API; si falla, usa el CSV local
   const fetchData = async () => {
+    const { url, options } = buildRequest();
     try {
-      const res = await fetch("http://localhost:3001/denuncias/denuncias", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({}),
-      });
-      if (!res.ok) new Error(`API responded ${res.status}`);
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error(`API responded ${res.status}`);
       const json = await res.json();
-      setRowsData(json.denuncias);
-    } catch (apiError) {
-      console.warn("Fallo API, cargando CSV local …", apiError);
+
+      // El backend devuelve { denuncia } o { denuncias }
+      const data = json.denuncia ? [json.denuncia] : json.denuncias;
+      setRowsData(data);
+    } catch (err) {
+      console.warn("Fallo API, cargo CSV local…", err);
       await fetchLocalCSV();
     } finally {
       setLoading(false);
@@ -56,7 +71,7 @@ export default function useDenunciasTable({ filterEstado, withEdit = false }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [idDenuncia, filterEstado]);
 
   const updateData = async (id, estado) => {
     try {
