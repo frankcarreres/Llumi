@@ -7,6 +7,7 @@ import SignIn from "./pages/LandingPages/SignIn";
 import RecursInfo from "./layouts/sections/recursos/info";
 import RecursMultimedia from "./layouts/sections/recursos/multimedia";
 import RecursCentre from "./layouts/sections/recursos/centre";
+import Denuncia from "./layouts/sections/denuncia";
 
 const routes = [
   {
@@ -38,6 +39,8 @@ const routes = [
   },
   {
     name: "Denuncia",
+    route: "/sections/denuncia",
+    component: <Denuncia />,
   },
   {
     name: "Mi cuenta",
