@@ -49,7 +49,7 @@ export default function CreateNoticiaForm({ onCreated }) {
     const file = e.target.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      setImgError("La imagen supera 5 MB ✖");
+      setImgError("La imagen supera 5 MB ✖");
       setImgFile(null);
     } else {
       setImgError(null);
@@ -68,16 +68,11 @@ export default function CreateNoticiaForm({ onCreated }) {
     if (imgError) return;
 
     try {
-      let imgBase64 = null;
-      if (imgFile) {
-        imgBase64 = await fileToBase64(imgFile);
-      }
-
       const respuesta = await createNoticia({
         titulo,
         contenido,
         url,
-        img: imgBase64, // puede ser null
+        img: imgFile,
         destacada: destacada ? 1 : 0,
       });
 
@@ -89,7 +84,7 @@ export default function CreateNoticiaForm({ onCreated }) {
       setDestacada(false);
       setImgFile(null);
     } catch (_) {
-      /* El error ya viene del hook → apiError */
+      /* el hook ya maneja el error en apiError */
     }
   };
 
@@ -170,7 +165,7 @@ export default function CreateNoticiaForm({ onCreated }) {
                       }}
                     >
                       <Typography component="span" variant="body2" sx={{ color: "inherit" }}>
-                        {imgFile ? "Imagen seleccionada ✔" : "Subir imagen (≤5 MB)"}
+                        {imgFile ? "Imagen seleccionada ✔" : "Subir imagen (≤5 MB)"}
                       </Typography>
                     </Button>
                   </label>
@@ -224,6 +219,5 @@ export default function CreateNoticiaForm({ onCreated }) {
 }
 
 CreateNoticiaForm.propTypes = {
-  /** Callback con la respuesta del backend */
   onCreated: PropTypes.func,
 };
