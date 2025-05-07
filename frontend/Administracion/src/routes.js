@@ -28,6 +28,7 @@ import Profile from "layouts/profile";
 import DenunciaPage from "./layouts/denuncias/denunciasPage.js";
 // @mui icons
 import Icon from "@mui/material/Icon";
+import CreateNoticiaForm from "./components/MDNoticias/crearNoticiasPage";
 
 const routes = [
   {
@@ -63,12 +64,20 @@ const routes = [
     component: <Profile />,
   },
   {
-    type: "collapse",
-    name: "Detalle Denuncia",
-    key: "denuncia-detail",
-    icon: <Icon fontSize="small">info</Icon>,
+    // type: "collapse",
+    // name: "Detalle Denuncia",
+    // key: "denuncia-detail",
+    // icon: <Icon fontSize="small">info</Icon>,
     route: "/denuncias/:id_denuncia",
     component: <DenunciaPage />,
+  },
+  {
+    type: "collapse",
+    name: "Crear Noticia",
+    key: "noticias",
+    icon: <Icon fontSize="small">dataset</Icon>,
+    route: "/noticias",
+    component: <CreateNoticiaForm />,
   },
 ];
 

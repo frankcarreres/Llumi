@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { syncNoticias, getMultimedia, getNoticias, syncMultimedia, syncPodcasts, getPodcasts} = require('../controllers/recursController');
-const {get} = require("axios");
+const { syncNoticias, getMultimedia, getNoticias, syncMultimedia, syncPodcasts, getPodcasts, postNoticias } = require('../controllers/recursController');
+const verifyToken = require('../middlewares/verificarToken');
+const multer = require("multer");
+const upload = multer({ limits: { fileSize: 5 * 1024 * 1024 } });
 
 // Ruta para sincronizar noticias
 router.get('/syncNoticias', syncNoticias);
@@ -20,6 +22,6 @@ router.get('/syncPodcasts', syncPodcasts);
 
 router.get('/podcast', getPodcasts);
 
-
+router.post('/addNoticia', upload.single("img"), verifyToken ,postNoticias);
 
 module.exports = router;
