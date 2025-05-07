@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const InputAnimado = ({ placeholder = "Username", type = "text" }) => {
-  const [value, setValue] = useState("");
+const InputAnimado = ({ placeholder = "Username", type = "text", value, onChange }) => {
   const [focused, setFocused] = useState(false);
 
   return (
@@ -13,7 +12,7 @@ const InputAnimado = ({ placeholder = "Username", type = "text" }) => {
           type={type}
           required
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
@@ -34,6 +33,8 @@ const InputAnimado = ({ placeholder = "Username", type = "text" }) => {
 InputAnimado.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 const StyledWrapper = styled.div`

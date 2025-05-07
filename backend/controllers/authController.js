@@ -81,7 +81,6 @@ exports.verificarEmail = async (req, res) => {
   }
 };
 
-
 exports.loginCentro = async (req, res) => {
   const { id_centro, contrasena } = req.body;
 
