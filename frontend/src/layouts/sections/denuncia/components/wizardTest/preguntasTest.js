@@ -14,7 +14,7 @@ export const Pregunta1 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Cómo empezó la situación?
+        Com va començar la situació?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -29,11 +29,11 @@ export const Pregunta1 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p1s1", label: "No lo sé / No lo recuerdo" },
-            { value: "p1s2", label: "De repente" },
-            { value: "p1s3", label: "Al principio fue leve, pero ha ido a más" },
-            { value: "p1s4", label: "Hice algo y se enfadaron conmigo" },
-            { value: "p1s5", label: "Desde siempre" },
+            { value: "p1s1", label: "No ho sé / No ho recorde" },
+            { value: "p1s2", label: "De sobte" },
+            { value: "p1s3", label: "Al principi va ser lleu, però ha anat a més" },
+            { value: "p1s4", label: "Vaig fer alguna cosa i es van enfadar amb mi" },
+            { value: "p1s5", label: "Des de sempre" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -86,7 +86,7 @@ export const Pregunta2 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿En qué situaciones ocurre?
+        En quines situacions ocorre?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -99,11 +99,11 @@ export const Pregunta2 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p2s1", label: "En clase" },
-            { value: "p2s2", label: "En el patio o pasillo" },
-            { value: "p2s3", label: "En redes sociales" },
-            { value: "p2s4", label: "Fuera del colegio" },
-            { value: "p2s5", label: "Con personas que no son de mi clase" },
+            { value: "p2s1", label: "En classe" },
+            { value: "p2s2", label: "Al pati o passadís" },
+            { value: "p2s3", label: "En xarxes socials" },
+            { value: "p2s4", label: "Fora del col·legi" },
+            { value: "p2s5", label: "Amb persones que no són de la meua classe" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -153,7 +153,7 @@ export const Pregunta3 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Que tipo de cosas hacen?
+        Que tipus de coses fan?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -166,11 +166,11 @@ export const Pregunta3 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p3s1", label: "Me insultan o se burlan de mi" },
-            { value: "p3s2", label: "Me ignoran o aíslan" },
-            { value: "p3s3", label: "Me golpean o empujan" },
-            { value: "p3s4", label: "Me amenazan" },
-            { value: "p3s5", label: "Me obligan a hacer cosas que no quiero" },
+            { value: "p3s1", label: "M'insulten o es burlen del mi" },
+            { value: "p3s2", label: "M'ignoren o aïllen" },
+            { value: "p3s3", label: "Em peguen o espenten" },
+            { value: "p3s4", label: "M'amenacen" },
+            { value: "p3s5", label: "M'obliguen a fer coses que no vull" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -213,7 +213,7 @@ export const Pregunta4 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Con que frecuencia?
+        Amb quina freqüència?{" "}
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -228,11 +228,11 @@ export const Pregunta4 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p4s1", label: "Todos los días" },
-            { value: "p4s2", label: "Casi todos los días" },
-            { value: "p4s3", label: "Cada semana" },
-            { value: "p4s4", label: "Pocas veces" },
-            { value: "p4s5", label: "Solo pasó una vez" },
+            { value: "p4s1", label: "Tots els dies" },
+            { value: "p4s2", label: "Quasi tots els dies" },
+            { value: "p4s3", label: "Cada setmana" },
+            { value: "p4s4", label: "Poques vegades" },
+            { value: "p4s5", label: "Només va passar una vegada" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -278,7 +278,7 @@ export const Pregunta5 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Como reaccionan otros compañeros?
+        Com reaccionen altres companys?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -291,11 +291,11 @@ export const Pregunta5 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p5s1", label: "Se ríen o apoyan" },
-            { value: "p5s2", label: "Se ríen, pero no participan" },
-            { value: "p5s3", label: "No hacen nada" },
-            { value: "p5s4", label: "Intentan ayudarme" },
-            { value: "p5s5", label: "No hay nadie más cuando pasa" },
+            { value: "p5s1", label: "Es riuen o secunden" },
+            { value: "p5s2", label: "Es riuen, però no participen" },
+            { value: "p5s3", label: "No fan res" },
+            { value: "p5s4", label: "Intenten ajudar-me" },
+            { value: "p5s5", label: "No hi ha ningú més quan passa" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -338,7 +338,7 @@ export const Pregunta6 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Has intentado pedir que paren?
+        Has intentat demanar que paren?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -353,11 +353,11 @@ export const Pregunta6 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p6s1", label: "Sí, pero no han parado" },
-            { value: "p6s2", label: "No lo he dicho porque tengo miedo" },
-            { value: "p6s3", label: "No se lo he dicho a un adulto, pero a un amigo si" },
-            { value: "p6s4", label: "No lo he dicho, pero creo que lo harían igual" },
-            { value: "p6s5", label: "No, dejaron de hacerlo" },
+            { value: "p6s1", label: "Sí, però no han parat" },
+            { value: "p6s2", label: "No ho he dit perquè tinc por" },
+            { value: "p6s3", label: "No li ho he dit a un adult, però a un amic si" },
+            { value: "p6s4", label: "No ho he dit, però crec que ho farien igual" },
+            { value: "p6s5", label: "No, van deixar de fer-ho" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}
@@ -403,7 +403,7 @@ export const Pregunta7 = ({ selected, setSelected }) => {
   return (
     <Box>
       <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-        ¿Como te sientes por esta situación?
+        Com et sents per esta situació?
       </Typography>
 
       <FormControl component="fieldset" fullWidth>
@@ -416,12 +416,12 @@ export const Pregunta7 = ({ selected, setSelected }) => {
           }}
         >
           {[
-            { value: "p7s1", label: "Triste o con ganas de llorar" },
-            { value: "p7s2", label: "Con miedo de ir a clase" },
-            { value: "p7s3", label: "Ansioso o nervioso constantemente" },
-            { value: "p7s4", label: "Sin confianza en mí mismo" },
-            { value: "p7s5", label: "He tenido pensamientos negativos sobre mí mismo" },
-            { value: "p7s6", label: "No me afecta mucho" },
+            { value: "p7s1", label: "Trist o amb ganes de plorar" },
+            { value: "p7s2", label: "Amb por d'anar a classe" },
+            { value: "p7s3", label: "Ansiós o nerviós constantment" },
+            { value: "p7s4", label: "Sense confiança en mi mateix" },
+            { value: "p7s5", label: "He tingut pensaments negatius sobre mi mateix" },
+            { value: "p7s6", label: "No m'afecta molt" },
           ].map((item) => (
             <FormControlLabel
               key={item.value}

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -17,10 +19,15 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/inici2.jpg";
+
+// Wizards y botón
 import WizardTest from "./components/wizardTest/wizardTest";
+import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/botoDenuncia";
 
 function AboutUs() {
+  const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+
   return (
     <>
       <DefaultNavbar
@@ -70,7 +77,7 @@ function AboutUs() {
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
               Si estes patint assetjament o saps d&apos;algun cas no dubtes
             </MKTypography>
-            <BotoDenuncia onClick={() => alert("denuncia")}>DENÚNCIA</BotoDenuncia>
+            <BotoDenuncia onClick={() => setMostrarDenuncia(true)}>DENÚNCIA</BotoDenuncia>
           </Grid>
         </Container>
       </MKBox>
@@ -87,7 +94,7 @@ function AboutUs() {
           justifyContent: "center",
         }}
       >
-        <WizardTest />
+        {mostrarDenuncia ? <WizardDenuncia /> : <WizardTest />}
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
