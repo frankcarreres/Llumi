@@ -17,8 +17,8 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/inici2.jpg";
-import WizardDenuncia from "./components/wizardDenuncia";
-import BotoDenuncia from "./components/botoDenuncia";
+import WizardTest from "./components/wizardTest/wizardTest";
+import BotoDenuncia from "./components/wizardTest/botoDenuncia";
 
 function AboutUs() {
   return (
@@ -87,7 +87,7 @@ function AboutUs() {
           justifyContent: "center",
         }}
       >
-        <WizardDenuncia />
+        <WizardTest />
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />

@@ -14,7 +14,7 @@ import {
 } from "./preguntasTest";
 import { Inicio, Total } from "./componentsTest";
 
-const WizardDenuncia = () => {
+const WizardTest = () => {
   const [step, setStep] = useState(1);
   const [started, setStarted] = useState(false);
   const [selectedPregunta1, setSelectedPregunta1] = useState("");
@@ -306,4 +306,4 @@ const WizardDenuncia = () => {
   );
 };
 
-export default WizardDenuncia;
+export default WizardTest;
