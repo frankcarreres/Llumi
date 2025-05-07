@@ -6,7 +6,6 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import MKButton from "components/MKButton";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -17,8 +16,9 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/bg-about-us.jpg";
+import bgImage from "assets/images/inici2.jpg";
 import WizardDenuncia from "./components/wizardDenuncia";
+import BotoDenuncia from "./components/botoDenuncia";
 
 function AboutUs() {
   return (
@@ -38,13 +38,9 @@ function AboutUs() {
         minHeight="75vh"
         width="100%"
         sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
-            `${linearGradient(
-              rgba(gradients.dark.main, 0.6),
-              rgba(gradients.dark.state, 0.6)
-            )}, url(${bgImage})`,
+          backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top",
           display: "grid",
           placeItems: "center",
         }}
@@ -74,7 +70,7 @@ function AboutUs() {
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
               Si estes patint assetjament o saps d&apos;algun cas no dubtes
             </MKTypography>
-            <MKButton color="error">DENÚNCIA</MKButton>
+            <BotoDenuncia onClick={() => alert("denuncia")}>DENÚNCIA</BotoDenuncia>
           </Grid>
         </Container>
       </MKBox>
