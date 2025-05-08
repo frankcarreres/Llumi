@@ -7,6 +7,7 @@ import {
 } from "../services/api";
 import { calcularNivelRiesgo } from "../utils/calculoRiesgo";
 import { sendMessageToBot } from "../services/typebotAPI";
+import Cookies from "js-cookie";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -97,6 +98,15 @@ export async function enviarMensaje({
 
     try {
       const data = await login(email, texto);
+      Cookies.set("token", data.token, { sameSite: "strict" });
+      sessionStorage.setItem(
+        "sesion",
+        JSON.stringify({
+          tipo: "usuario",
+          nombre: data.usuario.nombre,
+        })
+      );
+      window.dispatchEvent(new Event("sesionIniciada"));
       setToken(data.token);
       setUsuario(data.usuario);
       setFaseLogin("hecho");

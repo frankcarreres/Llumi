@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 // prop-types is a library for typechecking of props.
@@ -50,7 +35,7 @@ function Header({ children }) {
         : setTabsOrientation("horizontal");
     }
 
-    /** 
+    /**
      The event listener that's calling the handleTabsOrientation function when resizing the window.
     */
     window.addEventListener("resize", handleTabsOrientation);
@@ -98,43 +83,9 @@ function Header({ children }) {
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
-              <MDTypography variant="h5" fontWeight="medium">
-                Richard Davis
-              </MDTypography>
-              <MDTypography variant="button" color="text" fontWeight="regular">
-                CEO / Co-Founder
-              </MDTypography>
+              <MDTypography variant="h5" fontWeight="medium"></MDTypography>
+              <MDTypography variant="button" color="text" fontWeight="regular"></MDTypography>
             </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}>
-            <AppBar position="static">
-              <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
-                <Tab
-                  label="App"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      home
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Message"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      email
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Settings"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      settings
-                    </Icon>
-                  }
-                />
-              </Tabs>
-            </AppBar>
           </Grid>
         </Grid>
         {children}

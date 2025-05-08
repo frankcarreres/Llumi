@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import DenunciaDetail from "components/MDDenuncia/DenunciaDetail";
-import denunciasPeticiones from "../../hook/denunciasPeticiones";
+import denunciasPeticiones from "../../hooks/denunciasPeticiones";
 import MDBox from "components/MDBox";
 import CircularProgress from "@mui/material/CircularProgress";
 import MDTypography from "components/MDTypography";

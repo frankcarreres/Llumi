@@ -56,14 +56,6 @@ const routes = [
     component: <Notifications />,
   },
   {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-  },
-  {
     // type: "collapse",
     // name: "Detalle Denuncia",
     // key: "denuncia-detail",
@@ -78,6 +70,14 @@ const routes = [
     icon: <Icon fontSize="small">dataset</Icon>,
     route: "/noticias",
     component: <CreateNoticiaForm />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <Profile />,
   },
 ];
 
