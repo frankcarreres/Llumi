@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
-const BotonLuminoso = () => {
+const BotonLuminoso = ({ onClick }) => {
   return (
     <StyledWrapper>
-      <button id="botonInicio">
+      <button id="botonInicio" onClick={onClick}>
         <strong>ACCEDIR</strong>
       </button>
     </StyledWrapper>
   );
+};
+
+BotonLuminoso.propTypes = {
+  onClick: PropTypes.func,
 };
 
 const StyledWrapper = styled.div`

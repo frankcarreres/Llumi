@@ -26,15 +26,18 @@ exports.login = async (req, res) => {
     }
 
     const usuario = usuarios[0];
-    const match = await bcrypt.compare(contrasena, usuario.contrasena);
+    let match = false;
 
-    if (!match) {
-      return res.status(401).json({ error: "Email o contraseña incorrectos." });
+    if (usuario.contrasena.startsWith("$2")) {
+      match = await bcrypt.compare(contrasena, usuario.contrasena);
+    } else {
+      if (md5(contrasena) === usuario.contrasena) {
+        match = true;
+      }
     }
-
-    // if (md5(contrasena) !== usuario.contrasena) {
-    //   return res.status(401).json({ error: "Email o contraseña incorrectos." });
-    // }
+    if (!match) {
+      return res.status(401).json({ error: "ID de usuario o contraseña incorrectos." });
+    }
 
     const token = jwt.sign(
       {
@@ -80,7 +83,6 @@ exports.verificarEmail = async (req, res) => {
     res.status(500).json({ error: "Error en el servidor" });
   }
 };
-
 
 exports.loginCentro = async (req, res) => {
   const { id_centro, contrasena } = req.body;

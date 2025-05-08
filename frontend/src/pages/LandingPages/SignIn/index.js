@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { login, loginCentro } from "../../Presentation/components/chat/services/api";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -15,18 +16,57 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Layout routes
 import routes from "routes";
+import { useNavigate } from "react-router-dom";
 
 // Imagenes
 import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
+import Cookies from "js-cookie";
 
 // Importación del componente InputAnimado
 
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const navigate = useNavigate();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    try {
+      let data;
+
+      if (esEmail) {
+        // Login como usuario normal
+        data = await login(email, contrasena);
+      } else {
+        // Login como centro
+        data = await loginCentro(email, contrasena);
+      }
+
+      console.log("Login exitoso:", data);
+
+      // Guardar el token y posiblemente el tipo de sesión
+      Cookies.set("token", data.token);
+      sessionStorage.setItem(
+        "sesion",
+        JSON.stringify({
+          tipo: esEmail ? "usuario" : "centro",
+          nombre: data.usuario.nombre,
+        })
+      );
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Login visual fallido:", error);
+      alert(error.message || "Error de connexió");
+    }
+  };
 
   return (
     <>
@@ -67,10 +107,20 @@ function SignInBasic() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <InputAnimado type="text" placeholder="Usuari" />
+                    <InputAnimado
+                      type="text"
+                      placeholder="Usuari"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <InputAnimado type="password" placeholder="Contrasenya" />
+                    <InputAnimado
+                      type="password"
+                      placeholder="Contrasenya"
+                      value={contrasena}
+                      onChange={(e) => setContrasena(e.target.value)}
+                    />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch
@@ -89,7 +139,7 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <BotonLuminoso />
+                    <BotonLuminoso onClick={handleLogin} />
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
