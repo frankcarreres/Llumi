@@ -39,9 +39,22 @@ const routes = [
   },
   {
     name: "Denuncia",
-    route: "/sections/denuncia",
+    route: "/sections/denuncia/wizardTest",
     component: <Denuncia />,
+    collapse: [
+      {
+        name: "Test de autoavaluació",
+        route: "/sections/denuncia/wizardTest",
+        component: <Denuncia />,
+      },
+      {
+        name: "Denúncia",
+        route: "/sections/denuncia/wizardDenuncia",
+        component: <Denuncia />,
+      },
+    ],
   },
+
   {
     name: "Mi cuenta",
     icon: <Icon>person</Icon>,

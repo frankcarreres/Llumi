@@ -13,7 +13,7 @@ import {
 export const Pregunta1 = ({ selected, setSelected }) => {
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Com va començar la situació?
       </Typography>
 
@@ -48,7 +48,7 @@ export const Pregunta1 = ({ selected, setSelected }) => {
               }
               label={item.label}
               sx={{
-                width: "350px",
+                width: "450px",
                 alignItems: "center",
                 justifyContent: "flex-start",
                 margin: 0,
@@ -85,7 +85,7 @@ export const Pregunta2 = ({ selected, setSelected }) => {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         En quines situacions ocorre?
       </Typography>
 
@@ -118,7 +118,7 @@ export const Pregunta2 = ({ selected, setSelected }) => {
               }
               label={item.label}
               sx={{
-                width: "350px",
+                width: "430px",
                 alignItems: "center",
                 justifyContent: "flex-start",
                 margin: 0,
@@ -152,7 +152,7 @@ export const Pregunta3 = ({ selected, setSelected }) => {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Que tipus de coses fan?
       </Typography>
 
@@ -212,7 +212,7 @@ Pregunta3.propTypes = {
 export const Pregunta4 = ({ selected, setSelected }) => {
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Amb quina freqüència?{" "}
       </Typography>
 
@@ -277,7 +277,7 @@ export const Pregunta5 = ({ selected, setSelected }) => {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Com reaccionen altres companys?
       </Typography>
 
@@ -310,7 +310,7 @@ export const Pregunta5 = ({ selected, setSelected }) => {
               }
               label={item.label}
               sx={{
-                width: "450px",
+                width: "510px",
                 alignItems: "center",
                 justifyContent: "flex-start",
                 margin: 0,
@@ -337,7 +337,7 @@ Pregunta5.propTypes = {
 export const Pregunta6 = ({ selected, setSelected }) => {
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Has intentat demanar que paren?
       </Typography>
 
@@ -365,7 +365,7 @@ export const Pregunta6 = ({ selected, setSelected }) => {
               control={<Radio sx={{ transform: "scale(0.8)" }} />}
               label={item.label}
               sx={{
-                width: "400px",
+                width: "500px",
                 alignItems: "center",
                 justifyContent: "flex-start",
                 margin: 0,
@@ -402,7 +402,7 @@ export const Pregunta7 = ({ selected, setSelected }) => {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
+      <Typography variant="h3" fontWeight="bold" textAlign="center" mb={4}>
         Com et sents per esta situació?
       </Typography>
 
