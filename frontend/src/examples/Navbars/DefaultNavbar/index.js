@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -36,8 +37,52 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   const [arrowRef, setArrowRef] = useState(null);
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
-
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
+  const [tieneToken, setTieneToken] = useState(!!Cookies.get("token"));
+
+  const rutasConEstadoSesion = routes.map((ruta) => {
+    if (ruta.name === "Mi cuenta") {
+      return {
+        ...ruta,
+        collapse: tieneToken
+          ? [
+              {
+                name: "Cerrar sesión",
+                route: "#",
+                onClick: () => {
+                  Cookies.remove("token");
+                  sessionStorage.clear();
+                  window.dispatchEvent(new Event("tokenActualizado"));
+                  window.location.href = "/";
+                },
+              },
+            ]
+          : [
+              {
+                name: "Iniciar sessió",
+                route: "/pages/authentication/sign-in",
+              },
+            ],
+      };
+    }
+    return ruta;
+  });
+
+  useEffect(() => {
+    const actualizarEstadoSesion = () => {
+      setTieneToken(!!Cookies.get("token"));
+    };
+
+    // Inicialmente y cuando se lanza el evento personalizado
+    actualizarEstadoSesion();
+    window.addEventListener("sesionIniciada", actualizarEstadoSesion);
+    window.addEventListener("logout", actualizarEstadoSesion);
+
+    return () => {
+      window.removeEventListener("sesionIniciada", actualizarEstadoSesion);
+      window.removeEventListener("logout", actualizarEstadoSesion);
+    };
+  }, []);
 
   useEffect(() => {
     // A function that sets the display state for the DefaultNavbarMobile.
@@ -64,7 +109,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     return () => window.removeEventListener("resize", displayMobileNavbar);
   }, []);
 
-  const renderNavbarItems = routes.map(({ name, icon, href, route, collapse }) => (
+  const renderNavbarItems = rutasConEstadoSesion.map(({ name, icon, href, route, collapse }) => (
     <DefaultNavbarDropdown
       key={name}
       name={name}
@@ -85,7 +130,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   ));
 
   // Render the routes on the dropdown menu
-  const renderRoutes = routes.map(({ name, collapse, columns, rowsPerColumn }) => {
+  const renderRoutes = rutasConEstadoSesion.map(({ name, collapse, columns, rowsPerColumn }) => {
     let template;
 
     // Render the dropdown menu that should be display as columns
@@ -489,7 +534,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
           borderRadius="xl"
           px={transparent ? 2 : 0}
         >
-          {mobileView && <DefaultNavbarMobile routes={routes} open={mobileNavbar} />}
+          {mobileView && <DefaultNavbarMobile routes={rutasConEstadoSesion} open={mobileNavbar} />}
         </MKBox>
       </MKBox>
       {dropdownMenu}
