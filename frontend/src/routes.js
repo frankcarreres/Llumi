@@ -48,6 +48,10 @@ const routes = [
         route: "/pages/authentication/sign-in",
         component: <SignIn />,
       },
+      {
+        name: "Cerrar sesión",
+        route: "/logout",
+      },
     ],
   },
 ];

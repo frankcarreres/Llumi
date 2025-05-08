@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
+import Cookies from "js-cookie";
 
 // Importación del componente InputAnimado
 
@@ -51,8 +52,14 @@ function SignInBasic() {
       console.log("Login exitoso:", data);
 
       // Guardar el token y posiblemente el tipo de sesión
-      document.cookie = `token=${data.token}; path=/`;
-      sessionStorage.setItem("tipoLogin", esEmail ? "usuario" : "centro");
+      Cookies.set("token", data.token);
+      sessionStorage.setItem(
+        "sesion",
+        JSON.stringify({
+          tipo: esEmail ? "usuario" : "centro",
+          nombre: data.usuario.nombre,
+        })
+      );
 
       navigate("/home");
     } catch (error) {
