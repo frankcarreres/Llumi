@@ -13,7 +13,7 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 
 // Dashboard components
 import Casos from "layouts/dashboard/components/Casos";
-import denunciasPeticiones from "../../hook/denunciasPeticiones";
+import denunciasPeticiones from "../../hooks/denunciasPeticiones";
 import { useMemo } from "react";
 //data
 import casosResueltos from "./data/casoResueltos";

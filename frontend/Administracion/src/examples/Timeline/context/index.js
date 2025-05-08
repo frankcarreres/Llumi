@@ -28,7 +28,7 @@ function TimelineProvider({ children, value }) {
   return <Timeline.Provider value={value}>{children}</Timeline.Provider>;
 }
 
-// Timeline custom hook for using context
+// Timeline custom hooks for using context
 function useTimeline() {
   return useContext(Timeline);
 }

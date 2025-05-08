@@ -2,7 +2,7 @@ import DenunciaCell from "../../../../../components/MDDenuncia/DenunciaCell";
 import TipoCell from "../../../../../components/MDDenuncia/TipoCell";
 import EstadoCell from "../../../../../components/MDDenuncia/EstadoCell";
 import EditDropdown from "../../../../../components/MDDenuncia/EditDropdown";
-import denunciasPeticiones from "../../../../../hook/denunciasPeticiones";
+import denunciasPeticiones from "../../../../../hooks/denunciasPeticiones";
 
 export default function Data({ filters = { tipo: "", estado: "", fecha: "" } }) {
   const { rowsData, setRowsData, updateData, loading } = denunciasPeticiones({

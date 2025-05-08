@@ -1,4 +1,4 @@
-import denunciasPeticiones from "../../../hook/denunciasPeticiones";
+import denunciasPeticiones from "../../../hooks/denunciasPeticiones";
 import DenunciaCell from "../../../components/MDDenuncia/DenunciaCell";
 import TipoCell from "../../../components/MDDenuncia/TipoCell";
 import EstadoCell from "../../../components/MDDenuncia/EstadoCell";
