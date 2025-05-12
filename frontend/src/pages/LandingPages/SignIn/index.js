@@ -15,7 +15,6 @@ import MKTypography from "components/MKTypography";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Layout routes
-import routes from "routes";
 import { useNavigate } from "react-router-dom";
 
 // Imagenes
@@ -23,6 +22,8 @@ import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
 import Cookies from "js-cookie";
+import Icon from "@mui/material/Icon";
+import SignIn from "../../../pages/LandingPages/SignIn";
 
 // Importación del componente InputAnimado
 
@@ -31,7 +32,53 @@ function SignInBasic() {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const navigate = useNavigate();
+  const navbarRoutes = [
+    {
+      name: "Recursos",
+      key: "recursos",
 
+      route: "/sections/recursos/inici",
+      collapse: [
+        {
+          name: "Informatius",
+          key: "rec-info",
+
+          route: "/sections/recursos/info",
+        },
+        {
+          name: "Multimèdia",
+          key: "rec-multi",
+
+          route: "/sections/recursos/multimedia",
+        },
+        {
+          name: "Centre",
+          key: "rec-centre",
+
+          route: "/sections/recursos/centre",
+        },
+      ],
+    },
+    {
+      name: "Denúncia",
+      key: "denuncia",
+
+      route: "/sections/denuncia",
+    },
+    {
+      name: "Mi cuenta",
+      key: "cuenta",
+      icon: <Icon>person</Icon>,
+      collapse: [
+        {
+          name: "Iniciar sessió",
+          key: "login",
+          route: "/pages/authentication/sign-in",
+          component: <SignIn />,
+        },
+      ],
+    },
+  ];
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,15 +98,17 @@ function SignInBasic() {
 
       console.log("Login exitoso:", data);
 
-      // Guardar el token y posiblemente el tipo de sesión en Cookies
+      const tipo = esEmail ? "usuario" : "centro";
+      const nombre = data.usuario?.nombre || data.nombre || "Centro";
+
       Cookies.set("token", data.token);
 
       // Guardamos la información en sessionStorage
       sessionStorage.setItem(
         "sesion",
         JSON.stringify({
-          tipo: esEmail ? "usuario" : "centro",
-          nombre: data.usuario.nombre,
+          tipo,
+          nombre,
         })
       );
 
@@ -73,8 +122,11 @@ function SignInBasic() {
         })
       );
 
-      // Navegamos a la página principal
-      navigate("/home");
+      if (tipo === "centro") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login visual fallido:", error);
       alert(error.message || "Error de connexió");
@@ -84,15 +136,14 @@ function SignInBasic() {
   return (
     <>
       <DefaultNavbar
-        routes={routes}
+        routes={navbarRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",
           label: "free download",
           color: "info",
         }}
-        transparent
-        light
+        sticky
         brand="Llumí"
       />
       <MKBox

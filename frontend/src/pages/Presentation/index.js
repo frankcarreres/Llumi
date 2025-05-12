@@ -6,13 +6,13 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-
+import Icon from "@mui/material/Icon";
+import SignIn from "pages/LandingPages/SignIn";
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Routes
-import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
@@ -20,11 +20,58 @@ import bgImage from "assets/images/inici2.jpg";
 import Index from "./components/chat/SimuladorFlow";
 
 function Presentation() {
+  const navbarRoutes = [
+    {
+      name: "Recursos",
+      key: "recursos",
+
+      route: "/sections/recursos/inici",
+      collapse: [
+        {
+          name: "Informatius",
+          key: "rec-info",
+
+          route: "/sections/recursos/info",
+        },
+        {
+          name: "Multimèdia",
+          key: "rec-multi",
+
+          route: "/sections/recursos/multimedia",
+        },
+        {
+          name: "Centre",
+          key: "rec-centre",
+
+          route: "/sections/recursos/centre",
+        },
+      ],
+    },
+    {
+      name: "Denúncia",
+      key: "denuncia",
+
+      route: "/sections/denuncia",
+    },
+    {
+      name: "Mi cuenta",
+      key: "cuenta",
+      icon: <Icon>person</Icon>,
+      collapse: [
+        {
+          name: "Iniciar sessió",
+          key: "login",
+          route: "/pages/authentication/sign-in",
+          component: <SignIn />,
+        },
+      ],
+    },
+  ];
   return (
     <>
       <DefaultNavbar
         brand="Llumí"
-        routes={routes}
+        routes={navbarRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",
