@@ -2,7 +2,17 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "*": ["src/*"]
+      "@/*":          ["*"],
+      "admin/*":      ["admin/*"],
+      "assets/*":     ["assets/*"],
+      "components/*": ["components/*"],
+      "examples/*":   ["examples/*"],
+      "layouts/*":    ["layouts/*"],
+      "pages/*":      ["pages/*"],
+      "sections/*":   ["layouts/sections/*"],
+      "recursos/*":   ["layouts/sections/recursos/*"],
+      "shared/*":     ["shared/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

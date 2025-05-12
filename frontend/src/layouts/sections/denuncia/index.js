@@ -36,11 +36,6 @@ function DenunciaUsuari() {
     {
       name: "Recursos",
       key: "recursos",
-  const [resultadoTest, setResultadoTest] = useState(null);
-
-  useEffect(() => {
-    const token = Cookies.get("token"); // Corregido: get() en lugar de getKey()
-
       route: "/sections/recursos/inici",
       collapse: [
         {
@@ -79,7 +74,12 @@ function DenunciaUsuari() {
       ],
     },
   ];
-  // Determinar qué wizard mostrar
+  const [resultadoTest, setResultadoTest] = useState(null);
+
+  useEffect(() => {
+    const token = Cookies.get("token"); // Corregido: get() en lugar de getKey()
+
+    // Determinar qué wizard mostrar
     const fetchResultadoTest = async () => {
       try {
         const response = await fetch("http://localhost:3001/denuncias/resultadoTest", {

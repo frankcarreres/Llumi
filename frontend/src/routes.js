@@ -28,7 +28,6 @@ const routes = [
   {
     name: "Recursos",
     key: "recursos",
-    icon: <Icon>menu_book</Icon>,
     collapse: [
       {
         name: "Inici",
@@ -59,7 +58,6 @@ const routes = [
   {
     name: "Denúncia",
     key: "denuncia",
-    icon: <Icon>report</Icon>,
     route: "/sections/denuncia/",
     component: <Denuncia />,
   },
