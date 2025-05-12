@@ -15,7 +15,6 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Routes
-import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
@@ -25,11 +24,55 @@ import bgImage from "assets/images/inici2.jpg";
 import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
+import SignIn from "../../../pages/LandingPages/SignIn";
+import Icon from "@mui/material/Icon";
 
 function AboutUs() {
   const location = useLocation();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+  const navbarRoutes = [
+    {
+      name: "Recursos",
+      key: "recursos",
 
+      route: "/sections/recursos/inici",
+      collapse: [
+        {
+          name: "Informatius",
+          key: "rec-info",
+          route: "/sections/recursos/info",
+        },
+        {
+          name: "Multimèdia",
+          key: "rec-multi",
+          route: "/sections/recursos/multimedia",
+        },
+        {
+          name: "Centre",
+          key: "rec-centre",
+          route: "/sections/recursos/centre",
+        },
+      ],
+    },
+    {
+      name: "Denúncia",
+      key: "denuncia",
+      route: "/sections/denuncia",
+    },
+    {
+      name: "Mi cuenta",
+      key: "cuenta",
+      icon: <Icon>person</Icon>,
+      collapse: [
+        {
+          name: "Iniciar sessió",
+          key: "login",
+          route: "/pages/authentication/sign-in",
+          component: <SignIn />,
+        },
+      ],
+    },
+  ];
   // Determinar qué wizard mostrar
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
@@ -41,15 +84,14 @@ function AboutUs() {
   return (
     <>
       <DefaultNavbar
-        routes={routes}
+        routes={navbarRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",
           label: "free download",
           color: "default",
         }}
-        transparent
-        light
+        sticky
       />
       <MKBox
         minHeight="75vh"
