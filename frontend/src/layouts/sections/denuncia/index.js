@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -23,10 +24,19 @@ import bgImage from "assets/images/inici2.jpg";
 // Wizards y botón
 import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
-import BotoDenuncia from "./components/wizardTest/botoDenuncia";
+import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
 
 function AboutUs() {
+  const location = useLocation();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+
+  // Determinar qué wizard mostrar
+  const mostrar =
+    location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
+      <WizardDenuncia />
+    ) : (
+      <WizardTest />
+    );
 
   return (
     <>
@@ -87,14 +97,14 @@ function AboutUs() {
           mx: { xs: 2, lg: 3 },
           mt: -8,
           mb: 4,
-          minHeight: "80vh",
+          minHeight: "70vh",
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
         }}
       >
-        {mostrarDenuncia ? <WizardDenuncia /> : <WizardTest />}
+        {mostrar}
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />

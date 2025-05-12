@@ -11,8 +11,8 @@ import {
   Pregunta5,
   Pregunta6,
   Pregunta7,
-} from "./preguntasTest";
-import { Inicio, Total } from "./componentsTest";
+} from "./components/preguntasTest";
+import { Inicio, Total } from "./components/componentsTest";
 
 const WizardTest = () => {
   const [step, setStep] = useState(1);
@@ -208,7 +208,7 @@ const WizardTest = () => {
     <Box
       p={3}
       width={{ xs: "100%", sm: "80%", md: "60%", lg: "90%" }}
-      minHeight="60vh"
+      minHeight="70vh"
       mx="auto"
       position="relative"
       display="flex"
@@ -217,11 +217,21 @@ const WizardTest = () => {
       <Box display="flex" flex={1} alignItems="center" position="relative">
         {/* Botón Back: solo visible si no estás en paso 1 ni en paso final, y ya comenzó */}
         {step !== 1 && step !== totalSteps && started && (
-          <Box position="absolute" left={0}>
-            <IconButton onClick={back}>
-              <ArrowBackIcon sx={{ fontSize: 48 }} />
-            </IconButton>
-          </Box>
+          <IconButton
+            onClick={back}
+            sx={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              backgroundColor: "#eee",
+              "&:hover": {
+                backgroundColor: "#ddd",
+              },
+            }}
+          >
+            <ArrowBackIcon sx={{ fontSize: 48 }} />
+          </IconButton>
         )}
 
         <Box flex={1} px={5}>
@@ -269,16 +279,27 @@ const WizardTest = () => {
 
         {/* ✅ Botón Next: visible solo si no estás en paso final, y ya comenzó */}
         {step !== totalSteps && started && (
-          <Box position="absolute" right={0}>
-            <IconButton onClick={next} disabled={!isCurrentStepValid()}>
-              <ArrowForwardIcon
-                sx={{
-                  fontSize: 48,
-                  color: isCurrentStepValid() ? "#0d315a" : "#ccc",
-                }}
-              />
-            </IconButton>
-          </Box>
+          <IconButton
+            onClick={next}
+            disabled={!isCurrentStepValid()}
+            sx={{
+              position: "absolute",
+              right: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              backgroundColor: isCurrentStepValid() ? "#eee" : "#f5f5f5",
+              "&:hover": {
+                backgroundColor: isCurrentStepValid() ? "#ddd" : "#f5f5f5",
+              },
+            }}
+          >
+            <ArrowForwardIcon
+              sx={{
+                fontSize: 48,
+                color: isCurrentStepValid() ? "#0d315a" : "#ccc",
+              }}
+            />
+          </IconButton>
         )}
       </Box>
 

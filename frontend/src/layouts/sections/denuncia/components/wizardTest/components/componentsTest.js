@@ -77,7 +77,7 @@ Total.propTypes = {
 
 export const Inicio = ({ onComenzar }) => (
   <Box textAlign="center">
-    <Typography variant="h4" fontWeight={300} mb={4}>
+    <Typography variant="h4" fontWeight={300} mb={8}>
       Realitza el següent test per a ajudar-nos a conéixer el teu cas
     </Typography>
     <Box mt={4}>
