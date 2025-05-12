@@ -155,7 +155,7 @@ function DefaultNavbar({ transparent, light, action }) {
           <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
         </MDBox>
       </MDBox>
-      {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar} />}
+      {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar}  routes={}/>}
     </Container>
   );
 }

@@ -99,7 +99,7 @@ function SignInBasic() {
       console.log("Login exitoso:", data);
 
       const tipo = esEmail ? "usuario" : "centro";
-      const nombre = data.usuario?.nombre || data.nombre || "Centro";
+      const nombre = data.usuario.nombre || data.centro.nombre;
 
       Cookies.set("token", data.token);
 
@@ -109,16 +109,6 @@ function SignInBasic() {
         JSON.stringify({
           tipo,
           nombre,
-        })
-      );
-
-      // Guardamos la misma información en localStorage
-      localStorage.setItem(
-        "usuario",
-        JSON.stringify({
-          tipo: esEmail ? "usuario" : "centro",
-          nombre: data.usuario.nombre,
-          token: data.token,
         })
       );
 

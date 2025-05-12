@@ -8,19 +8,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
-
-// Material Dashboard 2 React example components
-
+import adminRoutes from "routes/adminRoutes";
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
 
-// Material Dashboard 2 React Dark Mode themes
-
-// Material Dashboard 2 React routes
-import routes from "routes";
-
-// Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./context";
 
 // Images
@@ -31,7 +22,7 @@ import Sidenav from "./examples/Sidenav";
 import MDBox from "./components/MDBox";
 import themeDark from "./assets/theme-dark";
 
-export default function AdminShell() {
+export default function AdminLayout() {
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -107,7 +98,7 @@ export default function AdminShell() {
           color={sidenavColor}
           brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
           brandName="Llumi Admin"
-          routes={routes}
+          routes={adminRoutes}
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
         />

@@ -1,13 +1,13 @@
 // hooks/useCrearNoticia.js
 import { useState } from "react";
+import { getSession } from "admin/utils/session";
 
 export default function useCrearNoticia() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jZW50cm8iOjEsIm5vbWJyZSI6IklFUyBHYWxpbGVvIiwiaWF0IjoxNzQ2NDMwMzg1LCJleHAiOjE3NDcwMzUxODV9.bgvxhCxNUSBAHjrDW42FKx9US-koIfVzlqO93CHmxOY";
 
+  const token = getSession();
   // ⚡ función que llama al endpoint
   const createNoticia = async ({ titulo, contenido, url, img, destacada = 0 }) => {
     setLoading(true);

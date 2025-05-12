@@ -19,7 +19,7 @@ import Featuring from "pages/LandingPages/AboutUs/sections/Featuring";
 import Newsletter from "pages/LandingPages/AboutUs/sections/Newsletter";
 
 // Routes
-import routes from "routes";
+import publicRoutes from "@/routes/publicRoutes";
 import footerRoutes from "footer.routes";
 
 // Images

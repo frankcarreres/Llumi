@@ -148,7 +148,7 @@ material-kit-2-react
     │   ├── pages
     │   │   ├── LandingPages
     │   │   └── Presentation
-    │   ├── AdminShell.js
+    │   ├── AdminLayout.js
     │   ├── index.js
     │   ├── footer.routes.js
     │   └── routes.js
