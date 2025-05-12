@@ -51,8 +51,10 @@ function SignInBasic() {
 
       console.log("Login exitoso:", data);
 
-      // Guardar el token y posiblemente el tipo de sesión
+      // Guardar el token y posiblemente el tipo de sesión en Cookies
       Cookies.set("token", data.token);
+
+      // Guardamos la información en sessionStorage
       sessionStorage.setItem(
         "sesion",
         JSON.stringify({
@@ -61,6 +63,17 @@ function SignInBasic() {
         })
       );
 
+      // Guardamos la misma información en localStorage
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify({
+          tipo: esEmail ? "usuario" : "centro",
+          nombre: data.usuario.nombre,
+          token: data.token,
+        })
+      );
+
+      // Navegamos a la página principal
       navigate("/home");
     } catch (error) {
       console.error("Login visual fallido:", error);
