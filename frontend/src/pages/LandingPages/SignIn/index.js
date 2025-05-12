@@ -15,7 +15,6 @@ import MKTypography from "components/MKTypography";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Layout routes
-import routes from "routes";
 import { useNavigate } from "react-router-dom";
 
 // Imagenes
@@ -23,6 +22,7 @@ import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
 import Cookies from "js-cookie";
+import { menuRoutes as routes } from "routes";
 
 // Importación del componente InputAnimado
 
@@ -51,17 +51,24 @@ function SignInBasic() {
 
       console.log("Login exitoso:", data);
 
-      // Guardar el token y posiblemente el tipo de sesión
+      const tipo = esEmail ? "usuario" : "centro";
+      const nombre = data.usuario?.nombre || data.nombre || "Centro";
+
       Cookies.set("token", data.token);
       sessionStorage.setItem(
         "sesion",
         JSON.stringify({
-          tipo: esEmail ? "usuario" : "centro",
-          nombre: data.usuario.nombre,
+          tipo,
+          nombre,
         })
       );
-
-      navigate("/home");
+      console.log(data);
+      console.log(tipo);
+      if (tipo === "centro") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login visual fallido:", error);
       alert(error.message || "Error de connexió");
