@@ -102,6 +102,8 @@ function SignInBasic() {
       const nombre = data.usuario?.nombre || data.nombre || "Centro";
 
       Cookies.set("token", data.token);
+
+      // Guardamos la información en sessionStorage
       sessionStorage.setItem(
         "sesion",
         JSON.stringify({
@@ -109,8 +111,17 @@ function SignInBasic() {
           nombre,
         })
       );
-      console.log(data);
-      console.log(tipo);
+
+      // Guardamos la misma información en localStorage
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify({
+          tipo: esEmail ? "usuario" : "centro",
+          nombre: data.usuario.nombre,
+          token: data.token,
+        })
+      );
+
       if (tipo === "centro") {
         navigate("/admin/dashboard");
       } else {

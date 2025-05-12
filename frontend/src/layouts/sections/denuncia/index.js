@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // @mui material components
@@ -26,15 +26,16 @@ import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
 import SignIn from "../../../pages/LandingPages/SignIn";
 import Icon from "@mui/material/Icon";
+import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
+import Cookies from "js-cookie";
 
-function AboutUs() {
+function DenunciaUsuari() {
   const location = useLocation();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
   const navbarRoutes = [
     {
       name: "Recursos",
       key: "recursos",
-
       route: "/sections/recursos/inici",
       collapse: [
         {
@@ -73,13 +74,54 @@ function AboutUs() {
       ],
     },
   ];
-  // Determinar qué wizard mostrar
+  const [resultadoTest, setResultadoTest] = useState(null);
+
+  useEffect(() => {
+    const token = Cookies.get("token"); // Corregido: get() en lugar de getKey()
+
+    // Determinar qué wizard mostrar
+    const fetchResultadoTest = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/denuncias/resultadoTest", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const result = await response.json();
+        console.log("Resultado del test de autoevaluación:", result);
+        setResultadoTest(result);
+      } catch (error) {
+        console.error("Error al obtener el resultado del test:", error);
+      }
+    };
+
+    if (token) {
+      fetchResultadoTest();
+    } else {
+      console.warn("No se encontró el token en las cookies");
+    }
+  }, []);
+
+  // Log del resultado cuando el estado cambia
+  useEffect(() => {
+    if (resultadoTest) {
+      console.log("Resultado del test guardado en el estado:", resultadoTest);
+    }
+  }, [resultadoTest]);
+
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
       <WizardDenuncia />
+    ) : resultadoTest && resultadoTest.resultado ? (
+      <WizardTestSol resultadoTest={resultadoTest.resultado} />
     ) : (
       <WizardTest />
     );
+
+  const mostrarBotonDenuncia = !location.pathname.includes("wizardDenuncia") && !mostrarDenuncia;
 
   return (
     <>
@@ -129,7 +171,9 @@ function AboutUs() {
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
               Si estes patint assetjament o saps d&apos;algun cas no dubtes
             </MKTypography>
-            <BotoDenuncia onClick={() => setMostrarDenuncia(true)}>DENÚNCIA</BotoDenuncia>
+            {mostrarBotonDenuncia && (
+              <BotoDenuncia onClick={() => setMostrarDenuncia(true)}>DENÚNCIA</BotoDenuncia>
+            )}
           </Grid>
         </Container>
       </MKBox>
@@ -155,4 +199,4 @@ function AboutUs() {
   );
 }
 
-export default AboutUs;
+export default DenunciaUsuari;

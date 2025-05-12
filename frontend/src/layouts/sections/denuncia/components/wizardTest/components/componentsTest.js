@@ -89,3 +89,22 @@ export const Inicio = ({ onComenzar }) => (
 Inicio.propTypes = {
   onComenzar: PropTypes.func.isRequired,
 };
+
+const TestSolucioInici = ({ onComenzar }) => {
+  return (
+    <Box textAlign="center">
+      <Typography variant="h4" fontWeight={300} mb={8}>
+        Ja has realitzat un test. Comprova els resultats...{" "}
+      </Typography>
+      <Box mt={4}>
+        <BotoTest onClick={onComenzar}>Veure resultats</BotoTest>
+      </Box>
+    </Box>
+  );
+};
+
+TestSolucioInici.propTypes = {
+  onComenzar: PropTypes.func.isRequired,
+};
+
+export default TestSolucioInici;
