@@ -60,20 +60,8 @@ const routes = [
     name: "Denúncia",
     key: "denuncia",
     icon: <Icon>report</Icon>,
-    route: "/sections/denuncia/wizardTest",
+    route: "/sections/denuncia/",
     component: <Denuncia />,
-    collapse: [
-      {
-        name: "Test de autoavaluació",
-        route: "/sections/denuncia/wizardTest",
-        component: <Denuncia />,
-      },
-      {
-        name: "Denúncia",
-        route: "/sections/denuncia/wizardDenuncia",
-        component: <Denuncia />,
-      },
-    ],
   },
 
   {
