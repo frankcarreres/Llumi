@@ -50,8 +50,19 @@ function Presentation() {
     {
       name: "Denúncia",
       key: "denuncia",
-
       route: "/sections/denuncia",
+      collapse: [
+        {
+          name: "Test autoevaluacio",
+          key: "test",
+          route: "/sections/denuncia",
+        },
+        {
+          name: "Denuncia",
+          key: "denuncia",
+          route: "/sections/denuncia/components/wizardDenuncia",
+        },
+      ],
     },
     {
       name: "Mi cuenta",
