@@ -6,7 +6,10 @@ import MDBox from "../MDBox";
 
 export default function DenunciaCell({ id_denuncia, descripcion }) {
   return (
-    <Link to={`/denuncias/${id_denuncia}`} style={{ textDecoration: "none", color: "inherit" }}>
+    <Link
+      to={`/admin/denuncias/${id_denuncia}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
       <MDBox display="flex" alignItems="center" lineHeight={1} sx={{ cursor: "pointer" }}>
         <MDBox>
           <MDTypography display="block" variant="button" fontWeight="medium">

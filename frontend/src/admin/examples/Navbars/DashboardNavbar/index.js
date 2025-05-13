@@ -15,7 +15,6 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "admin/components/MDBox";
-import MDInput from "admin/components/MDInput";
 // Material Dashboard 2 React example components
 import Breadcrumbs from "admin/examples/Breadcrumbs";
 import NotificationItem from "admin/examples/Items/NotificationItem";
@@ -113,9 +112,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <MDBox pr={1}>
-              <MDInput label="Search here" />
-            </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in/basic">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
