@@ -33,9 +33,6 @@ function Dashboard() {
     return casosActivosPorMes(rowsData);
   }, [rowsData, loading]);
 
-  console.log("Casos por cada año", casosPorTiempo);
-  console.log("Casos resueltos en este año ", cResueltos);
-  console.log("Casos activos en este año ", cActivos);
   return (
     <DashboardLayout>
       <DashboardNavbar />
