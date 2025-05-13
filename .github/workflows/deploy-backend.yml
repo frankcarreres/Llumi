@@ -1,9 +1,10 @@
+# .github/workflows/deploy-backend.yml
 name: Deploy Backend
 
 on:
   push:
     branches:
-      - uat          # o la rama que uses
+      - uat
     paths:
       - 'backend/**'
 
@@ -23,32 +24,36 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         ssh-keyscan -t rsa,ed25519,ecdsa ${{ secrets.BACKEND_EC2_HOST }} >> ~/.ssh/known_hosts
+
         cat << 'EOF' > ~/.ssh/id_rsa_back
-${{ secrets.BACKEND_EC2_SSH_KEY }}
-EOF
+        ${{ secrets.BACKEND_EC2_SSH_KEY }}
+        EOF
         chmod 600 ~/.ssh/id_rsa_back
 
-    - name: Sync backend code & env to EC2
+    - name: Sync backend to EC2
       run: |
         rsync -avz --delete \
-          --exclude 'node_modules' \
           backend/ ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }}:/home/${{ secrets.BACKEND_EC2_USER }}/Llumi/backend/
       env:
         RSYNC_RSH: "ssh -i ~/.ssh/id_rsa_back -o StrictHostKeyChecking=yes"
 
-    - name: Install deps & reload PM2
+    - name: Install & Restart with PM2
       run: |
         ssh -i ~/.ssh/id_rsa_back -o StrictHostKeyChecking=yes \
-          ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }} bash -lc "
+          ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }} bash << 'EOF'
+            set -e
             cd ~/Llumi/backend
 
-            # Instala o actualiza dependencias según package-lock.json
+            # Instala dependencias asegurándote del lockfile
             npm ci
 
-            # Carga el .env adecuado; si tu entorno es 'uat':
-            export NODE_ENV=uat
+            # Copia tu fichero de entorno uat a .env (ajusta nombre si usas otro)
             cp .env.uat .env
 
-            # Recarga o arranca con PM2 usando tu ecosystem.config.js
+            # Recarga la app con PM2 según tu config
             pm2 reload ecosystem.config.js --env uat
-          "
+
+            # Guarda el estado para que arranque al reiniciar
+            pm2 save
+            EOF
+
