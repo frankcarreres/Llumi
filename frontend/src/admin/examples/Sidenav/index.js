@@ -13,7 +13,7 @@ import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React example components
-import SidenavCollapse from "../../examples/Sidenav/SidenavCollapse";
+import SidenavCollapse from "admin/examples/Sidenav/SidenavCollapse";
 
 // Material Dashboard 2 React context
 import {
@@ -21,10 +21,10 @@ import {
   setMiniSidenav,
   setTransparentSidenav,
   setWhiteSidenav,
-} from "../../context";
-import MDButton from "../../components/MDButton";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
+} from "admin/context";
+import MDButton from "admin/components/MDButton";
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 import SidenavRoot from "./SidenavRoot";
 import sidenavLogoLabel from "./styles/sidenav";
 

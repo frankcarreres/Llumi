@@ -55,7 +55,7 @@ function DefaultNavbarDropdown({
           color="inherit"
           sx={{ alignSelf: "center", "& *": { verticalAlign: "middle" } }}
         >
-          {icon}
+          {icon && icon}{" "}
         </MKTypography>
         <MKTypography
           variant="button"
@@ -67,9 +67,9 @@ function DefaultNavbarDropdown({
           {name}
         </MKTypography>
         <MKTypography variant="body2" color={light ? "white" : "dark"} ml="auto">
-          <Icon sx={{ fontWeight: "normal", verticalAlign: "middle" }}>
-            {collapse && "keyboard_arrow_down"}
-          </Icon>
+          {collapse && (
+            <Icon sx={{ fontWeight: "normal", verticalAlign: "middle" }}>keyboard_arrow_down</Icon>
+          )}
         </MKTypography>
       </MKBox>
       {children && (
@@ -88,12 +88,13 @@ DefaultNavbarDropdown.defaultProps = {
   light: false,
   href: "",
   route: "",
+  icon: null,
 };
 
 // Typechecking props for the DefaultNavbarDropdown
 DefaultNavbarDropdown.propTypes = {
   name: PropTypes.string.isRequired,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.node,
   children: PropTypes.node,
   collapseStatus: PropTypes.bool,
   light: PropTypes.bool,

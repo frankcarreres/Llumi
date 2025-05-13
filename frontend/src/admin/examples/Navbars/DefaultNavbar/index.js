@@ -20,10 +20,10 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Material Dashboard 2 React context
-import { useMaterialUIController } from "../../../context";
-import MDBox from "../../../components/MDBox";
-import MDButton from "../../../components/MDButton";
-import MDTypography from "../../../components/MDTypography";
+import { useMaterialUIController } from "admin/context";
+import MDBox from "admin/components/MDBox";
+import MDButton from "admin/components/MDButton";
+import MDTypography from "admin/components/MDTypography";
 
 function DefaultNavbar({ transparent, light, action }) {
   const [controller] = useMaterialUIController();

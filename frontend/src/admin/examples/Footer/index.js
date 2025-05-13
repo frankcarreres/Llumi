@@ -8,8 +8,8 @@ import Link from "@mui/material/Link";
 
 // Material Dashboard 2 React base styles
 import typography from "assets/theme/base/typography";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 
 function Footer({ company, links }) {
   const { href, name } = company;

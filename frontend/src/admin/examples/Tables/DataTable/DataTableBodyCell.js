@@ -1,6 +1,6 @@
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
-import MDBox from "../../../components/MDBox";
+import MDBox from "admin/components/MDBox";
 
 // Material Dashboard 2 React components
 
