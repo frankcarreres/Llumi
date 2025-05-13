@@ -21,6 +21,7 @@ jobs:
 
       # 3. Instala dependencias y build
       - name: Install & Build
+        working-directory: frontend
         run: |
           npm ci
           npm run build
@@ -36,7 +37,7 @@ jobs:
       # 5. Copia los archivos al servidor EC2
       - name: Sync build to EC2
         run: |
-          rsync -avz --delete build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/
+          rsync -avz --delete frontend/build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/
         env:
           RSYNC_RSH: "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes"
 
