@@ -11,14 +11,13 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
 // Material Dashboard 2 React components
-
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 // Material Dashboard 2 React examples
+import DataTable from "admin/examples/Tables/DataTable";
 
 // Data
 import data from "./data/casosTable";
-import DataTable from "../../../../examples/Tables/DataTable";
-import MDBox from "../../../../components/MDBox";
-import MDTypography from "../../../../components/MDTypography";
 
 function Casos() {
   // Estado para valores en el menú (no aplicados aún)
@@ -62,10 +61,19 @@ function Casos() {
     <Menu
       id="filter-menu"
       anchorEl={menuAnchor}
-      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={Boolean(menuAnchor)}
       onClose={closeMenu}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      // 👉 Forzamos el Paper con fondo y sombra
+      PaperProps={{
+        sx: {
+          bgcolor: "background.paper", // blanco o el color que definas en el theme
+          boxShadow: 2, // sombra suave
+          borderRadius: 1, // bordes redondeados
+          mt: 1, // un pelín de separación
+        },
+      }}
     >
       <MenuItem dense>
         <FormControl fullWidth variant="outlined" size="small" margin="dense">

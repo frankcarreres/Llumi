@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import MDTypography from "admin/components/MDTypography";
 
 export default function EditDropdown({ row, setRowsData, updateData }) {
   const [value, setValue] = useState(row.estado);
@@ -26,11 +27,42 @@ export default function EditDropdown({ row, setRowsData, updateData }) {
 
   return (
     <FormControl variant="standard" sx={{ minWidth: 120 }}>
-      <Select value={value} onChange={handleChange} disableUnderline>
-        <MenuItem value="resuelta">Resuelta</MenuItem>
-        <MenuItem value="en_progreso">En progreso</MenuItem>
-        <MenuItem value="pendiente">Pendiente</MenuItem>
-        <MenuItem value="rechazada">Rechazada</MenuItem>
+      <Select
+        value={value}
+        onChange={handleChange}
+        disableUnderline
+        sx={{ "& .MuiSelect-select": { typography: "body2" } }}
+        MenuProps={{
+          // Asegura que el menu tenga su Paper con fondo y sombra
+          PaperProps: {
+            sx: {
+              bgcolor: "background.paper", // fondo blanco (o el theme que uses)
+              boxShadow: 1, // sombra suave
+              mt: 1, // un pequeño margin-top para separarlo
+            },
+          },
+          MenuListProps: {
+            sx: {
+              "& .MuiMenuItem-root": {
+                typography: "body2",
+                px: 3,
+              },
+            },
+          },
+        }}
+      >
+        <MenuItem value="resuelta">
+          <MDTypography variant="body2">Resuelta</MDTypography>
+        </MenuItem>
+        <MenuItem value="en_progreso">
+          <MDTypography variant="body2">En progreso</MDTypography>
+        </MenuItem>
+        <MenuItem value="pendiente">
+          <MDTypography variant="body2">Pendiente</MDTypography>
+        </MenuItem>
+        <MenuItem value="rechazada">
+          <MDTypography variant="body2">Rechazada</MDTypography>
+        </MenuItem>
       </Select>
     </FormControl>
   );

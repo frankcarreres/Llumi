@@ -2,25 +2,30 @@ import { useState, useEffect } from "react";
 
 // react-router components
 import { useLocation, Outlet } from "react-router-dom";
+import adminRoutes from "routes/adminRoutes";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 
-import adminRoutes from "routes/adminRoutes";
-// Material Dashboard 2 React themes
-import theme from "assets/theme";
+// Material Dashboard 2 components
+import MDBox from "admin/components/MDBox";
 
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./context";
+// Material Dashboard 2 examples
+import Configurator from "admin/examples/Configurator";
+import Sidenav from "admin/examples/Sidenav";
+
+// Material Dashboard 2 React themes
+import theme from "admin/assets/theme";
+// import theme from "assets/theme";
+import themeDark from "admin/assets/theme-dark";
+
+import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "admin/context";
 
 // Images
-import brandWhite from "./assets/images/logo-ct.png";
+import brandWhite from "admin/assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import Configurator from "./examples/Configurator";
-import Sidenav from "admin/examples/Sidenav";
-import MDBox from "./components/MDBox";
-import themeDark from "./assets/theme-dark";
 
 export default function AdminLayout() {
   const [controller, dispatch] = useMaterialUIController();

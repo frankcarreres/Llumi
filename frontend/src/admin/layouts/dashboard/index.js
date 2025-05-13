@@ -1,19 +1,19 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
 
-import denunciasPeticiones from "../../hooks/denunciasPeticiones";
+import denunciasPeticiones from "admin/hooks/denunciasPeticiones";
 import { useMemo } from "react";
 //data
 import casosResueltos from "./data/casoResueltos";
 import casosPorTiempo from "./data/casosPorTiempo";
 import casosActivosPorMes from "./data/casosActivoPorMes";
-import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
-import MDBox from "../../components/MDBox";
-import ReportsBarChart from "../../examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "../../examples/Charts/LineCharts/ReportsLineChart";
-import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
+import MDBox from "admin/components/MDBox";
+import ReportsBarChart from "admin/examples/Charts/BarCharts/ReportsBarChart";
+import ReportsLineChart from "admin/examples/Charts/LineCharts/ReportsLineChart";
+import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
 import Casos from "./components/Casos";
-import Footer from "../../examples/Footer";
+import Footer from "admin/examples/Footer";
 
 function Dashboard() {
   const { rowsData, loading } = denunciasPeticiones({ withEdit: false });
