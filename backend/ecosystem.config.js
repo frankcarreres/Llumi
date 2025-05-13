@@ -17,11 +17,6 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 3001
       },
-
-      // Logs (opcional)
-      error_file: "~/.pm2/logs/api-error.log",
-      out_file: "~/.pm2/logs/api-out.log",
-      log_date_format: "YYYY-MM-DD HH:mm:ss"
     }
   ]
 };
