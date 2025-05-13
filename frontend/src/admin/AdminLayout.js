@@ -18,7 +18,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./
 import brandWhite from "./assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import Configurator from "./examples/Configurator";
-import Sidenav from "./examples/Sidenav";
+import Sidenav from "admin/examples/Sidenav";
 import MDBox from "./components/MDBox";
 import themeDark from "./assets/theme-dark";
 
@@ -55,7 +55,6 @@ export default function AdminLayout() {
   // Toggle configurator
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  // Set the direction attribute to "ltr" en todo momento
   useEffect(() => {
     document.body.setAttribute("dir", "ltr");
   }, []);
