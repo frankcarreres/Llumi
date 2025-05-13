@@ -44,16 +44,12 @@ jobs:
             set -e
             cd ~/Llumi/backend
 
-            # Instala dependencias asegurándote del lockfile
+            # Instala dependencias según package-lock.json
             npm ci
 
-            # Copia tu fichero de entorno uat a .env (ajusta nombre si usas otro)
-            cp .env.uat .env
-
-            # Recarga la app con PM2 según tu config
+            # Recarga con PM2 usando la sección "uat" de tu ecosystem.config.js
             pm2 reload ecosystem.config.js --env uat
 
-            # Guarda el estado para que arranque al reiniciar
+            # Asegura que el estado quede guardado para reinicios
             pm2 save
             EOF
-
