@@ -31,25 +31,20 @@ jobs:
         chmod 600 ~/.ssh/id_rsa_back
 
     - name: Sync backend to EC2
+      env:
+        RSYNC_RSH: "ssh -i ~/.ssh/id_rsa_back -o StrictHostKeyChecking=yes"
       run: |
         rsync -avz --delete \
           backend/ ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }}:/home/${{ secrets.BACKEND_EC2_USER }}/Llumi/backend/
-      env:
-        RSYNC_RSH: "ssh -i ~/.ssh/id_rsa_back -o StrictHostKeyChecking=yes"
 
     - name: Install & Restart with PM2
       run: |
         ssh -i ~/.ssh/id_rsa_back -o StrictHostKeyChecking=yes \
-          ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }} bash << 'EOF'
-            set -e
-            cd ~/Llumi/backend
-
-            # Instala dependencias según package-lock.json
-            npm ci
-
-            # Recarga con PM2 usando la sección "uat" de tu ecosystem.config.js
-            pm2 reload ecosystem.config.js --env uat
-
-            # Asegura que el estado quede guardado para reinicios
-            pm2 save
-            EOF
+          ${{ secrets.BACKEND_EC2_USER }}@${{ secrets.BACKEND_EC2_HOST }} \
+          bash -lc " \
+            set -e && \
+            cd ~/Llumi/backend && \
+            npm install && \
+            pm2 reload ecosystem.config.js --env uat && \
+            pm2 save \
+          "
