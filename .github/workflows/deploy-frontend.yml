@@ -30,9 +30,12 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          # Captura dinámicamente las huellas ED25519, RSA y ECDSA
+          ssh-keyscan -t ed25519,rsa,ecdsa ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          # Añade tu clave privada para autenticación
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+
 
       # 5. Copia los archivos al servidor EC2
       - name: Sync build to EC2
