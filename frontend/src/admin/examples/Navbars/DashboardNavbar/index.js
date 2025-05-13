@@ -17,7 +17,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "admin/components/MDBox";
 import MDInput from "admin/components/MDInput";
 // Material Dashboard 2 React example components
-import Breadcrumbs from "examples/Breadcrumbs";
+import Breadcrumbs from "admin/examples/Breadcrumbs";
 import NotificationItem from "admin/examples/Items/NotificationItem";
 
 // Custom styles for DashboardNavbar
