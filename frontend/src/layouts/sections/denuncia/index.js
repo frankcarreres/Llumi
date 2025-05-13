@@ -91,7 +91,6 @@ function DenunciaUsuari() {
         });
 
         const result = await response.json();
-        console.log("Resultado del test de autoevaluación:", result);
         setResultadoTest(result);
       } catch (error) {
         console.error("Error al obtener el resultado del test:", error);
@@ -104,13 +103,6 @@ function DenunciaUsuari() {
       console.warn("No se encontró el token en las cookies");
     }
   }, []);
-
-  // Log del resultado cuando el estado cambia
-  useEffect(() => {
-    if (resultadoTest) {
-      console.log("Resultado del test guardado en el estado:", resultadoTest);
-    }
-  }, [resultadoTest]);
 
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (

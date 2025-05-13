@@ -6,8 +6,6 @@ import BotoDenuncia from "./components/botoDenuncia";
 import TestSolucioInici from "./components/componentsTest";
 
 export const WizardTestSol = ({ resultadoTest }) => {
-  console.log("resultadoTest:", resultadoTest); // Aquí
-
   const [paso, setPaso] = useState(1);
   const navigate = useNavigate();
 
