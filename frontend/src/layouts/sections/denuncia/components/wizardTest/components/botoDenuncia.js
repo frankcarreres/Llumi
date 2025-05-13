@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 const BotoDenuncia = ({ children, onClick, type = "button", color = "#c20000", ...rest }) => {
   return (
     <StyledWrapper color={color}>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <button onClick={onClick} type={type} {...rest}>
         {children}
       </button>
