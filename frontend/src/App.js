@@ -7,8 +7,8 @@ import { Suspense } from "react";
 import landingTheme from "assets/theme";
 import Presentation from "pages/Presentation";
 
-import publicRoutes from "routes/publicRoutes";
-import adminRoutes from "routes/adminRoutes";
+import publicRoutes from "./routes/publicRoutes";
+import adminRoutes from "./routes/adminRoutes";
 
 import AdminLayout from "admin/AdminLayout";
 
