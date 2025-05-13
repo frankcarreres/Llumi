@@ -32,14 +32,14 @@ export async function login(email, contrasena) {
 /**
  * Envía las respuestas del test al backend.
  */
-export async function guardarTest(token, id_usuario, respuestas, resultado) {
+export async function guardarTest(token, respuestas, resultado) {
   const res = await fetch(`${BASE_URL}/api/test`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ id_usuario, respuestas, resultado }),
+    body: JSON.stringify({ respuestas, resultado }),
   });
 
   if (!res.ok) throw new Error("Error al guardar el test");
