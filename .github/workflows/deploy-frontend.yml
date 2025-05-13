@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - uat   # o la rama que tú elijas
+    paths:
+      - 'frontend/**'
       
 # Esta sección fuerza que solo un run por rama esté activo a la vez;
 # los demás quedan en cola hasta que el anterior termine.
