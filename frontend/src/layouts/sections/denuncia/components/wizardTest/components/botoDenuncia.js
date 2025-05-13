@@ -28,8 +28,8 @@ const StyledWrapper = styled.div`
     position: relative;
     width: 150px;
     border: none;
-    background: var(--bg);
-    color: var(--text-color);
+    background: ${({ color }) => color};
+    color: #fff;
     padding: 1em;
     font-weight: bold;
     text-transform: uppercase;
@@ -37,7 +37,7 @@ const StyledWrapper = styled.div`
     border-radius: 5px;
     opacity: 0.85;
     letter-spacing: 1px;
-    box-shadow: var(--shadow) 0px 7px 2px, #000 0px 8px 5px;
+    box-shadow: ${({ color }) => `${color}90`} 0px 7px 2px, #000 0px 8px 5px;
   }
 
   button:hover {
@@ -46,7 +46,7 @@ const StyledWrapper = styled.div`
 
   button:active {
     top: 4px;
-    box-shadow: var(--shadow) 0px 7px 2px, #000 0px 8px 5px;
+    box-shadow: ${({ color }) => `${color}90`} 0px 7px 2px, #000 0px 8px 5px;
   }
 `;
 
