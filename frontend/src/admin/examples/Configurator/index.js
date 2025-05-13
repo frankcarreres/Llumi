@@ -27,10 +27,10 @@ import {
   setFixedNavbar,
   setSidenavColor,
   setDarkMode,
-} from "../../context";
-import MDButton from "../../components/MDButton";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
+} from "admin/context";
+import MDButton from "admin/components/MDButton";
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 import ConfiguratorRoot from "./ConfiguratorRoot";
 
 function Configurator() {

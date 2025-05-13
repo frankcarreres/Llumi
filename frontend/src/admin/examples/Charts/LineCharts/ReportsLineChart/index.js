@@ -25,9 +25,9 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 
 // ReportsLineChart configurations
-import configs from "../../../../examples/Charts/LineCharts/ReportsLineChart/configs";
-import MDTypography from "../../../../components/MDTypography";
-import MDBox from "../../../../components/MDBox";
+import configs from "admin/examples/Charts/LineCharts/ReportsLineChart/configs";
+import MDTypography from "admin/components/MDTypography";
+import MDBox from "admin/components/MDBox";
 
 ChartJS.register(
   CategoryScale,

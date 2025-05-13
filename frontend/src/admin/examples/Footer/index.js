@@ -8,8 +8,8 @@ import Link from "@mui/material/Link";
 
 // Material Dashboard 2 React base styles
 import typography from "assets/theme/base/typography";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 
 function Footer({ company, links }) {
   const { href, name } = company;
@@ -77,7 +77,7 @@ function Footer({ company, links }) {
 
 // Setting default values for the props of Footer
 Footer.defaultProps = {
-  company: { href: "http://localhost:3000", name: "Llumí" },
+  company: { href: "http://13.216.39.33:3000", name: "Llumí" },
   links: [
     { href: "http://localhost:3000", name: "Creative Tim" },
     { href: "http://localhost:3000/about", name: "About Us" },

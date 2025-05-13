@@ -19,8 +19,8 @@ function CarruselMultimedia({ destacados, tipo }) {
       try {
         const endpoint =
           tipo === "podcast"
-            ? "http://localhost:3001/recursos/podcast"
-            : "http://localhost:3001/recursos/multimedia";
+            ? "http://13.216.39.33:3001/recursos/podcast"
+            : "http://13.216.39.33:3001/recursos/multimedia";
 
         const response = await fetch(endpoint);
         const data = await response.json();

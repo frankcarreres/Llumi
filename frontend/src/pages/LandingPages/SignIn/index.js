@@ -21,9 +21,9 @@ import { useNavigate } from "react-router-dom";
 import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
-import Cookies from "js-cookie";
 import Icon from "@mui/material/Icon";
 import SignIn from "../../../pages/LandingPages/SignIn";
+import { saveSession } from "admin/utils/session";
 
 // Importación del componente InputAnimado
 
@@ -93,54 +93,26 @@ function SignInBasic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const esEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
 
     try {
-      let data;
+      const data = esEmail ? await login(email, contrasena) : await loginCentro(email, contrasena);
 
-      if (esEmail) {
-        // Login como usuario normal
-        data = await login(email, contrasena);
-      } else {
-        // Login como centro
-        data = await loginCentro(email, contrasena);
-      }
-
-      console.log("Login exitoso:", data);
+      console.log("Login ok:", data);
 
       const tipo = esEmail ? "usuario" : "centro";
-      const nombre = data.usuario?.nombre || data.nombre || "Centro";
+      const nombre = data.usuario?.nombre ?? data.centro?.nombre ?? data.nombre ?? "Sin nombre";
 
-      Cookies.set("token", data.token);
+      // Cookie segura
+      saveSession({ token: data.token, centro: esEmail ? data.usuario : data }, rememberMe);
 
-      // Guardamos la información en sessionStorage
-      sessionStorage.setItem(
-        "sesion",
-        JSON.stringify({
-          tipo,
-          nombre,
-        })
-      );
+      // Si aún quieres sessionStorage:
+      sessionStorage.setItem("sesion", JSON.stringify({ tipo, nombre }));
 
-      // Guardamos la misma información en localStorage
-      localStorage.setItem(
-        "usuario",
-        JSON.stringify({
-          tipo: esEmail ? "usuario" : "centro",
-          nombre: data.usuario.nombre,
-          token: data.token,
-        })
-      );
-
-      if (tipo === "centro") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Login visual fallido:", error);
-      alert(error.message || "Error de connexió");
+      navigate(tipo === "centro" ? "/admin/dashboard" : "/");
+    } catch (err) {
+      console.error("Login fallido:", err);
+      alert(err.message || "Error de conexión");
     }
   };
 

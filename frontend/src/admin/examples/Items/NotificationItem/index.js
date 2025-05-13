@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import menuItem from "./styles";
-import MDTypography from "../../../components/MDTypography";
-import MDBox from "../../../components/MDBox";
+import MDTypography from "admin/components/MDTypography";
+import MDBox from "admin/components/MDBox";
 
 // Material Dashboard 2 React components
 

@@ -2,36 +2,32 @@ import { useState, useEffect } from "react";
 
 // react-router components
 import { useLocation, Outlet } from "react-router-dom";
+import adminRoutes from "routes/adminRoutes";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Material Dashboard 2 components
+import MDBox from "admin/components/MDBox";
 
-// Material Dashboard 2 React example components
+// Material Dashboard 2 examples
+import Configurator from "admin/examples/Configurator";
+import Sidenav from "admin/examples/Sidenav";
 
 // Material Dashboard 2 React themes
-import theme from "assets/theme";
+import theme from "admin/assets/theme";
+// import theme from "assets/theme";
+import themeDark from "admin/assets/theme-dark";
 
-// Material Dashboard 2 React Dark Mode themes
-
-// Material Dashboard 2 React routes
-import routes from "routes";
-
-// Material Dashboard 2 React contexts
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./context";
+import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "admin/context";
 
 // Images
-import brandWhite from "./assets/images/logo-ct.png";
+import brandWhite from "admin/assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import Configurator from "./examples/Configurator";
-import Sidenav from "./examples/Sidenav";
-import MDBox from "./components/MDBox";
-import themeDark from "./assets/theme-dark";
 
-export default function AdminShell() {
+export default function AdminLayout() {
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -64,7 +60,6 @@ export default function AdminShell() {
   // Toggle configurator
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
-  // Set the direction attribute to "ltr" en todo momento
   useEffect(() => {
     document.body.setAttribute("dir", "ltr");
   }, []);
@@ -107,7 +102,7 @@ export default function AdminShell() {
           color={sidenavColor}
           brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
           brandName="Llumi Admin"
-          routes={routes}
+          routes={adminRoutes}
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
         />

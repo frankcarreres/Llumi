@@ -1,17 +1,22 @@
+// src/layouts/sections/denuncia/components/wizardTest/components/BotoDenuncia.jsx
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const BotoDenuncia = ({ children, onClick, type = "button", color = "#c20000", ...rest }) => {
-  return (
-    <StyledWrapper color={color}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <button onClick={onClick} type={type} {...rest}>
-        {children}
-      </button>
-    </StyledWrapper>
-  );
-};
+const BotoDenuncia = ({
+  children,
+  onClick,
+  type = "button",
+  color = "#c20000",
+  ...rest // ← aquí recoges las props extra
+}) => (
+  <StyledWrapper color={color}>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+    <button onClick={onClick} type={type} {...rest}>
+      {children}
+    </button>
+  </StyledWrapper>
+);
 
 BotoDenuncia.propTypes = {
   children: PropTypes.node.isRequired,
@@ -22,10 +27,6 @@ BotoDenuncia.propTypes = {
 
 const StyledWrapper = styled.div`
   button {
-    --bg: ${({ color }) => color};
-    --shadow: ${({ color }) => `${color}90`}; /* Color con transparencia */
-    --text-color: #fff;
-
     position: relative;
     width: 150px;
     border: none;

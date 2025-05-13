@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 // @mui
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import MDTypography from "../MDTypography";
-import MDBox from "../MDBox";
+import MDTypography from "admin/components/MDTypography";
+import MDBox from "admin/components/MDBox";
 
 // Material Dashboard 2 React components
 

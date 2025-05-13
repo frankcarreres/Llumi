@@ -1,18 +1,13 @@
-import DenunciaCell from "../../../../../components/MDDenuncia/DenunciaCell";
-import TipoCell from "../../../../../components/MDDenuncia/TipoCell";
-import EstadoCell from "../../../../../components/MDDenuncia/EstadoCell";
-import EditDropdown from "../../../../../components/MDDenuncia/EditDropdown";
-import denunciasPeticiones from "../../../../../hooks/denunciasPeticiones";
+import DenunciaCell from "admin/components/MDDenuncia/DenunciaCell";
+import TipoCell from "admin/components/MDDenuncia/TipoCell";
+import EstadoCell from "admin/components/MDDenuncia/EstadoCell";
+import EditDropdown from "admin/components/MDDenuncia/EditDropdown";
+import denunciasPeticiones from "admin/hooks/denunciasPeticiones";
 
 export default function Data({ filters = { tipo: "", estado: "", fecha: "" } }) {
   const { rowsData, setRowsData, updateData, loading } = denunciasPeticiones({
     withEdit: true,
   });
-
-  // Prints para verificar los filtros y los datos originales
-  console.log("Filters recibidos:", filters);
-  console.log("rowsData original:", rowsData);
-
   const normalizedRows = rowsData.map((r) => ({
     ...r,
     id_denuncia: r.id_denuncia ? Number(r.id_denuncia) : 0,
@@ -26,7 +21,6 @@ export default function Data({ filters = { tipo: "", estado: "", fecha: "" } }) 
           (!filters.estado || row.estado === filters.estado) &&
           (!filters.fecha || row.fecha_denuncia.startsWith(filters.fecha))
       );
-  console.log("Datos filtrados:", filteredData);
 
   let rows = [];
   try {

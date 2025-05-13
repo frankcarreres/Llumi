@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://13.216.39.33:3001";
 
 /**
  * Verifica si el email está registrado.

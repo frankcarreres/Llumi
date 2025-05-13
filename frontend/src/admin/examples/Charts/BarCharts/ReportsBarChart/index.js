@@ -24,8 +24,8 @@ import Icon from "@mui/material/Icon";
 
 // ReportsBarChart configurations
 import configs from "../../../../examples/Charts/BarCharts/ReportsBarChart/configs";
-import MDBox from "../../../../components/MDBox";
-import MDTypography from "../../../../components/MDTypography";
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

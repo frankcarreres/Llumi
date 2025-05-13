@@ -13,17 +13,17 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 
 // Material Dashboard 2 React example components
-import DefaultNavbarLink from "../../../examples/Navbars/DefaultNavbar/DefaultNavbarLink";
-import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
+import DefaultNavbarLink from "admin/examples/Navbars/DefaultNavbar/DefaultNavbarLink";
+import DefaultNavbarMobile from "admin/examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
 
 // Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Material Dashboard 2 React context
-import { useMaterialUIController } from "../../../context";
-import MDBox from "../../../components/MDBox";
-import MDButton from "../../../components/MDButton";
-import MDTypography from "../../../components/MDTypography";
+import { useMaterialUIController } from "admin/context";
+import MDBox from "admin/components/MDBox";
+import MDButton from "admin/components/MDButton";
+import MDTypography from "admin/components/MDTypography";
 
 function DefaultNavbar({ transparent, light, action }) {
   const [controller] = useMaterialUIController();
@@ -99,20 +99,8 @@ function DefaultNavbar({ transparent, light, action }) {
           </MDTypography>
         </MDBox>
         <MDBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
-          <DefaultNavbarLink icon="donut_large" name="dashboard" route="/dashboard" light={light} />
-          <DefaultNavbarLink icon="person" name="profile" route="/profile" light={light} />
-          <DefaultNavbarLink
-            icon="account_circle"
-            name="sign up"
-            route="/authentication/sign-up"
-            light={light}
-          />
-          <DefaultNavbarLink
-            icon="key"
-            name="sign in"
-            route="/authentication/sign-in"
-            light={light}
-          />
+          <DefaultNavbarLink icon="donut_large" name="dashboard" route="admin/dashboard" light={light} />
+          <DefaultNavbarLink icon="person" name="profile" route="admin/profile" light={light} />
         </MDBox>
         {action &&
           (action.type === "internal" ? (
@@ -155,7 +143,7 @@ function DefaultNavbar({ transparent, light, action }) {
           <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
         </MDBox>
       </MDBox>
-      {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar} />}
+      {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar}  routes={}/>}
     </Container>
   );
 }
