@@ -4,7 +4,13 @@ on:
   push:
     branches:
       - uat   # o la rama que tú elijas
-
+      
+# Esta sección fuerza que solo un run por rama esté activo a la vez;
+# los demás quedan en cola hasta que el anterior termine.
+concurrency:
+  group: deploy-frontend-${{ github.ref }}
+  cancel-in-progress: false
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
