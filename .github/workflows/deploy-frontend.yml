@@ -3,49 +3,50 @@ name: Build & Deploy Frontend
 on:
   push:
     branches:
-      - uat
+      - uat   # o la rama que tú elijas
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # 1. Clona tu repo
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # 2. Instala Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
 
-      # 3. Instala dependencias y build
-      - name: Install & Build
-        working-directory: frontend
-        run: |
-          npm ci
-          npm run build
+    - name: Install & Build
+      working-directory: frontend
+      run: |
+        npm ci
+        npm run build
 
-      # 4. Prepara la clave SSH
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          # Captura dinámicamente las huellas ED25519, RSA y ECDSA
-          ssh-keyscan -t ed25519,rsa,ecdsa ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-          # Añade tu clave privada para autenticación
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh
+        # Obtiene la huella pública directamente del host
+        ssh-keyscan -t rsa,ed25519,ecdsa ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+        # Escribe tu clave privada PEM EXACTA
+        cat << 'EOF' > ~/.ssh/id_rsa
+        ${{ secrets.EC2_SSH_KEY }}
+        EOF
+        chmod 600 ~/.ssh/id_rsa
 
-      # 5. Copia los archivos al servidor EC2
-      - name: Sync build to EC2
-        run: |
-          rsync -avz --delete frontend/build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/
-        env:
-          RSYNC_RSH: "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes"
+    - name: Test SSH connection
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -v ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo SSH OK"
 
-      # 6. Recarga Nginx
-      - name: Reload Nginx on EC2
-        run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
-            "sudo systemctl reload nginx"
+    - name: Sync build to EC2
+      run: |
+        rsync -avz --delete frontend/build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/
+      env:
+        RSYNC_RSH: "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes"
+
+    - name: Reload Nginx on EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+          "sudo systemctl reload nginx"
