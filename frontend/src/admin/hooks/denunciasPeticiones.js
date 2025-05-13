@@ -33,7 +33,7 @@ export default function denunciasPeticiones({ idDenuncia, filterEstado }) {
   };
 
   const buildRequest = () => {
-    const base = "http://localhost:3001/denuncias/denuncias";
+    const base = "http://13.216.39.33:3001/denuncias/denuncias";
     let url = idDenuncia ? `${base}/${idDenuncia}` : base;
     if (!idDenuncia && filterEstado) url += `?estado=${encodeURIComponent(filterEstado)}`;
 
@@ -75,7 +75,7 @@ export default function denunciasPeticiones({ idDenuncia, filterEstado }) {
 
   const updateData = async (id, estado) => {
     try {
-      await fetch(`http://localhost:3001/denuncias/updateEstado/${id}`, {
+      await fetch(`http://13.216.39.33:3001/denuncias/updateEstado/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -25,7 +25,7 @@ export default function useCrearNoticia() {
     }
 
     try {
-      const res = await fetch("http://localhost:3001/recursos/addNoticia", {
+      const res = await fetch("http://13.216.39.33:3001/recursos/addNoticia", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

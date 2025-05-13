@@ -14,7 +14,7 @@ function CarruselNoticias({ destacadas }) {
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const response = await fetch("http://localhost:3001/recursos/noticias");
+        const response = await fetch("http://13.216.39.33:3001/recursos/noticias");
         const data = await response.json();
 
         if (destacadas) {

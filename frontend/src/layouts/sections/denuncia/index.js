@@ -94,7 +94,7 @@ function DenunciaUsuari() {
     // Determinar qué wizard mostrar
     const fetchResultadoTest = async () => {
       try {
-        const response = await fetch("http://localhost:3001/denuncias/resultadoTest", {
+        const response = await fetch("http://13.216.39.33:3001/denuncias/resultadoTest", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
