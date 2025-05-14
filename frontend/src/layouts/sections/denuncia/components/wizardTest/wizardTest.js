@@ -13,6 +13,9 @@ import {
   Pregunta7,
 } from "./components/preguntasTest";
 import { Inicio, Total } from "./components/componentsTest";
+import { calcularNivelRiesgo } from "pages/Presentation/components/chat/utils/calculoRiesgo";
+import { guardarTest } from "pages/Presentation/components/chat/services/api";
+import Cookies from "js-cookie";
 
 const WizardTest = () => {
   const [step, setStep] = useState(1);
@@ -23,7 +26,8 @@ const WizardTest = () => {
   const [selectedPregunta4, setSelectedPregunta4] = useState("");
   const [selectedPregunta5, setSelectedPregunta5] = useState([]);
   const [selectedPregunta6, setSelectedPregunta6] = useState("");
-  const [selectedPregunta7, setSelectedPregunta7] = useState("");
+  const [selectedPregunta7, setSelectedPregunta7] = useState([]);
+  const [nivelRiesgo, setNivelRiesgo] = useState(null);
   const [direction, setDirection] = useState(0); // -1 = atrás, 1 = adelante
   const [totalScore, setTotalScore] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
@@ -64,6 +68,74 @@ const WizardTest = () => {
         return true;
     }
   };
+
+  const opcionesPregunta1 = [
+    { value: "p1s1", label: "No ho sé / No ho recorde" },
+    { value: "p1s2", label: "De sobte" },
+    { value: "p1s3", label: "Al principi va ser lleu, però ha anat a més" },
+    { value: "p1s4", label: "Vaig fer alguna cosa i es van enfadar amb mi" },
+    { value: "p1s5", label: "Des de sempre" },
+  ];
+
+  const opcionesPregunta2 = [
+    { value: "p2s1", label: "En classe" },
+    { value: "p2s2", label: "Al pati o passadís" },
+    { value: "p2s3", label: "En xarxes socials" },
+    { value: "p2s4", label: "Fora del col·legi" },
+    { value: "p2s5", label: "Amb persones que no són de la meua classe" },
+  ];
+
+  const opcionesPregunta3 = [
+    { value: "p3s1", label: "M'insulten o es burlen del mi" },
+    { value: "p3s2", label: "M'ignoren o aïllen" },
+    { value: "p3s3", label: "Em peguen o espenten" },
+    { value: "p3s4", label: "M'amenacen" },
+    { value: "p3s5", label: "M'obliguen a fer coses que no vull" },
+  ];
+
+  const opcionesPregunta4 = [
+    { value: "p4s1", label: "Tots els dies" },
+    { value: "p4s2", label: "Quasi tots els dies" },
+    { value: "p4s3", label: "Cada setmana" },
+    { value: "p4s4", label: "Poques vegades" },
+    { value: "p4s5", label: "Només va passar una vegada" },
+  ];
+
+  const opcionesPregunta5 = [
+    { value: "p5s1", label: "Es riuen o secunden" },
+    { value: "p5s2", label: "Es riuen, però no participen" },
+    { value: "p5s3", label: "No fan res" },
+    { value: "p5s4", label: "Intenten ajudar-me" },
+    { value: "p5s5", label: "No hi ha ningú més quan passa" },
+  ];
+
+  const opcionesPregunta6 = [
+    { value: "p6s1", label: "Sí, però no han parat" },
+    { value: "p6s2", label: "No ho he dit perquè tinc por" },
+    { value: "p6s3", label: "No li ho he dit a un adult, però a un amic si" },
+    { value: "p6s4", label: "No ho he dit, però crec que ho farien igual" },
+    { value: "p6s5", label: "No, van deixar de fer-ho" },
+  ];
+
+  const opcionesPregunta7 = [
+    { value: "p7s1", label: "Trist o amb ganes de plorar" },
+    { value: "p7s2", label: "Amb por d'anar a classe" },
+    { value: "p7s3", label: "Ansiós o nerviós constantment" },
+    { value: "p7s4", label: "Sense confiança en mi mateix" },
+    { value: "p7s5", label: "He tingut pensaments negatius sobre mi mateix" },
+    { value: "p7s6", label: "No m'afecta molt" },
+  ];
+
+  const getLabelFromValue = (value, opciones) =>
+    opciones.find((op) => op.value === value)?.label || value;
+
+  const labelP1 = getLabelFromValue(selectedPregunta1, opcionesPregunta1);
+  const labelsP2 = selectedPregunta2.map((value) => getLabelFromValue(value, opcionesPregunta2));
+  const labelsP3 = selectedPregunta3.map((value) => getLabelFromValue(value, opcionesPregunta3));
+  const labelP4 = getLabelFromValue(selectedPregunta4, opcionesPregunta4);
+  const labelsP5 = selectedPregunta5.map((value) => getLabelFromValue(value, opcionesPregunta5));
+  const labelP6 = getLabelFromValue(selectedPregunta6, opcionesPregunta6);
+  const labelsP7 = selectedPregunta7.map((value) => getLabelFromValue(value, opcionesPregunta7));
 
   // Función para calcular el puntaje total
   const calculateTotalScore = () => {
@@ -167,8 +239,10 @@ const WizardTest = () => {
       });
       score += totalPregunta7 / selectedPregunta7.length;
     }
-
-    setTotalScore(score.toFixed(2));
+    const fixedScore = score.toFixed(2);
+    setTotalScore(parseInt(fixedScore));
+    const nivel = calcularNivelRiesgo(score);
+    setNivelRiesgo(nivel); // Guardar el nivel de riesgo en el estado
   };
 
   // Usamos useEffect para recalcular el puntaje cada vez que cambian las respuestas
@@ -270,7 +344,39 @@ const WizardTest = () => {
                   {step === 7 && (
                     <Pregunta7 selected={selectedPregunta7} setSelected={setSelectedPregunta7} />
                   )}
-                  {step === 8 && <Total totalScore={totalScore} />}
+                  {step === 8 && (
+                    <>
+                      <Total totalScore={totalScore} nivelRiesgo={nivelRiesgo} />
+                      {(() => {
+                        const resumenPlano = {
+                          "¿Cómo empezó la situación que estás viviendo?": labelP1,
+                          "¿Dónde suele ocurrir lo que está pasando?": Array.isArray(labelsP2)
+                            ? labelsP2.join(", ")
+                            : labelsP2,
+                          "¿Qué tipo de cosas hacen esas personas?": Array.isArray(labelsP3)
+                            ? labelsP3.join(", ")
+                            : labelsP3,
+                          "¿Con qué frecuencia ocurre lo que está pasando?": labelP4,
+                          "¿Cómo reaccionan los demás compañeros cuando ocurre?": Array.isArray(
+                            labelsP5
+                          )
+                            ? labelsP5.join(", ")
+                            : labelsP5,
+                          "¿Has intentado pedir que se detuviera la situación?": labelP6,
+                          "¿Cómo te sientes por lo que está pasando?": Array.isArray(labelsP7)
+                            ? labelsP7.join(", ")
+                            : labelsP7,
+                        };
+
+                        const resumenString = JSON.stringify(resumenPlano);
+                        // Llama a la función y guarda el resultado
+                        const nivelRiesgo = calcularNivelRiesgo(totalScore);
+                        const token = Cookies.get("token");
+                        void guardarTest(token, resumenString, nivelRiesgo.toString());
+                        return null;
+                      })()}
+                    </>
+                  )}
                 </>
               )}
             </motion.div>

@@ -6,8 +6,6 @@ import BotoDenuncia from "./components/botoDenuncia";
 import TestSolucioInici from "./components/componentsTest";
 
 export const WizardTestSol = ({ resultadoTest }) => {
-  console.log("resultadoTest:", resultadoTest); // Aquí
-
   const [paso, setPaso] = useState(1);
   const navigate = useNavigate();
 
@@ -22,38 +20,38 @@ export const WizardTestSol = ({ resultadoTest }) => {
 
     switch (resultado) {
       case "Sin riesgo":
-        titulo = "Sin riesgo";
+        titulo = "Sense risc";
         mensaje =
-          "Ahora mismo no se detectan señales de riesgo. Te animamos a seguir informándote sobre el acoso escolar y a estar pendiente de ti y de quienes te rodean.";
+          "Ara com ara no es detecten senyals de risc. T'animem a continuar informant-te sobre l'assetjament escolar i a estar pendent de tu i dels qui t'envolten.";
         color = "#4CAF50";
         break;
       case "Riesgo medio":
-        titulo = "Situación de riesgo medio";
+        titulo = "Situació de risc mitjà";
         mensaje =
-          "Podrías estar enfrentando algunas situaciones que merecen atención. Habla con un profesor o una persona adulta de confianza. No estás solo/a, y es importante expresar cómo te sientes para evitar que las cosas empeoren.";
+          "Podries estar enfrontant algunes situacions que mereixen atenció. Parla amb un professor o una persona adulta de confiança. No estàs només/a, i és important expressar com et sents per a evitar que les coses empitjoren.";
         color = "#FFC107";
         break;
       case "Riesgo alto":
-        titulo = "Situación grave";
+        titulo = "Situació greu";
         mensaje =
-          "Estás mostrando señales claras de estar atravesando una situación difícil. No lo enfrentes en silencio. Habla con alguien de confianza y busca apoyo. Es importante que revisemos tu caso.";
+          "Estàs mostrant senyals clars d'estar travessant una situació difícil. No ho enfrontes en silenci. Parla amb algú de confiança i busca secunde. És important que revisem el cas.";
         color = "#FF9800";
         break;
       case "Riesgo muy alto":
-        titulo = "Situación muy grave";
+        titulo = "Situació molt greu";
         mensaje =
-          "Tu situación es seria y necesita ser atendida con urgencia. Denúncialo. Es fundamental que busques ayuda inmediatamente. Acude a una persona adulta de confianza, un profesor, un orientador...";
+          "La teua situació és seriosa i necessita ser atesa amb urgència. Denuncia-la. És fonamental que busques ajuda immediatament. Acudix a una persona adulta de confiança, un professor, un orientador...";
         color = "#F44336";
         break;
       case "Riesgo crítico":
-        titulo = "Situación crítica";
+        titulo = "Situació crítica";
         mensaje =
-          "Estás en una situación crítica. No esperes más, busca ayuda urgente. Comunica lo que estás viviendo a alguien de confianza y denuncia la situación inmediatamente.";
+          "Estàs en una situació crítica. No esperes més, busca ajuda urgent. Comunica el que estàs vivint a algú de confiança i denúncia la situació immediatament.";
         color = "#c20000";
         break;
       default:
-        titulo = "Resultado no disponible";
-        mensaje = "No se ha podido determinar tu resultado.";
+        titulo = "Resultat no disponible :(";
+        mensaje = "No s'ha pogut determinar el teu resultat.";
         color = "#9E9E9E";
     }
 
