@@ -1,7 +1,3 @@
-// src/components/CreateNoticiaForm.js
-// Editor con aviso antes de salir, descarga como PDF y carga desde archivo local.
-// Corrige sintaxis (error Babel) y mantiene hook hayCambiosSinGuardar.
-
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import hayCambiosSinGuardar from "../../hooks/confirmacionCambios";

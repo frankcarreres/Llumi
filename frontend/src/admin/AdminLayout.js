@@ -29,7 +29,6 @@ import brandWhite from "admin/assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 export default function AdminLayout() {
-  // ——— 1) Hooks básicos: siempre al inicio ——————————————————
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -42,17 +41,12 @@ export default function AdminLayout() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
-  // const navigate = useNavigate();
 
-  // ——— 2) Guard de sesión síncrono: BEFORE cualquier efecto —————
   const session = getSession();
   if (!session?.data || session.data.rol !== "centro") {
     clearSession();
     return <Navigate to="/" replace />;
   }
-
-  // ——— 3) useEffects secundarios —————————————————————————
-  // Limpiar sesión al cerrar pestaña
   useEffect(() => {
     const handleLeave = () => clearSession();
     window.addEventListener("beforeunload", handleLeave);
@@ -70,7 +64,6 @@ export default function AdminLayout() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  // ——— 4) Interacciones de UI ——————————————————————————
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -111,7 +104,6 @@ export default function AdminLayout() {
     </MDBox>
   );
 
-  // ——— 5) Render Layout protegido ————————————————————————
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />

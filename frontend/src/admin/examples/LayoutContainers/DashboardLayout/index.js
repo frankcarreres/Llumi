@@ -7,10 +7,10 @@ import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Material Dashboard 2 React components
+import MDBox from "admin/components/MDBox";
 
 // Material Dashboard 2 React context
 import { useMaterialUIController, setLayout } from "admin/context";
-import MDBox from "admin/components/MDBox";
 
 function DashboardLayout({ children }) {
   const [controller, dispatch] = useMaterialUIController();

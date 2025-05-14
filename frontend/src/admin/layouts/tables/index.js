@@ -1,15 +1,17 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-
-// Data
+// data
 import authorsTableData from "./data/casosActivosTable";
-import Footer from "../../examples/Footer";
-import DataTable from "../../examples/Tables/DataTable";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
-import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
-import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
+// Material componentes
+import MDBox from "admin/components/MDBox";
+import MDTypography from "admin/components/MDTypography";
+
+// Meterial examples
+import Footer from "admin/examples/Footer";
+import DataTable from "admin/examples/Tables/DataTable";
+import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
 
 function Tables() {
   const { columns, rows } = authorsTableData();

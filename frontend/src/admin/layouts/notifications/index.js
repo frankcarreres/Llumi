@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import MDTypography from "../../components/MDTypography";
-import Footer from "../../examples/Footer";
-import MDButton from "../../components/MDButton";
-import MDBox from "../../components/MDBox";
-import MDAlert from "../../components/MDAlert";
-import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
-import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
-import MDSnackbar from "../../components/MDSnackbar";
 
 // Material Dashboard 2 React components
+import MDTypography from "admin/components/MDTypography";
+import Footer from "admin/examples/Footer";
+import MDButton from "admin/components/MDButton";
+import MDBox from "admin/components/MDBox";
+import MDAlert from "admin/components/MDAlert";
+import MDSnackbar from "admin/components/MDSnackbar";
 
 // Material Dashboard 2 React example components
+import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
 
 function Notifications() {
   const [successSB, setSuccessSB] = useState(false);

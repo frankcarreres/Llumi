@@ -43,26 +43,28 @@ export function getSession() {
     return null;
   }
 }
+
+/**
+ * Determina si la sesión es de tipo Centro (rol "centro").
+ */
 export function isCentro() {
   const data = getSession()?.data;
-  return data.rol !== "alumno";
+  return Boolean(data) && data.rol === "centro";
 }
 
+/**
+ * Determina si la sesión es de tipo Usuario (rol distinto a "centro").
+ */
 export function isUsuario() {
   const data = getSession()?.data;
-  return data.rol !== "centro";
+  return Boolean(data) && data.rol !== "centro";
 }
 
+/**
+ * Elimina las cookies de sesión.
+ * No realiza navegación; el llamador debe manejar redirección.
+ */
 export function clearSession() {
   Cookies.remove(TOKEN_KEY, { path: "/" });
   Cookies.remove(DATA_KEY, { path: "/" });
-}
-
-export function isAuthenticated() {
-  return Boolean(Cookies.get(TOKEN_KEY));
-}
-
-export function withAuth(headers = {}) {
-  const session = getSession();
-  return session ? { ...headers, Authorization: `Bearer ${session.token}` } : headers;
 }
