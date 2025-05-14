@@ -7,7 +7,9 @@ const {
 } = require('../services/denunciasService');
 
 exports.guardarDenuncia = async (req, res) => {
-  const { id_usuario, id_centro, datosDenuncia } = req.body;
+  console.log(req.user)
+  const { id_centro, datosDenuncia } = req.body;
+  const { id_usuario} = req.user;
 
   if (!id_usuario || !id_centro || !datosDenuncia) {
     return res.status(400).json({ error: "Faltan datos obligatorios." });
@@ -28,7 +30,7 @@ exports.guardarDenuncia = async (req, res) => {
   } = datosDenuncia;
 
   try {
-    await pool.query(
+    const [result] = await pool.query(
       `INSERT INTO denuncias (
           id_usuario, id_centro, tipo_acoso, descripcion, evidencias,
           es_testigo, nombre_victima, relacion_victima, nombre_acosador,
@@ -41,7 +43,12 @@ exports.guardarDenuncia = async (req, res) => {
       ]
     );
 
-    res.status(201).json({ mensaje: "Denuncia guardada correctamente." });
+    const id_denuncia = result.insertId;
+
+    return res.status(201).json({
+      mensaje: "Denuncia guardada correctamente.",
+      id_denuncia
+    });
   } catch (err) {
     res.status(500).json({ error: "Error en el servidor al guardar la denuncia", detalle: err.message });
   }

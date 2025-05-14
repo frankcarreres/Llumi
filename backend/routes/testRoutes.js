@@ -6,5 +6,6 @@ const verificarToken = require('../middlewares/verificarToken');
 
 // Ruta protegida: solo usuarios con token pueden enviar resultados de test
 router.post('/', verificarToken, testController.guardarTest);
+router.patch("/:id_test/denuncia", testController.vincularDenuncia);
 
 module.exports = router;

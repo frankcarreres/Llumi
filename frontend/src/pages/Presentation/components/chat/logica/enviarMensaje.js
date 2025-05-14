@@ -4,6 +4,7 @@ import {
   guardarTest,
   obtenerVariablesTest,
   guardarDenuncia,
+  vincularDenuncia,
 } from "../services/api";
 import { calcularNivelRiesgo } from "../utils/calculoRiesgo";
 import { sendMessageToBot } from "../services/typebotAPI";
@@ -38,6 +39,7 @@ export async function enviarMensaje({
   testEnviado,
   setTestEnviado,
   setEscribiendo,
+  idTestRef,
 }) {
   const texto =
     input || (isMultipleChoice && opcionesActivas.length > 0 ? opcionesActivas.join(", ") : "");
@@ -161,7 +163,8 @@ export async function enviarMensaje({
                 respuestasTest[pregunta] = respuesta;
               });
 
-              await guardarTest(token, usuario.id_usuario, respuestasTest, nivel);
+              const { id_test } = await guardarTest(token, respuestasTest, nivel);
+              idTestRef.current = id_test;
               setTestEnviado(true);
             }
           }
@@ -286,8 +289,12 @@ export async function enviarMensaje({
             console.log("  🏫 id_centro:", usuario?.id_centro);
             console.log("  📦 datosDenuncia:", datosDenuncia);
 
-            await guardarDenuncia(token, usuario.id_usuario, usuario.id_centro, datosDenuncia);
+            const { id_denuncia } = await guardarDenuncia(token, usuario.id_centro, datosDenuncia);
             console.log("📄 Denuncia guardada correctamente");
+            console.log(id_denuncia);
+
+            await vincularDenuncia(token, idTestRef.current, id_denuncia);
+            idTestRef.current = null;
           }
         } catch (err) {
           console.error("❌ Error al guardar la denuncia:", err);
