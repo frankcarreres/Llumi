@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-
-// react-router components
-import { useLocation, Outlet } from "react-router-dom";
+// import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
+import { useLocation, Outlet, Navigate } from "react-router-dom";
 import adminRoutes from "routes/adminRoutes";
 
 // @mui material components
@@ -18,16 +17,19 @@ import Sidenav from "admin/examples/Sidenav";
 
 // Material Dashboard 2 React themes
 import theme from "admin/assets/theme";
-// import theme from "assets/theme";
 import themeDark from "admin/assets/theme-dark";
 
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "admin/context";
+
+// session and auth utilities
+import { getSession, clearSession } from "admin/utils/session";
 
 // Images
 import brandWhite from "admin/assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 export default function AdminLayout() {
+  // ——— 1) Hooks básicos: siempre al inicio ——————————————————
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -40,8 +42,35 @@ export default function AdminLayout() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+  // const navigate = useNavigate();
 
-  // Open sidenav when mouse enters mini sidenav
+  // ——— 2) Guard de sesión síncrono: BEFORE cualquier efecto —————
+  const session = getSession();
+  if (!session?.data || session.data.rol !== "centro") {
+    clearSession();
+    return <Navigate to="/" replace />;
+  }
+
+  // ——— 3) useEffects secundarios —————————————————————————
+  // Limpiar sesión al cerrar pestaña
+  useEffect(() => {
+    const handleLeave = () => clearSession();
+    window.addEventListener("beforeunload", handleLeave);
+    return () => window.removeEventListener("beforeunload", handleLeave);
+  }, []);
+
+  // Forzar LTR
+  useEffect(() => {
+    document.body.setAttribute("dir", "ltr");
+  }, []);
+
+  // Scroll to top on navigation
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+  }, [pathname]);
+
+  // ——— 4) Interacciones de UI ——————————————————————————
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -49,7 +78,6 @@ export default function AdminLayout() {
     }
   };
 
-  // Close sidenav when mouse leaves mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
       setMiniSidenav(dispatch, true);
@@ -57,18 +85,7 @@ export default function AdminLayout() {
     }
   };
 
-  // Toggle configurator
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-
-  useEffect(() => {
-    document.body.setAttribute("dir", "ltr");
-  }, []);
-
-  // Scroll to top when route changes
-  useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
 
   const configsButton = (
     <MDBox
@@ -94,6 +111,7 @@ export default function AdminLayout() {
     </MDBox>
   );
 
+  // ——— 5) Render Layout protegido ————————————————————————
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />

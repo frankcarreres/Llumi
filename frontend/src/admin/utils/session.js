@@ -1,54 +1,61 @@
 // src/utils/session.js
-// Gestión de sesión vía cookies 👇
-// Usa la librería "js-cookie" (instálala con: npm i js-cookie)
-
+// Gestión de sesión vía cookies (usa js-cookie)
 import Cookies from "js-cookie";
 
-// Claves constantes para las cookies
+// Claves constantes
 const TOKEN_KEY = "token";
-const CENTRO_KEY = "centro";
+const DATA_KEY = "data";
 
-// Opciones base para las cookies (HTTPS & mismo sitio)
+// Opciones comunes a todas las cookies
 const BASE_COOKIE_OPTIONS = {
-  secure: false, // sólo sobre HTTPS
+  secure: false, // ponlo en true en producción https
   sameSite: "strict",
-  path: "/", // disponible en toda la app
+  path: "/",
 };
 
 /**
- * Guarda el token JWT y el objeto centro en cookies.
- * @param {Object} payload
- * @param {boolean} remember
- * @param {number} days
+ * Guarda el JWT y los datos (usuario|centro) en cookies.
+ * @param {{token:string, data:object}} payload
+ * @param {boolean} remember  Si es true la cookie persiste `days` días.
+ * @param {number}  days      Número de días para la expiración.
  */
-export function saveSession({ token }, remember = false, days = 7) {
+export function saveSession({ token, data }, remember = false, days = 7) {
+  if (!token) return;
   const opts = remember ? { ...BASE_COOKIE_OPTIONS, expires: days } : BASE_COOKIE_OPTIONS;
 
   Cookies.set(TOKEN_KEY, token, opts);
+  if (data) {
+    Cookies.set(DATA_KEY, JSON.stringify(data), opts);
+  }
 }
 
+/**
+ * Devuelve el objeto de sesión o `null` si no existe.
+ */
 export function getSession() {
   const token = Cookies.get(TOKEN_KEY);
   if (!token) return null;
 
   try {
-    const centroJson = Cookies.get(CENTRO_KEY);
-    return {
-      token,
-      centro: centroJson ? JSON.parse(centroJson) : null,
-    };
-  } catch (err) {
-    clearSession();
+    const raw = Cookies.get(DATA_KEY);
+    return { token, data: raw ? JSON.parse(raw) : null };
+  } catch (e) {
     return null;
   }
 }
+export function isCentro() {
+  const data = getSession()?.data;
+  return data.rol !== "alumno";
+}
 
-/**
- * Elimina todas las cookies de sesión.
- */
+export function isUsuario() {
+  const data = getSession()?.data;
+  return data.rol !== "centro";
+}
+
 export function clearSession() {
   Cookies.remove(TOKEN_KEY, { path: "/" });
-  Cookies.remove(CENTRO_KEY, { path: "/" });
+  Cookies.remove(DATA_KEY, { path: "/" });
 }
 
 export function isAuthenticated() {
@@ -57,9 +64,5 @@ export function isAuthenticated() {
 
 export function withAuth(headers = {}) {
   const session = getSession();
-  if (!session) return headers;
-  return {
-    ...headers,
-    Authorization: `Bearer ${session.token}`,
-  };
+  return session ? { ...headers, Authorization: `Bearer ${session.token}` } : headers;
 }

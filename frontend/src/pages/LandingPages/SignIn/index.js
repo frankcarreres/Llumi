@@ -23,7 +23,7 @@ import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
 import Icon from "@mui/material/Icon";
 import SignIn from "../../../pages/LandingPages/SignIn";
-import { saveSession } from "admin/utils/session";
+import { isCentro, isUsuario, saveSession } from "admin/utils/session";
 
 // Importación del componente InputAnimado
 
@@ -93,23 +93,33 @@ function SignInBasic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
-    const esEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+
+    // Validación de email
+    const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     try {
-      const data = esEmail ? await login(email, contrasena) : await loginCentro(email, contrasena);
+      // Llamada a tu API
+      const response = esEmail
+        ? await login(email, contrasena)
+        : await loginCentro(email, contrasena);
+      const { token, usuario, centro } = response;
+      if (centro) {
+        centro.rol = "centro";
+      }
+      const sessionData = usuario ?? centro ?? null;
+      // Guardamos la sesión
+      saveSession({ token, data: sessionData }, rememberMe);
 
-      console.log("Login ok:", data);
-
-      const tipo = esEmail ? "usuario" : "centro";
-      const nombre = data.usuario?.nombre ?? data.centro?.nombre ?? data.nombre ?? "Sin nombre";
-
-      // Cookie segura
-      saveSession({ token: data.token, centro: esEmail ? data.usuario : data }, rememberMe);
-
-      // Si aún quieres sessionStorage:
-      sessionStorage.setItem("sesion", JSON.stringify({ tipo, nombre }));
-
-      navigate(tipo === "centro" ? "/admin/dashboard" : "/");
+      if (isUsuario()) {
+        console.log("Se ha iniciado como usuario!");
+        navigate("/");
+      } else if (isCentro()) {
+        navigate("/admin/dashboard");
+        console.log("Se ha iniciado como administrador!");
+      } else {
+        navigate("/");
+        console.log("Inicio no controlado por favor comprueba la session");
+      }
     } catch (err) {
       console.error("Login fallido:", err);
       alert(err.message || "Error de conexión");
@@ -173,7 +183,7 @@ function SignInBasic() {
                     <Switch
                       checked={rememberMe}
                       onChange={handleSetRememberMe}
-                      sx={{ ml: "32px" }} // Agrega margin-left de 16px
+                      sx={{ ml: "32px" }}
                     />
                     <MKTypography
                       variant="button"

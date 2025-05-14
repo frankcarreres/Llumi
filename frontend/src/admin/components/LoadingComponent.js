@@ -21,8 +21,6 @@ export default function LoadingComponent({ open = false, label = "Cargando…" }
 }
 
 LoadingComponent.propTypes = {
-  /** ¿Está visible? */
   open: PropTypes.bool,
-  /** Texto que aparece debajo del spinner (opcional) */
   label: PropTypes.string,
 };
