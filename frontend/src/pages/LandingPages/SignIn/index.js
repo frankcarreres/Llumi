@@ -93,7 +93,7 @@ function SignInBasic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
-    const esEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+    const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     try {
       const data = esEmail ? await login(email, contrasena) : await loginCentro(email, contrasena);
