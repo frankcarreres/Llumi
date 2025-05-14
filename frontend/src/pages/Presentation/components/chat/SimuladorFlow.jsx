@@ -29,7 +29,7 @@ function SimuladorFlujo() {
   const [, setNivelRiesgo] = useState(null);
   const [testEnviado, setTestEnviado] = useState(false);
   const [preguntasMostradas, setPreguntasMostradas] = useState([]);
-
+  const idTestRef = useRef(null);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -49,7 +49,6 @@ function SimuladorFlujo() {
         try {
           const usuario = JSON.parse(sesion);
           mensajeInicial = `Hola, ${usuario.nombre} 👋`;
-          setUsuario(usuario);
           setToken(token); // activará iniciarFlujo automáticamente
         } catch (err) {
           console.error("Error al leer datos de la sesión:", err);
@@ -103,6 +102,7 @@ function SimuladorFlujo() {
       testEnviado,
       setTestEnviado,
       setEscribiendo,
+      idTestRef,
     });
   };
 

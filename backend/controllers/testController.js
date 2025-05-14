@@ -10,15 +10,46 @@ exports.guardarTest = async (req, res) => {
   }
 
   try {
-    await pool.query(
+    const [result] = await pool.query(
       `INSERT INTO test_autoevaluacion (id_usuario, respuestas, resultado)
        VALUES (?, ?, ?)`,
       [id_usuario, JSON.stringify(respuestas), resultado]
     );
+    const id_test = result.insertId;
 
-    res.status(201).json({ mensaje: "Test guardado correctamente." });
+    return res.status(201).json({
+      mensaje: "Test guardado correctamente.",
+      id_test
+    });
   } catch (err) {
     console.error("Error al guardar el test:", err);
     res.status(500).json({ error: "Error en el servidor al guardar el test." });
+  }
+};
+
+exports.vincularDenuncia = async (req, res) => {
+  const id_test     = req.params.id_test;
+  const { id_denuncia } = req.body;
+
+  if (!id_test || !id_denuncia) {
+    return res.status(400).json({ error: "Faltan id_test o id_denuncia." });
+  }
+
+  try {
+    const [result] = await pool.query(
+      `UPDATE test_autoevaluacion
+         SET Denuncia = ?
+       WHERE id_test = ?`,
+      [ id_denuncia, id_test ]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Test no encontrado." });
+    }
+
+    return res.status(200).json({ mensaje: "Test actualizado correctamente." });
+  } catch (err) {
+    console.error("Error al vincular denuncia:", err);
+    return res.status(500).json({ error: "Error en el servidor al vincular la denuncia." });
   }
 };
