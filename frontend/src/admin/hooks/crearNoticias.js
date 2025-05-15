@@ -7,7 +7,7 @@ export default function useCrearNoticia() {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
-  const token = getSession();
+  const token = getSession("token");
   // ⚡ función que llama al endpoint
   const createNoticia = async ({ titulo, contenido, url, img, destacada = 0 }) => {
     setLoading(true);
@@ -28,7 +28,7 @@ export default function useCrearNoticia() {
       const res = await fetch("http://13.216.39.33:3001/recursos/addNoticia", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token.token}`,
         },
         body: formData,
       });
