@@ -35,7 +35,7 @@ exports.syncNoticias = async (req, res) => {
         await connection.query(
           `INSERT INTO recursos
                (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
-           VALUES (?, 'artículo', ?, ?, ?, ?, ?)`,
+           VALUES (?, 'noticia', ?, ?, ?, ?, ?)`,
           [
             noticia.title,
             noticia.description || "Sin descripción",
@@ -63,7 +63,7 @@ exports.syncNoticias = async (req, res) => {
 exports.getNoticias = async (req, res) => {
   try {
     const connection = await pool.getConnection();
-    const [rows] = await connection.query("SELECT * FROM recursos WHERE tipo = 'artículo'");
+    const [rows] = await connection.query("SELECT * FROM recursos WHERE tipo = 'noticia'");
     connection.release();
     res.json(rows);
   } catch (error) {
