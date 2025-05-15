@@ -7,7 +7,7 @@ import TypingIndicator from "./componenetes/TypingIndicator";
 
 import { enviarMensaje } from "./logica/enviarMensaje";
 import { iniciarFlujo } from "./logica/iniciarFlujo";
-import Cookies from "js-cookie";
+import { getSession } from "admin/utils/session";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -41,15 +41,13 @@ function SimuladorFlujo() {
 
   useEffect(() => {
     if (mensajes.length === 0) {
-      const token = Cookies.get("token");
-      const sesion = sessionStorage.getItem("sesion");
+      const session = getSession();
       let mensajeInicial = "Hola 👋 ¿Cuál es tu correo electrónico?";
 
-      if (token && sesion) {
+      if (session?.token && session?.data) {
         try {
-          const usuario = JSON.parse(sesion);
-          mensajeInicial = `Hola, ${usuario.nombre} 👋`;
-          setToken(token); // activará iniciarFlujo automáticamente
+          mensajeInicial = `Hola, ${session.data.nombre} 👋`;
+          setToken(session.token); // activará iniciarFlujo automáticamente
         } catch (err) {
           console.error("Error al leer datos de la sesión:", err);
         }
