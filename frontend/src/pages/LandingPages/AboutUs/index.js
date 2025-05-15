@@ -29,7 +29,7 @@ function AboutUs() {
   return (
     <>
       <DefaultNavbar
-        routes={routes}
+        routes={publicRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",

@@ -26,6 +26,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
+import { clearSession } from "admin/utils/session";
 
 function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
@@ -38,7 +39,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
-  const [tieneToken, setTieneToken] = useState(!!Cookies.get("token"));
+  const [tieneToken] = useState(!!Cookies.get("token"));
 
   const rutasConEstadoSesion = routes.map((ruta) => {
     if (ruta.name === "Mi cuenta") {
@@ -48,12 +49,8 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
           ? [
               {
                 name: "Cerrar sesión",
-                route: "#",
                 onClick: () => {
-                  Cookies.remove("token");
-                  sessionStorage.clear();
-                  window.dispatchEvent(new Event("tokenActualizado"));
-                  window.location.href = "/";
+                  clearSession();
                 },
               },
             ]
@@ -67,23 +64,6 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     }
     return ruta;
   });
-
-  useEffect(() => {
-    const actualizarEstadoSesion = () => {
-      setTieneToken(!!Cookies.get("token"));
-    };
-
-    // Inicialmente y cuando se lanza el evento personalizado
-    actualizarEstadoSesion();
-    window.addEventListener("sesionIniciada", actualizarEstadoSesion);
-    window.addEventListener("logout", actualizarEstadoSesion);
-
-    return () => {
-      window.removeEventListener("sesionIniciada", actualizarEstadoSesion);
-      window.removeEventListener("logout", actualizarEstadoSesion);
-    };
-  }, []);
-
   useEffect(() => {
     // A function that sets the display state for the DefaultNavbarMobile.
     function displayMobileNavbar() {
@@ -109,25 +89,27 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     return () => window.removeEventListener("resize", displayMobileNavbar);
   }, []);
 
-  const renderNavbarItems = rutasConEstadoSesion.map(({ name, icon, href, route, collapse }) => (
-    <DefaultNavbarDropdown
-      key={name}
-      name={name}
-      icon={icon}
-      href={href}
-      route={route}
-      collapse={Boolean(collapse)}
-      onMouseEnter={({ currentTarget }) => {
-        if (collapse) {
-          setDropdown(currentTarget);
-          setDropdownEl(currentTarget);
-          setDropdownName(name);
-        }
-      }}
-      onMouseLeave={() => collapse && setDropdown(null)}
-      light={light}
-    />
-  ));
+  const renderNavbarItems = rutasConEstadoSesion.map(
+    ({ name, icon, href, publicroute, collapse }) => (
+      <DefaultNavbarDropdown
+        key={name}
+        name={name}
+        icon={icon}
+        href={href}
+        route={publicroute}
+        collapse={Boolean(collapse)}
+        onMouseEnter={({ currentTarget }) => {
+          if (collapse) {
+            setDropdown(currentTarget);
+            setDropdownEl(currentTarget);
+            setDropdownName(name);
+          }
+        }}
+        onMouseLeave={() => collapse && setDropdown(null)}
+        light={light}
+      />
+    )
+  );
 
   // Render the routes on the dropdown menu
   const renderRoutes = rutasConEstadoSesion.map(({ name, collapse, columns, rowsPerColumn }) => {

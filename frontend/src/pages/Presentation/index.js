@@ -6,8 +6,7 @@ import Card from "@mui/material/Card";
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import Icon from "@mui/material/Icon";
-import SignIn from "pages/LandingPages/SignIn";
+
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
@@ -18,71 +17,14 @@ import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/images/inici2.jpg";
 import Index from "./components/chat/SimuladorFlow";
+import publicRoutes from "../../routes/publicRoutes";
 
 function Presentation() {
-  const navbarRoutes = [
-    {
-      name: "Recursos",
-      key: "recursos",
-
-      route: "/sections/recursos/inici",
-      collapse: [
-        {
-          name: "Informatius",
-          key: "rec-info",
-
-          route: "/sections/recursos/info",
-        },
-        {
-          name: "Multimèdia",
-          key: "rec-multi",
-
-          route: "/sections/recursos/multimedia",
-        },
-        {
-          name: "Centre",
-          key: "rec-centre",
-
-          route: "/sections/recursos/centre",
-        },
-      ],
-    },
-    {
-      name: "Denúncia",
-      key: "denuncia",
-      route: "/sections/denuncia",
-      collapse: [
-        {
-          name: "Test autoevaluacio",
-          key: "test",
-          route: "/sections/denuncia",
-        },
-        {
-          name: "Denuncia",
-          key: "denuncia",
-          route: "/sections/denuncia/components/wizardDenuncia",
-        },
-      ],
-    },
-    {
-      name: "Mi cuenta",
-      key: "cuenta",
-      icon: <Icon>person</Icon>,
-      collapse: [
-        {
-          name: "Iniciar sessió",
-          key: "login",
-          route: "/pages/authentication/sign-in",
-          component: <SignIn />,
-        },
-      ],
-    },
-  ];
   return (
     <>
       <DefaultNavbar
         brand="Llumí"
-        routes={navbarRoutes}
+        routes={publicRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",
