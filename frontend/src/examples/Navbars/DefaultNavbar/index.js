@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-import Cookies from "js-cookie";
 
 // @mui material components
 import Container from "@mui/material/Container";
@@ -26,6 +25,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
+import { clearSession, getSession } from "admin/utils/session";
 
 function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
@@ -38,23 +38,21 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
-  const [tieneToken, setTieneToken] = useState(!!Cookies.get("token"));
-
+  const session = getSession("token");
+  const handleLeave = () => {
+    clearSession();
+    window.location.href = "/pages/Presentation";
+  };
   const rutasConEstadoSesion = routes.map((ruta) => {
     if (ruta.name === "Mi cuenta") {
+      const isLogged = Boolean(session?.token);
       return {
         ...ruta,
-        collapse: tieneToken
+        collapse: isLogged
           ? [
               {
                 name: "Cerrar sesión",
-                route: "#",
-                onClick: () => {
-                  Cookies.remove("token");
-                  sessionStorage.clear();
-                  window.dispatchEvent(new Event("tokenActualizado"));
-                  window.location.href = "/";
-                },
+                onClick: handleLeave,
               },
             ]
           : [
@@ -69,19 +67,8 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   });
 
   useEffect(() => {
-    const actualizarEstadoSesion = () => {
-      setTieneToken(!!Cookies.get("token"));
-    };
-
-    // Inicialmente y cuando se lanza el evento personalizado
-    actualizarEstadoSesion();
-    window.addEventListener("sesionIniciada", actualizarEstadoSesion);
-    window.addEventListener("logout", actualizarEstadoSesion);
-
-    return () => {
-      window.removeEventListener("sesionIniciada", actualizarEstadoSesion);
-      window.removeEventListener("logout", actualizarEstadoSesion);
-    };
+    window.addEventListener("beforeunload", handleLeave);
+    return () => window.removeEventListener("beforeunload", handleLeave);
   }, []);
 
   useEffect(() => {
