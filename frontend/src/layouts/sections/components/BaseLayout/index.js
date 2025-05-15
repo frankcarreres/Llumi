@@ -23,7 +23,6 @@ function BaseLayout({ breadcrumb, title, children }) {
       {/* Navbar fija */}
       <MKBox
         bgColor="white"
-        shadow="sm"
         py={0.25}
         sx={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000 }}
       >
@@ -36,7 +35,6 @@ function BaseLayout({ breadcrumb, title, children }) {
             label: "free download",
             color: "info",
           }}
-          transparent
           relative
         />
       </MKBox>
