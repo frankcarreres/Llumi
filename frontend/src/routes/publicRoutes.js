@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import Icon from "@mui/material/Icon";
 const SignIn = lazy(() => import("pages/LandingPages/SignIn"));
-const RecursIni = lazy(() => import("layouts/sections/recursos"));
+// const RecursIni = lazy(() => import("layouts/sections/recursos"));
 const RecursInfo = lazy(() => import("layouts/sections/recursos/info"));
 const RecursMulti = lazy(() => import("layouts/sections/recursos/multimedia"));
 const RecursCentre = lazy(() => import("layouts/sections/recursos/centre"));
 const Denuncia = lazy(() => import("layouts/sections/denuncia"));
+const Perfil = lazy(() => import("pages/LandingPages/Profile"));
 
 export default [
   {
@@ -34,7 +35,7 @@ export default [
         name: "Tots els recursos",
         key: "rec-inici",
         route: "/sections/recursos/inici",
-        component: <RecursIni />,
+        component: <Perfil />,
       },
     ],
   },
@@ -68,6 +69,12 @@ export default [
         key: "login",
         route: "/pages/authentication/sign-in",
         component: <SignIn />,
+      },
+      {
+        name: "Perfil",
+        key: "perfil",
+        route: "/pages/authentication/profile",
+        component: <Perfil />,
       },
     ],
   },
