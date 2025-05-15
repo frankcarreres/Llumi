@@ -1,11 +1,30 @@
-// Sections components
+import React from "react";
 import BaseLayout from "../../components/BaseLayout";
 import MKBox from "components/MKBox";
-import MKTypography from "components/MKTypography";
-import React from "react";
+import TarjetaArticle from "./components/TarjetaArticle";
 
-// PageHeaders page components code
 function RecursCentre() {
+  const articulos = [
+    {
+      id: 1,
+      titulo: "La historia de la ciencia",
+      profesor: "Juan Pérez",
+      url: "https://ejemplo.com/art1",
+    },
+    {
+      id: 2,
+      titulo: "Matemáticas para todos",
+      profesor: "Ana Gómez",
+      url: "https://ejemplo.com/art2",
+    },
+    {
+      id: 3,
+      titulo: "Literatura contemporánea",
+      profesor: "Luis Martínez",
+      url: "https://ejemplo.com/art3",
+    },
+  ];
+
   return (
     <BaseLayout
       title="Recursos centre"
@@ -15,15 +34,18 @@ function RecursCentre() {
         { label: "Recursos centre" },
       ]}
     >
-      {" "}
       <MKBox mt={2} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        {" "}
-      </MKTypography>{" "}
-      <MKBox mt={6} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        {" "}
-      </MKTypography>{" "}
+
+      <div>
+        {articulos.map(({ id, titulo, profesor, url }) => (
+          <TarjetaArticle
+            key={id} // <--- aquí pones la key para React
+            titulo={titulo} // usa las variables desestructuradas directamente
+            profesor={profesor}
+            url={url} // url si la necesitas para abrir la pestaña nueva
+          />
+        ))}
+      </div>
     </BaseLayout>
   );
 }

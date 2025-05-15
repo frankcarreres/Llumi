@@ -20,7 +20,13 @@ import publicRoutes from "../../../../routes/publicRoutes";
 function BaseLayout({ breadcrumb, title, children }) {
   return (
     <MKBox display="flex" flexDirection="column" bgColor="white" minHeight="100vh">
-      <MKBox bgColor="white" shadow="sm" py={0.25}>
+      {/* Navbar fija */}
+      <MKBox
+        bgColor="white"
+        shadow="sm"
+        py={0.25}
+        sx={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000 }}
+      >
         <DefaultNavbar
           brand="Llumí"
           routes={publicRoutes}
@@ -34,7 +40,11 @@ function BaseLayout({ breadcrumb, title, children }) {
           relative
         />
       </MKBox>
-      <Container sx={{ mt: 6 }}>
+
+      {/* Contenido */}
+      <Container sx={{ mt: 10 }}>
+        {" "}
+        {/* Ajusta el margen superior */}
         <Grid container item xs={12} flexDirection="column" justifyContent="center" mx="auto">
           <MKBox width={{ xs: "100%", md: "50%", lg: "25%" }} mb={3}>
             <Breadcrumbs routes={breadcrumb} />
@@ -45,6 +55,7 @@ function BaseLayout({ breadcrumb, title, children }) {
           {children}
         </Grid>
       </Container>
+
       <MKBox mt="auto">
         <CenteredFooter />
       </MKBox>
