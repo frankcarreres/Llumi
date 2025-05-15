@@ -10,7 +10,7 @@ exports.getUsuarioPorId = async (req, res, next) => {
 
   try{
     const [rows] = await pool.query(
-      'SELECT * FROM usuarios WHERE id_usuario = ?',
+      'SELECT u.nombre, apellido, email, curso, activo, c.nombre AS centro FROM usuarios u  JOIN centros c ON u.id_centro = c.id_centro WHERE id_usuario = ? ',
       [id_usuario]
     );
     if (rows.length === 0) {
