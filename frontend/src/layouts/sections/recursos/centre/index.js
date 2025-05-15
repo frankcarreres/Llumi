@@ -1,29 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseLayout from "../../components/BaseLayout";
 import MKBox from "components/MKBox";
 import TarjetaArticle from "./components/TarjetaArticle";
 
 function RecursCentre() {
-  const articulos = [
-    {
-      id: 1,
-      titulo: "La historia de la ciencia",
-      profesor: "Juan Perpiña",
-      url: "https://ejemplo.com/art1",
-    },
-    {
-      id: 2,
-      titulo: "Matemáticas para todos",
-      profesor: "Ana Gómez",
-      url: "https://ejemplo.com/art2",
-    },
-    {
-      id: 3,
-      titulo: "Literatura contemporánea",
-      profesor: "Luis Martínez",
-      url: "https://ejemplo.com/art3",
-    },
-  ];
+  const [articulos, setArticulos] = useState([]);
+
+  useEffect(() => {
+    const fetchArticulos = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/recursos/articulos"); // cambia al host real si es necesario
+        const data = await response.json();
+        setArticulos(data.articulos); // porque el backend devuelve { articulos: [...] }
+      } catch (error) {
+        console.error("Error al obtener artículos:", error);
+      }
+    };
+
+    fetchArticulos();
+  }, []);
 
   return (
     <BaseLayout
@@ -38,12 +33,7 @@ function RecursCentre() {
 
       <div>
         {articulos.map(({ id, titulo, profesor, url }) => (
-          <TarjetaArticle
-            key={id} // <--- aquí pones la key para React
-            titulo={titulo} // usa las variables desestructuradas directamente
-            profesor={profesor}
-            url={url} // url si la necesitas para abrir la pestaña nueva
-          />
+          <TarjetaArticle key={id} titulo={titulo} profesor={profesor} url={url} />
         ))}
       </div>
     </BaseLayout>
