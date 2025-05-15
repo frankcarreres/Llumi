@@ -51,12 +51,9 @@ exports.login = async (req, res) => {
     res.json({
       token,
       usuario: {
-        id_usuario: usuario.id_usuario,
         id_centro: usuario.id_centro,
         rol: usuario.rol,
         nombre: usuario.nombre,
-        curso: usuario.curso,
-        centro: usuario.centro
       }
     });
   } catch (error) {
@@ -129,7 +126,6 @@ exports.loginCentro = async (req, res) => {
     res.json({
       token,
       centro: {
-        id_centro: centro.id_centro,
         nombre: centro.nombre,
         direccion: centro.direccion,
         telefono: centro.telefono,
