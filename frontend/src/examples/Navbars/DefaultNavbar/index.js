@@ -216,11 +216,13 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
           href: item.href,
           target: "_blank",
           rel: "noreferrer",
+          onClick: item.onClick,
         };
 
         const routeComponent = {
           component: Link,
           to: item.route,
+          onClick: item.onClick,
         };
 
         return (
