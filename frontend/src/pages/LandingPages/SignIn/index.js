@@ -21,9 +21,9 @@ import { useNavigate } from "react-router-dom";
 import bgImage from "assets/images/inici2.jpg";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
-import Icon from "@mui/material/Icon";
-import SignIn from "../../../pages/LandingPages/SignIn";
+
 import { saveSession } from "admin/utils/session";
+import publicRoutes from "../../../routes/publicRoutes";
 
 // Importación del componente InputAnimado
 
@@ -32,64 +32,7 @@ function SignInBasic() {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const navigate = useNavigate();
-  const navbarRoutes = [
-    {
-      name: "Recursos",
-      key: "recursos",
 
-      route: "/sections/recursos/inici",
-      collapse: [
-        {
-          name: "Informatius",
-          key: "rec-info",
-
-          route: "/sections/recursos/info",
-        },
-        {
-          name: "Multimèdia",
-          key: "rec-multi",
-
-          route: "/sections/recursos/multimedia",
-        },
-        {
-          name: "Centre",
-          key: "rec-centre",
-
-          route: "/sections/recursos/centre",
-        },
-      ],
-    },
-    {
-      name: "Denúncia",
-      key: "denuncia",
-      route: "/sections/denuncia",
-      collapse: [
-        {
-          name: "Test autoevaluacio",
-          key: "test",
-          route: "/sections/denuncia",
-        },
-        {
-          name: "Denuncia",
-          key: "denuncia",
-          route: "/sections/denuncia/components/wizardDenuncia",
-        },
-      ],
-    },
-    {
-      name: "Mi cuenta",
-      key: "cuenta",
-      icon: <Icon>person</Icon>,
-      collapse: [
-        {
-          name: "Iniciar sessió",
-          key: "login",
-          route: "/pages/authentication/sign-in",
-          component: <SignIn />,
-        },
-      ],
-    },
-  ];
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -119,7 +62,7 @@ function SignInBasic() {
   return (
     <>
       <DefaultNavbar
-        routes={navbarRoutes}
+        routes={publicRoutes}
         action={{
           type: "external",
           route: "https://www.creative-tim.com/product/material-kit-react",

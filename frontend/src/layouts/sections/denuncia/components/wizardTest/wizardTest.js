@@ -16,8 +16,9 @@ import { Inicio, Total } from "./components/componentsTest";
 import { calcularNivelRiesgo } from "pages/Presentation/components/chat/utils/calculoRiesgo";
 import { guardarTest } from "pages/Presentation/components/chat/services/api";
 import Cookies from "js-cookie";
+import PropTypes from "prop-types";
 
-const WizardTest = () => {
+const WizardTest = ({ setMostrarDenuncia }) => {
   const [step, setStep] = useState(1);
   const [started, setStarted] = useState(false);
   const [selectedPregunta1, setSelectedPregunta1] = useState("");
@@ -32,6 +33,7 @@ const WizardTest = () => {
   const [totalScore, setTotalScore] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const totalSteps = 8;
+
   const variants = {
     enter: (direction) => ({
       x: direction > 0 ? 300 : -300,
@@ -346,7 +348,11 @@ const WizardTest = () => {
                   )}
                   {step === 8 && (
                     <>
-                      <Total totalScore={totalScore} nivelRiesgo={nivelRiesgo} />
+                      <Total
+                        totalScore={totalScore}
+                        nivelRiesgo={nivelRiesgo}
+                        onDenunciaClick={() => setMostrarDenuncia(true)}
+                      />
                       {(() => {
                         const resumenPlano = {
                           "¿Cómo empezó la situación que estás viviendo?": labelP1,
@@ -431,6 +437,10 @@ const WizardTest = () => {
       )}
     </Box>
   );
+};
+
+WizardTest.propTypes = {
+  setMostrarDenuncia: PropTypes.func.isRequired,
 };
 
 export default WizardTest;

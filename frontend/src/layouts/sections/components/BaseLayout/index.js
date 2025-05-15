@@ -15,50 +15,15 @@ import CenteredFooter from "examples/Footers/CenteredFooter";
 import Breadcrumbs from "examples/Breadcrumbs";
 
 // Routes
-import Icon from "@mui/material/Icon";
+import publicRoutes from "../../../../routes/publicRoutes";
 
-const navbarRoutes = [
-  {
-    name: "Recursos",
-    key: "recursos",
-    route: "/sections/recursos/inici",
-    collapse: [
-      {
-        name: "Informatius",
-        key: "rec-info",
-        route: "/sections/recursos/info",
-      },
-      {
-        name: "Multimèdia",
-        key: "rec-multi",
-        route: "/sections/recursos/multimedia",
-      },
-      {
-        name: "Centre",
-        key: "rec-centre",
-        route: "/sections/recursos/centre",
-      },
-    ],
-  },
-  {
-    name: "Denúncia",
-    key: "denuncia",
-    route: "/sections/denuncia",
-  },
-  {
-    name: "Mi cuenta",
-    key: "cuenta",
-    icon: <Icon>person</Icon>,
-    collapse: [],
-  },
-];
 function BaseLayout({ breadcrumb, title, children }) {
   return (
     <MKBox display="flex" flexDirection="column" bgColor="white" minHeight="100vh">
       <MKBox bgColor="white" shadow="sm" py={0.25}>
         <DefaultNavbar
           brand="Llumí"
-          routes={navbarRoutes}
+          routes={publicRoutes}
           action={{
             type: "external",
             route: "https://www.creative-tim.com/product/material-kit-react",
