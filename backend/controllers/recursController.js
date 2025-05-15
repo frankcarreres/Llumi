@@ -307,3 +307,15 @@ exports.postNoticias = async (req, res) => {
     res.status(500).json({ error: "Error interno" });
   }
 };
+
+exports.getArticulos = async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query("SELECT * FROM recursos WHERE tipo = 'artículo'");
+    connection.release();
+    res.json(rows);
+  } catch (error) {
+    console.error("Error al obtener artículos:", error);
+    res.status(500).json({ error: "Error al obtener artículos" });
+  }
+};
