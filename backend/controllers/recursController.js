@@ -313,7 +313,7 @@ exports.getArticulos = async (req, res) => {
     const connection = await pool.getConnection();
     const [rows] = await connection.query("SELECT * FROM recursos WHERE tipo = 'artículo'");
     connection.release();
-    res.json(rows);
+    res.json({ articulos: rows }); // <- Aquí los envolvemos
   } catch (error) {
     console.error("Error al obtener artículos:", error);
     res.status(500).json({ error: "Error al obtener artículos" });
