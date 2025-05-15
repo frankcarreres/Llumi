@@ -8,7 +8,7 @@ function RecursCentre() {
     {
       id: 1,
       titulo: "La historia de la ciencia",
-      profesor: "Juan Pérez",
+      profesor: "Juan Perpiña",
       url: "https://ejemplo.com/art1",
     },
     {
