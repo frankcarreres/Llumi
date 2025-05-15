@@ -1,5 +1,6 @@
 // controllers/testController.js
 const pool = require('../models/db');
+const { fetchDenunciaById } = require("../services/denunciasService");
 
 exports.guardarTest = async (req, res) => {
   const id_usuario = req.user?.id_usuario;
@@ -51,5 +52,22 @@ exports.vincularDenuncia = async (req, res) => {
   } catch (err) {
     console.error("Error al vincular denuncia:", err);
     return res.status(500).json({ error: "Error en el servidor al vincular la denuncia." });
+  }
+};
+
+exports.getTestPorIdUsuario = async (req, res, next) => {
+  const { id_usuario }  = req.user;
+
+  try{
+    const [rows] = await pool.query(
+      'SELECT * FROM test_autoevaluacion WHERE id_usuario = ?',
+      [id_usuario]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "No se han encontrado test de este usuario." });
+    }
+    return res.json(rows);
+  }catch (error){
+    return next (error);
   }
 };
