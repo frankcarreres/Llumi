@@ -8,6 +8,7 @@ const testRoutes = require('./routes/testRoutes');
 const recursRoutes = require('./routes/recursRoutes');
 const typebotRoutes = require('./routes/typebotRoutes');
 const denunciaRoutes = require('./routes/denunciaRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 app.use(cors());
 app.use((req, res, next) => {
@@ -26,5 +27,6 @@ app.use('/api/test', testRoutes);
 app.use('/recursos', recursRoutes);
 app.use('/denuncias', denunciaRoutes);
 app.use('/typebot', typebotRoutes);
+app.use("/usuario", userRoutes);
 
 module.exports = app;
