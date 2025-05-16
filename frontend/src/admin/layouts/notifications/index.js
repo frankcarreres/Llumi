@@ -6,15 +6,15 @@ import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
 import MDTypography from "admin/components/MDTypography";
-import Footer from "admin/examples/Footer";
+import Footer from "admin/widgets/Footer";
 import MDButton from "admin/components/MDButton";
 import MDBox from "admin/components/MDBox";
 import MDAlert from "admin/components/MDAlert";
 import MDSnackbar from "admin/components/MDSnackbar";
 
 // Material Dashboard 2 React example components
-import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
-import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
 
 function Notifications() {
   const [successSB, setSuccessSB] = useState(false);

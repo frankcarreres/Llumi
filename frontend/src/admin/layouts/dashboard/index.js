@@ -7,13 +7,13 @@ import { useMemo } from "react";
 import casosResueltos from "./data/casoResueltos";
 import casosPorTiempo from "./data/casosPorTiempo";
 import casosActivosPorMes from "./data/casosActivoPorMes";
-import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
+import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
 import MDBox from "admin/components/MDBox";
-import ReportsBarChart from "admin/examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "admin/examples/Charts/LineCharts/ReportsLineChart";
-import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
+import ReportsBarChart from "admin/widgets/Charts/BarCharts/ReportsBarChart";
+import ReportsLineChart from "admin/widgets/Charts/LineCharts/ReportsLineChart";
+import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
 import Casos from "./components/Casos";
-import Footer from "admin/examples/Footer";
+import Footer from "admin/widgets/Footer";
 
 function Dashboard() {
   const { rowsData, loading } = denunciasPeticiones({ withEdit: false });

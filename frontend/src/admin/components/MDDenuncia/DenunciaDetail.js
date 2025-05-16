@@ -1,5 +1,4 @@
 // src/components/DenunciaDetail.js
-
 import React from "react";
 import PropTypes from "prop-types";
 

@@ -1,13 +1,13 @@
-import denunciasPeticiones from "../../hooks/denunciasPeticiones";
+import denunciasPeticiones from "admin/hooks/denunciasPeticiones";
 import { useParams } from "react-router-dom";
-import Footer from "../../examples/Footer";
-import DenunciaDetail from "../../components/MDDenuncia/DenunciaDetail";
-import MDTypography from "../../components/MDTypography";
-import MDBox from "../../components/MDBox";
+import Footer from "admin/widgets/Footer";
+import DenunciaDetail from "admin/components/MDDenuncia/DenunciaDetail";
+import MDTypography from "admin/components/MDTypography";
+import MDBox from "admin/components/MDBox";
 import { CircularProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
-import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
 
 export default function DenunciaPage() {
   const { id_denuncia } = useParams();

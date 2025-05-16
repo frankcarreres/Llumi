@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import MDBox from "admin/components/MDBox";
 import MDTypography from "admin/components/MDTypography";
 // Material Dashboard 2 React examples
-import DataTable from "admin/examples/Tables/DataTable";
+import DataTable from "admin/widgets/Tables/DataTable";
 
 // Data
 import data from "./data/casosTable";
@@ -65,13 +65,12 @@ function Casos() {
       onClose={closeMenu}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
-      // 👉 Forzamos el Paper con fondo y sombra
       PaperProps={{
         sx: {
-          bgcolor: "background.paper", // blanco o el color que definas en el theme
-          boxShadow: 2, // sombra suave
-          borderRadius: 1, // bordes redondeados
-          mt: 1, // un pelín de separación
+          bgcolor: "background.paper",
+          boxShadow: 2,
+          borderRadius: 1,
+          mt: 1,
         },
       }}
     >
@@ -83,6 +82,23 @@ function Casos() {
             value={menuFilters.tipo}
             onChange={handleMenuChange("tipo")}
             sx={{ "& .MuiOutlinedInput-notchedOutline": { top: 0 }, height: 40 }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: "background.paper",
+                  boxShadow: 1,
+                  mt: 1,
+                },
+              },
+              MenuListProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    typography: "body2",
+                    px: 3,
+                  },
+                },
+              },
+            }}
           >
             <MenuItem value="">
               <em>Todos</em>
@@ -105,6 +121,23 @@ function Casos() {
             value={menuFilters.estado}
             onChange={handleMenuChange("estado")}
             sx={{ "& .MuiOutlinedInput-notchedOutline": { top: 0 }, height: 40 }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: "background.paper",
+                  boxShadow: 1,
+                  mt: 1,
+                },
+              },
+              MenuListProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    typography: "body2",
+                    px: 3,
+                  },
+                },
+              },
+            }}
           >
             <MenuItem value="">
               <em>Todos</em>
@@ -124,6 +157,23 @@ function Casos() {
             value={menuFilters.fecha}
             onChange={handleMenuChange("fecha")}
             sx={{ "& .MuiOutlinedInput-notchedOutline": { top: 0 }, height: 40 }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: "background.paper",
+                  boxShadow: 1,
+                  mt: 1,
+                },
+              },
+              MenuListProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    typography: "body2",
+                    px: 3,
+                  },
+                },
+              },
+            }}
           >
             {Array.from({ length: 21 }).map((_, index) => {
               const year = new Date().getFullYear() - index;

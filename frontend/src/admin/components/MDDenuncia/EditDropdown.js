@@ -33,12 +33,11 @@ export default function EditDropdown({ row, setRowsData, updateData }) {
         disableUnderline
         sx={{ "& .MuiSelect-select": { typography: "body2" } }}
         MenuProps={{
-          // Asegura que el menu tenga su Paper con fondo y sombra
           PaperProps: {
             sx: {
-              bgcolor: "background.paper", // fondo blanco (o el theme que uses)
-              boxShadow: 1, // sombra suave
-              mt: 1, // un pequeño margin-top para separarlo
+              bgcolor: "background.paper",
+              boxShadow: 1,
+              mt: 1,
             },
           },
           MenuListProps: {

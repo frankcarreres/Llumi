@@ -7,11 +7,11 @@ import authorsTableData from "./data/casosActivosTable";
 import MDBox from "admin/components/MDBox";
 import MDTypography from "admin/components/MDTypography";
 
-// Meterial examples
-import Footer from "admin/examples/Footer";
-import DataTable from "admin/examples/Tables/DataTable";
-import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
-import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
+// Meterial widgets
+import Footer from "admin/widgets/Footer";
+import DataTable from "admin/widgets/Tables/DataTable";
+import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
+import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
 
 function Tables() {
   const { columns, rows } = authorsTableData();

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
 import { useLocation, Outlet, Navigate } from "react-router-dom";
 import adminRoutes from "routes/adminRoutes";
 
@@ -11,9 +10,9 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 components
 import MDBox from "admin/components/MDBox";
 
-// Material Dashboard 2 examples
-import Configurator from "admin/examples/Configurator";
-import Sidenav from "admin/examples/Sidenav";
+// Material Dashboard 2 widgets
+import Configurator from "admin/widgets/Configurator";
+import Sidenav from "admin/widgets/Sidenav";
 
 // Material Dashboard 2 React themes
 import theme from "admin/assets/theme";
@@ -26,7 +25,7 @@ import { getSession, clearSession } from "admin/utils/session";
 
 // Images
 import brandWhite from "admin/assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+import brandDark from "admin/assets/images/logo-ct-dark.png";
 
 export default function AdminLayout() {
   const [controller, dispatch] = useMaterialUIController();
