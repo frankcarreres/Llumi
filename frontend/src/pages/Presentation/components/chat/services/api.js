@@ -96,3 +96,44 @@ export async function loginCentro(id_centro, contrasena) {
   if (!res.ok) throw new Error("Login de centro fallido");
   return await res.json();
 }
+
+export async function obtenerUsuario(token) {
+  const res = await fetch(`${BASE_URL}/usuario/:id_usuario`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    if (res.status === 404) throw new Error("Usuario no encontrado");
+    throw new Error(`Error al obtener usuario: ${res.status}`);
+  }
+
+  const rows = await res.json();
+  if (!Array.isArray(rows) || rows.length === 0) {
+    throw new Error("Respuesta vacía al obtener usuario");
+  }
+
+  // Devolvemos el primer elemento (tu endpoint retorna un array con un solo usuario)
+  return rows[0];
+}
+
+/**
+ * Obtiene los tests del usuario autenticado.
+ * Devuelve un array de { id_test, riesgo, fecha, id_denuncia }
+ */
+export async function obtenerTests(token) {
+  const res = await fetch(`${BASE_URL}/api/test/:id_usuario`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`Error al obtener tests: ${res.status}`);
+  }
+  return await res.json();
+}

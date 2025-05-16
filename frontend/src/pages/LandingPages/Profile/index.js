@@ -14,7 +14,7 @@ import Profile from "pages/LandingPages/Profile/sections/Profile";
 import publicRoutes from "../../../routes/publicRoutes";
 
 // Images
-import bgImage from "assets/images/city-profile.jpg";
+import bgImage from "assets/images/inici2.jpg";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 
@@ -39,7 +39,7 @@ function Perfil() {
           sx={{
             backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
               `${linearGradient(
-                rgba(gradients.dark.main, 0.8),
+                rgba(gradients.dark.main, 0.5),
                 rgba(gradients.dark.state, 0.8)
               )}, url(${bgImage})`,
             backgroundSize: "cover",

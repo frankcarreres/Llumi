@@ -60,7 +60,7 @@ exports.getTestPorIdUsuario = async (req, res, next) => {
 
   try{
     const [rows] = await pool.query(
-      'SELECT * FROM test_autoevaluacion WHERE id_usuario = ?',
+      'SELECT id_test,resultado,fecha_realizacion,Denuncia FROM test_autoevaluacion WHERE id_usuario = ?',
       [id_usuario]
     );
     if (rows.length === 0) {
