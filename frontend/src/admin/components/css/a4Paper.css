@@ -1,4 +1,3 @@
-/*  ───  CSS (src/components/a4-paper.css) ─── */
 .a4-page {
   width: 210mm;
 min-height: 297mm;
@@ -8,13 +7,11 @@ border: 1px solid #ccc;
 box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-/* márgenes internos (20 mm arriba/abajo, 15 mm laterales) */
 .a4-content {
     padding: 20mm 15mm;
     box-sizing: border-box;
 }
 
-/*  Modo impresión: quita sombras y bordes, y fuerza salto de página  */
 @media print {
     .a4-page {
         margin: 0;
