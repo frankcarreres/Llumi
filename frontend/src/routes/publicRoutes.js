@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import Icon from "@mui/material/Icon";
 const SignIn = lazy(() => import("pages/LandingPages/SignIn"));
-// const RecursIni = lazy(() => import("layouts/sections/recursos"));
+const RecursIni = lazy(() => import("layouts/sections/recursos"));
 const RecursInfo = lazy(() => import("layouts/sections/recursos/info"));
 const RecursMulti = lazy(() => import("layouts/sections/recursos/multimedia"));
 const RecursCentre = lazy(() => import("layouts/sections/recursos/centre"));
@@ -34,8 +34,8 @@ export default [
       {
         name: "Tots els recursos",
         key: "rec-inici",
-        route: "/sections/recursos/info",
-        component: <RecursInfo />,
+        route: "/sections/recursos/inici",
+        component: <RecursIni />,
       },
     ],
   },
@@ -73,7 +73,7 @@ export default [
       {
         name: "Perfil",
         key: "perfil",
-        route: "/sections/recursos/inici",
+        route: "pages/LandingPages/Profile",
         component: <Perfil />,
       },
     ],
