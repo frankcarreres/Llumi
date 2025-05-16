@@ -51,7 +51,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
         return {
           ...ruta,
           collapse: [
-            { name: "Perfil", route: "/sections/recursos/inici" },
+            { name: "Perfil", route: "pages/LandingPages/Profile" },
             // aquí podrías añadir más, por ejemplo:
             // { name: "Ajustes", route: "/sections/mi-cuenta/ajustes" },
             { name: "Cerrar sesión", onClick: handleLeave },
