@@ -1,9 +1,12 @@
-import container from "../../assets/theme-dark/components/container";
+import container from "admin/assets/theme-dark/components/container";
 import dialogActions from "./components/dialog/dialogActions";
 import dialogContentText from "./components/dialog/dialogContentText";
 import dialogContent from "./components/dialog/dialogContent";
 import dialogTitle from "./components/dialog/dialogTitle";
-import { button, dialog, input, linearGradient, link, menu, select } from "framer-motion/m";
+import rgba from "admin/assets/theme-dark/functions/rgba";
+import linearGradient from "admin/assets/theme-dark/functions/linearGradient";
+
+import { button, dialog, input, link, menu, select } from "framer-motion/m";
 
 import svgIcon from "./components/svgIcon";
 import icon from "./components/icon";
@@ -45,7 +48,6 @@ import listItem from "./components/list/listItem";
 import list from "./components/list";
 import sidenav from "./components/sidenav";
 import globals from "./base/globals";
-import { rgba } from "framer-motion";
 import pxToRem from "./functions/pxToRem";
 import { hexToRgb } from "@mui/material";
 import boxShadow from "./functions/boxShadow";
