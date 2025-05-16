@@ -34,8 +34,8 @@ export default [
       {
         name: "Tots els recursos",
         key: "rec-inici",
-        route: "/sections/recursos/inici",
-        component: <Perfil />,
+        route: "/sections/recursos/info",
+        component: <RecursInfo />,
       },
     ],
   },
@@ -73,7 +73,7 @@ export default [
       {
         name: "Perfil",
         key: "perfil",
-        route: "/pages/authentication/profile",
+        route: "/sections/recursos/inici",
         component: <Perfil />,
       },
     ],
