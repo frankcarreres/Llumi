@@ -11,11 +11,11 @@ import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import CenteredFooter from "examples/Footers/CenteredFooter";
 import Breadcrumbs from "examples/Breadcrumbs";
 
 // Routes
 import publicRoutes from "../../../../routes/publicRoutes";
+import CenteredFooter from "examples/Footers/CenteredFooter";
 
 function BaseLayout({ breadcrumb, title, children }) {
   return (
@@ -35,13 +35,13 @@ function BaseLayout({ breadcrumb, title, children }) {
             label: "free download",
             color: "info",
           }}
-          relative
+          sticky
         />
       </MKBox>
 
       {/* Contenido */}
       <Container sx={{ mt: 10 }}>
-        {" "}
+        <MKBox mt={4} />
         {/* Ajusta el margen superior */}
         <Grid container item xs={12} flexDirection="column" justifyContent="center" mx="auto">
           <MKBox width={{ xs: "100%", md: "50%", lg: "25%" }} mb={3}>

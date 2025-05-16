@@ -9,13 +9,14 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Profile page sections
 import Profile from "pages/LandingPages/Profile/sections/Profile";
-import Footer from "pages/LandingPages/Profile/sections/Footer";
 
 // Routes
 import publicRoutes from "../../../routes/publicRoutes";
 
 // Images
 import bgImage from "assets/images/city-profile.jpg";
+import DefaultFooter from "examples/Footers/DefaultFooter";
+import footerRoutes from "footer.routes";
 
 function Perfil() {
   return (
@@ -60,7 +61,9 @@ function Perfil() {
         >
           <Profile />
         </Card>
-        <Footer />
+        <MKBox pt={6} px={1} mt={6}>
+          <DefaultFooter content={footerRoutes} />
+        </MKBox>{" "}
       </MKBox>
     </>
   );
