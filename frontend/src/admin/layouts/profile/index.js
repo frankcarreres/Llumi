@@ -9,9 +9,9 @@ import MDBox from "admin/components/MDBox";
 import Divider from "@mui/material/Divider";
 
 // Material Dashboard layout
-import DashboardLayout from "admin/examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "admin/examples/Navbars/DashboardNavbar";
-import Footer from "admin/examples/Footer";
+import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
+import Footer from "admin/widgets/Footer";
 import LoadingComponent from "admin/components/LoadingComponent";
 import Header from "admin/layouts/profile/components/Header";
 import Button from "@mui/material/Button";
