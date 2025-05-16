@@ -8,7 +8,7 @@ import Menu from "@mui/material/Menu";
 import MDBox from "admin/components/MDBox";
 
 // Material Dashboard 2 React example components
-import DefaultNavbarLink from "admin/examples/Navbars/DefaultNavbar/DefaultNavbarLink";
+import DefaultNavbarLink from "admin/widgets/Navbars/DefaultNavbar/DefaultNavbarLink";
 
 function DefaultNavbarMobile({ open, close }) {
   const { width } = open && open.getBoundingClientRect();

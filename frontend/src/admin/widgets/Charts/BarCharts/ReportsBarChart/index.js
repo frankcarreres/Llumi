@@ -23,7 +23,7 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 
 // ReportsBarChart configurations
-import configs from "../../../../examples/Charts/BarCharts/ReportsBarChart/configs";
+import configs from "admin/widgets/Charts/BarCharts/ReportsBarChart/configs";
 import MDBox from "admin/components/MDBox";
 import MDTypography from "admin/components/MDTypography";
 
