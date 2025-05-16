@@ -2,7 +2,7 @@
 import MKTypography from "components/MKTypography";
 
 // Images
-import logoCT from "/admin/assets/images/logo-ct-dark.png";
+import logoCT from "admin/assets/images/logo-ct-dark.png";
 
 export default {
   brand: {
