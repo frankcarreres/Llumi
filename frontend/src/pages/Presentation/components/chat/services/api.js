@@ -125,7 +125,7 @@ export async function obtenerUsuario(token) {
  * Devuelve un array de { id_test, riesgo, fecha, id_denuncia }
  */
 export async function obtenerTests(token) {
-  const res = await fetch(`${BASE_URL}/api/test/:id_usuario`, {
+  const res = await fetch(`${BASE_URL}/api/test/usuario/:id_usuario`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
