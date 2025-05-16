@@ -9,7 +9,7 @@ function RecursCentre() {
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await fetch("http://localhost:3001/recursos/articulos"); // cambia al host real si es necesario
+        const response = await fetch("http://13.216.39.33:3001/recursos/articulos"); // cambia al host real si es necesario
         const data = await response.json();
         setArticulos(data.articulos); // porque el backend devuelve { articulos: [...] }
       } catch (error) {

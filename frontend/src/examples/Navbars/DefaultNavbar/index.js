@@ -46,21 +46,23 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   const rutasConEstadoSesion = routes.map((ruta) => {
     if (ruta.name === "Mi cuenta") {
       const isLogged = Boolean(session?.token);
+
+      if (isLogged) {
+        return {
+          ...ruta,
+          collapse: [
+            { name: "Perfil", route: "/sections/recursos/inici" },
+            // aquí podrías añadir más, por ejemplo:
+            // { name: "Ajustes", route: "/sections/mi-cuenta/ajustes" },
+            { name: "Cerrar sesión", onClick: handleLeave },
+          ],
+        };
+      }
+
+      // Si NO está logueado, muestro solo "Iniciar sessió"
       return {
         ...ruta,
-        collapse: isLogged
-          ? [
-              {
-                name: "Cerrar sesión",
-                onClick: handleLeave,
-              },
-            ]
-          : [
-              {
-                name: "Iniciar sessió",
-                route: "/pages/authentication/sign-in",
-              },
-            ],
+        collapse: [{ name: "Iniciar sessió", route: "/pages/authentication/sign-in" }],
       };
     }
     return ruta;
