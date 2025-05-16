@@ -18,8 +18,15 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/inici2.jpg";
 import Index from "./components/chat/SimuladorFlow";
 import publicRoutes from "../../routes/publicRoutes";
+import { getSession } from "admin/utils/session";
+import { useNavigate } from "react-router-dom";
 
 function Presentation() {
+  const sesion = getSession("token");
+  const navigate = useNavigate();
+  if (sesion?.data.rol === "centro") {
+    navigate("/admin/dashboard", { replace: true });
+  }
   return (
     <>
       <DefaultNavbar
