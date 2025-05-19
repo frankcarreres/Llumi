@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { exportToPDF } from "admin/utils/exportToPDF";
 import Icon from "@mui/material/Icon";
 import "./index.css";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 
 const TarjetaArticle = ({ id, titulo, fecha_publicacion, contenido }) => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const TarjetaArticle = ({ id, titulo, fecha_publicacion, contenido }) => {
       <div className="card-header">
         <h3 className="title">{titulo}</h3>
         <small className="subtitle">Fecha: {fechaFormateada}</small>
-        <IconButton
+        <Button
           className="download-btn"
           onClick={(e) => {
             e.stopPropagation();
@@ -36,7 +36,7 @@ const TarjetaArticle = ({ id, titulo, fecha_publicacion, contenido }) => {
           title="Descargar PDF"
         >
           <Icon>sim_card_download</Icon>
-        </IconButton>
+        </Button>
       </div>
     </div>
   );
