@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,10 +6,14 @@ import "slick-carousel/slick/slick-theme.css";
 import MKBox from "../../../../../components/MKBox";
 import TarjetaNoticia from "./TarjetaNoticia";
 import CircularProgress from "@mui/material/CircularProgress";
+import { IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function CarruselNoticias({ destacadas }) {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchNoticias = async () => {
@@ -29,7 +33,7 @@ function CarruselNoticias({ destacadas }) {
       }
     };
 
-    fetchNoticias();
+    void fetchNoticias();
   }, [destacadas]);
 
   const settings = {
@@ -38,7 +42,7 @@ function CarruselNoticias({ destacadas }) {
     speed: 500,
     slidesToShow: destacadas ? 3 : 4,
     slidesToScroll: destacadas ? 3 : 4,
-    arrows: true,
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 10000, // 10s
     responsive: [
@@ -75,19 +79,50 @@ function CarruselNoticias({ destacadas }) {
   }
 
   return (
-    <MKBox sx={{ width: "100%", mx: "auto", mt: 2, height: "400px" }}>
-      <Slider {...settings}>
-        {noticias.map((noticia, index) => (
-          <MKBox key={index} mx={0.5} sx={{ height: "100%" }}>
-            <TarjetaNoticia
-              titulo={noticia.titulo}
-              descripcion={noticia.contenido}
-              imagen={noticia.img}
-              url={noticia.url}
-            />
-          </MKBox>
-        ))}
-      </Slider>
+    <MKBox
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        mt: 2,
+      }}
+    >
+      {" "}
+      <IconButton
+        onClick={() => sliderRef.current?.slickPrev()}
+        sx={{
+          backgroundColor: "white",
+          "&:hover": { backgroundColor: "#ddd" },
+          mr: 1,
+        }}
+      >
+        <ArrowBackIosIcon />
+      </IconButton>
+      <MKBox sx={{ width: "100%" }}>
+        <Slider ref={sliderRef} {...settings}>
+          {noticias.map((noticia, index) => (
+            <MKBox key={index} mx={0.5} sx={{ height: "100%" }}>
+              <TarjetaNoticia
+                titulo={noticia.titulo}
+                descripcion={noticia.contenido}
+                imagen={noticia.img}
+                url={noticia.url}
+              />
+            </MKBox>
+          ))}
+        </Slider>
+      </MKBox>
+      <IconButton
+        onClick={() => sliderRef.current?.slickNext()}
+        sx={{
+          backgroundColor: "white",
+          "&:hover": { backgroundColor: "#ddd" },
+          ml: 1,
+        }}
+      >
+        <ArrowForwardIosIcon />
+      </IconButton>
     </MKBox>
   );
 }

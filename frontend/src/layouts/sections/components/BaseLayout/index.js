@@ -19,7 +19,7 @@ import CenteredFooter from "examples/Footers/CenteredFooter";
 
 function BaseLayout({ breadcrumb, title, children }) {
   return (
-    <MKBox display="flex" flexDirection="column" bgColor="white" minHeight="100vh">
+    <MKBox display="flex" flexDirection="column" bgColor="#f0f2f5" minHeight="100vh">
       {/* Navbar fija */}
       <MKBox
         bgColor="white"

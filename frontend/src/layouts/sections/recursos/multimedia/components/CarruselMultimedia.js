@@ -37,7 +37,7 @@ function CarruselMultimedia({ destacados, tipo }) {
       }
     };
 
-    fetchRecursos();
+    void fetchRecursos();
   }, [destacados, tipo]);
 
   const settings = {
@@ -115,7 +115,6 @@ function CarruselMultimedia({ destacados, tipo }) {
                 height="300"
                 src={item.url}
                 title={item.titulo}
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen

@@ -4,12 +4,10 @@ import CarruselTarjetes from "./components/CarruselTarjetes";
 
 function RecursIni() {
   return (
-    <MKBox mt={4}>
-      {" "}
-      {/* Espacio arriba (mt = margin-top) */}
+    <MKBox mt={2}>
       <BaseLayout
-        title="Recursos"
         breadcrumb={[{ label: "Inici", route: "/pages/presentation" }, { label: "Recursos" }]}
+        title="Recursos"
       >
         <CarruselTarjetes />
       </BaseLayout>

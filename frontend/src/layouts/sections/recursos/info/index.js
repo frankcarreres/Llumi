@@ -15,12 +15,40 @@ function RecursInfo() {
       ]}
     >
       <MKBox mt={2} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        Notícies Destacades{" "}
+      <MKTypography
+        variant="h4"
+        fontWeight="light"
+        textAlign="center"
+        mb={3}
+        sx={{
+          backgroundColor: "#7b869b",
+          color: "white !important",
+          display: "inline-block",
+          px: 2,
+          py: 1,
+          borderRadius: "3px",
+        }}
+      >
+        NOTÍCIES DESTACADES
       </MKTypography>
+
       <CarruselNoticias destacadas={true} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        Últimes Notícies{" "}
+      <MKBox mt={2} />
+      <MKTypography
+        variant="h4"
+        fontWeight="light"
+        textAlign="center"
+        mb={3}
+        sx={{
+          backgroundColor: "#7b869b",
+          color: "white !important",
+          display: "inline-block",
+          px: 2,
+          py: 1,
+          borderRadius: "3px",
+        }}
+      >
+        ÚLTIMES NOTÍCIES
       </MKTypography>
       <CarruselNoticias />
     </BaseLayout>

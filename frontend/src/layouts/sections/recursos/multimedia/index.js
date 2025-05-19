@@ -17,14 +17,40 @@ function RecursMultimedia() {
       ]}
     >
       <MKBox mt={2} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        Vídeos{" "}
-      </MKTypography>{" "}
+      <MKTypography
+        variant="h4"
+        fontWeight="light"
+        textAlign="center"
+        mb={3}
+        sx={{
+          backgroundColor: "#7b869b",
+          color: "white !important",
+          display: "inline-block",
+          px: 2,
+          py: 1,
+          borderRadius: "3px",
+        }}
+      >
+        VÍDEOS FORMATIUS
+      </MKTypography>
       <CarruselMultimedia tipo="video" />
       <MKBox mt={6} />
-      <MKTypography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-        Pòdcasts/Entrevistes{" "}
-      </MKTypography>{" "}
+      <MKTypography
+        variant="h4"
+        fontWeight="light"
+        textAlign="center"
+        mb={3}
+        sx={{
+          backgroundColor: "#7b869b",
+          color: "white !important",
+          display: "inline-block",
+          px: 2,
+          py: 1,
+          borderRadius: "3px",
+        }}
+      >
+        PÒDCASTS/ENTREVISTES
+      </MKTypography>
       <CarruselMultimedia tipo="podcast" />
     </BaseLayout>
   );

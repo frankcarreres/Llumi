@@ -29,7 +29,7 @@ function TarjetaNoticia({ titulo, imagen, url }) {
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
-          borderRadius: "16px",
+          borderRadius: "5px",
           overflow: "hidden",
         }}
       >
@@ -41,9 +41,9 @@ function TarjetaNoticia({ titulo, imagen, url }) {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
             zIndex: 1,
-            borderRadius: "inherit", // <- Coincide con el borde del contenedor
+            borderRadius: "inherit",
           }}
         />
 
@@ -56,7 +56,7 @@ function TarjetaNoticia({ titulo, imagen, url }) {
           sx={{ gap: 2 }}
         >
           <MKTypography variant="h6" color="white">
-            {truncateText(titulo, 50)}
+            {truncateText(titulo, 80)}
           </MKTypography>
           <MKButton color="white" onClick={handleClick}>
             Ver más

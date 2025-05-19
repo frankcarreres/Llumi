@@ -5,6 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 import cardImage2 from "../../../../assets/images/ojo.png";
 import cardImage3 from "../../../../assets/images/bg2.jpg";
 import TarjetaRecurs from "./Tarjeta";
+import React, { useRef } from "react";
+import { IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const tarjetas = [
   {
@@ -30,13 +34,15 @@ const tarjetas = [
 ];
 
 function CarruselTarjetas() {
+  const sliderRef = useRef(null);
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 5000,
     responsive: [
@@ -56,19 +62,50 @@ function CarruselTarjetas() {
   };
 
   return (
-    <MKBox sx={{ width: "100%", mx: "auto", mt: 4, height: "500px" }}>
-      <Slider {...settings}>
-        {tarjetas.map((tarjeta, index) => (
-          <MKBox key={index} mx={1} sx={{ height: "100%" }}>
-            <TarjetaRecurs
-              titulo={tarjeta.titulo}
-              descripcion={tarjeta.descripcion}
-              imagen={tarjeta.imagen}
-              ruta={tarjeta.ruta}
-            />
-          </MKBox>
-        ))}
-      </Slider>
+    <MKBox
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        mt: 2,
+      }}
+    >
+      {" "}
+      <IconButton
+        onClick={() => sliderRef.current?.slickPrev()}
+        sx={{
+          backgroundColor: "white",
+          "&:hover": { backgroundColor: "#ddd" },
+          mr: 1,
+        }}
+      >
+        <ArrowBackIosIcon />
+      </IconButton>
+      <MKBox sx={{ width: "101%" }}>
+        <Slider ref={sliderRef} {...settings}>
+          {tarjetas.map((tarjeta, index) => (
+            <MKBox key={index} mx={1} sx={{ height: "100%" }}>
+              <TarjetaRecurs
+                titulo={tarjeta.titulo}
+                descripcion={tarjeta.descripcion}
+                imagen={tarjeta.imagen}
+                ruta={tarjeta.ruta}
+              />
+            </MKBox>
+          ))}
+        </Slider>
+      </MKBox>
+      <IconButton
+        onClick={() => sliderRef.current?.slickNext()}
+        sx={{
+          backgroundColor: "white",
+          "&:hover": { backgroundColor: "#ddd" },
+          ml: 1,
+        }}
+      >
+        <ArrowForwardIosIcon />
+      </IconButton>
     </MKBox>
   );
 }
