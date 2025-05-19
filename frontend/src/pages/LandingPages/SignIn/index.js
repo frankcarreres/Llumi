@@ -32,40 +32,60 @@ function SignInBasic() {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const navigate = useNavigate();
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorContrasena, setErrorContrasena] = useState("");
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleLogin = async (e) => {
     e.preventDefault();
+    // Resetear errores
+    setErrorEmail("");
+    setErrorContrasena("");
 
-    // Validación de email
-    const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    // Detectar tipo de identificador
+    const esUsuario = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const esCentro = /^\d+$/.test(email);
 
+    // Validaciones locales
+    if (!email) {
+      setErrorEmail("El campo ‘Usuario’ es obligatorio.");
+      return;
+    }
+    if (!esUsuario && !esCentro) {
+      setErrorEmail("El identificador debe ser un email o un ID numérico.");
+      return;
+    }
+    if (!contrasena) {
+      setErrorContrasena("La contraseña es obligatoria.");
+      return;
+    }
+
+    // Intentar login
     try {
-      // Llamada a tu API
-      const response = esEmail
+      const response = esUsuario
         ? await login(email, contrasena)
         : await loginCentro(email, contrasena);
+
       const { token, usuario, centro } = response;
-      if (centro) {
-        centro.rol = "centro";
-      }
-      const sessionData = usuario ?? centro ?? null;
-      // Guardamos la sesión
+      if (centro) centro.rol = "centro";
+      const sessionData = usuario ?? centro;
       saveSession({ token, data: sessionData }, rememberMe);
 
       if (isUsuario()) {
-        console.log("Se ha iniciado como usuario!");
         navigate("/");
       } else if (isCentro()) {
         navigate("/admin/dashboard");
-        console.log("Se ha iniciado como administrador!");
       } else {
         navigate("/");
-        console.log("Inicio no controlado por favor comprueba la session");
       }
     } catch (err) {
       console.error("Login fallido:", err);
-      alert(err.message || "Error de conexión");
+      const msg = err.message || "Error de conexión";
+      if (msg.toLowerCase().includes("no existe")) {
+        setErrorEmail(msg);
+      } else {
+        setErrorContrasena(msg);
+      }
     }
   };
 
@@ -113,6 +133,23 @@ function SignInBasic() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    {errorEmail && (
+                      <MKTypography
+                        variant="caption"
+                        color="error"
+                        sx={{
+                          display: "block",
+                          width: "100%",
+                          mt: 0.5,
+                          pl: 2,
+                          fontSize: "0.9375rem",
+                          textAlign: "left",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {errorEmail}
+                      </MKTypography>
+                    )}
                   </MKBox>
                   <MKBox mb={2}>
                     <InputAnimado
@@ -121,6 +158,21 @@ function SignInBasic() {
                       value={contrasena}
                       onChange={(e) => setContrasena(e.target.value)}
                     />
+                    {errorContrasena && (
+                      <MKTypography
+                        variant="caption"
+                        color="error"
+                        sx={{
+                          display: "block",
+                          fontSize: "0.9375rem",
+                          pl: 5,
+                          textAlign: "left",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {errorContrasena}
+                      </MKTypography>
+                    )}
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch

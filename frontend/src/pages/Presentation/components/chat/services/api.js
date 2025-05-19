@@ -24,9 +24,9 @@ export async function login(email, contrasena) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, contrasena }),
   });
-
-  if (!res.ok) throw new Error("Login fallido");
-  return await res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Login fallido");
+  return data;
 }
 
 /**
@@ -93,8 +93,9 @@ export async function loginCentro(id_centro, contrasena) {
     body: JSON.stringify({ id_centro, contrasena }),
   });
 
-  if (!res.ok) throw new Error("Login de centro fallido");
-  return await res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Login de centro fallido");
+  return data;
 }
 
 export async function obtenerUsuario(token) {
