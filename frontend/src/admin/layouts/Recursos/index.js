@@ -13,11 +13,11 @@ import Icon from "@mui/material/Icon";
 import useCrearNoticia from "admin/hooks/crearNoticias";
 import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
 import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
-import MDBox from "../../components/MDBox";
-import EditorArticulo from "../../components/MDQuill/MDEditor";
-import html2pdf from "html2pdf.js";
+import MDBox from "admin/components/MDBox";
+import EditorArticulo from "admin/components/MDQuill/MDEditor";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { exportToPDF } from "admin/utils/exportToPDF";
 
 function CreateNoticiaForm({ onCreated }) {
   const [titulo, setTitulo] = useState("");
@@ -90,28 +90,6 @@ function CreateNoticiaForm({ onCreated }) {
     }
   };
 
-  const exportToPDF = () => {
-    const plain = contenido
-      .replace(/<[^>]+>/g, "") // quita TODAS las etiquetas
-      .replace(/&nbsp;/g, " ") // opcional: elimina NBSP
-      .trim();
-    if (!plain) {
-      setSnack({ open: true, msg: "No hay contenido para exportar" });
-      return;
-    }
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = `<h1>${titulo || "Documento"}</h1>${contenido}`;
-    html2pdf()
-      .set({
-        margin: 10,
-        filename: `${titulo || "articulo"}.pdf`,
-        image: { type: "jpeg", quality: 0.95 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      })
-      .from(wrapper)
-      .save();
-  };
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -220,7 +198,7 @@ function CreateNoticiaForm({ onCreated }) {
                 <Grid item xs={12} sm={6}>
                   <Button
                     variant="outlined"
-                    onClick={exportToPDF}
+                    onClick={() => exportToPDF(contenido, titulo)}
                     fullWidth
                     startIcon={<Icon>picture_as_pdf</Icon>}
                     sx={{ color: "#000" }}
@@ -275,7 +253,7 @@ function CreateNoticiaForm({ onCreated }) {
                 <Grid item xs={12} display="flex" justifyContent="flex-end">
                   <Button
                     type="submit"
-                    onClick={exportToPDF}
+                    onClick={() => exportToPDF(contenido, titulo)}
                     variant="contained"
                     color="primary"
                     disabled={loading}

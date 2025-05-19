@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import html2pdf from "html2pdf.js";
-import { FaDownload } from "react-icons/fa";
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -128,9 +127,7 @@ const TarjetaArticle = ({ titulo, fecha_publicacion, contenido }) => {
       <Card onClick={handleCardClick}>
         <Title>{titulo}</Title>
         <Subtitle>Fecha de publicación: {fechaFormateada}</Subtitle>
-        <DownloadButton onClick={handleDownload} title="Descargar PDF">
-          <FaDownload size={18} />
-        </DownloadButton>
+        <DownloadButton onClick={handleDownload} title="Descargar PDF"></DownloadButton>
       </Card>
 
       <HiddenContent>
