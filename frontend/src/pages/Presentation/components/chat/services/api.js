@@ -126,13 +126,16 @@ export async function obtenerUsuario(token) {
  * Devuelve un array de { id_test, riesgo, fecha, id_denuncia }
  */
 export async function obtenerTests(token) {
-  const res = await fetch(`${BASE_URL}/api/test/usuario/:id_usuario`, {
+  const res = await fetch(`${BASE_URL}/api/test/usuario/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+  if (res.status === 404) {
+    return [];
+  }
   if (!res.ok) {
     throw new Error(`Error al obtener tests: ${res.status}`);
   }
