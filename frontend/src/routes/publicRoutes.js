@@ -42,8 +42,6 @@ export default [
   {
     name: "Denúncia",
     key: "denuncia",
-    route: "/sections/denuncia/components",
-    component: <Denuncia />,
     collapse: [
       {
         name: "Test de autoavaluació",

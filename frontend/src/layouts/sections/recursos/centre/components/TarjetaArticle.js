@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import html2pdf from "html2pdf.js";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { exportToPDF } from "admin/utils/exportToPDF";
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -57,7 +58,7 @@ const TarjetaArticle = ({ titulo, fecha_publicacion, contenido }) => {
 
   const handleCardClick = () => {
     const htmlContent = `
-    <html>
+    <html lang="es">
       <head>
         <meta charset="UTF-8">
         <title>${titulo}</title>
@@ -107,27 +108,14 @@ const TarjetaArticle = ({ titulo, fecha_publicacion, contenido }) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const handleDownload = (e) => {
-    e.stopPropagation(); // Evita que se dispare el evento onClick del Card
-    const element = pdfRef.current;
-    html2pdf()
-      .set({
-        margin: 1,
-        filename: `${titulo}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-      })
-      .from(element)
-      .save();
-  };
-
   return (
     <>
       <Card onClick={handleCardClick}>
         <Title>{titulo}</Title>
         <Subtitle>Fecha de publicación: {fechaFormateada}</Subtitle>
-        <DownloadButton onClick={handleDownload} title="Descargar PDF"></DownloadButton>
+        <DownloadButton onClick={() => exportToPDF(contenido, titulo)} title="Descargar PDF">
+          <FileDownloadOutlinedIcon fontSize="medium" />
+        </DownloadButton>
       </Card>
 
       <HiddenContent>
