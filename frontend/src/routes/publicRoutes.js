@@ -73,7 +73,7 @@ export default [
       {
         name: "Perfil",
         key: "perfil",
-        route: "/sections/recursos/inici",
+        route: "pages/LandingPages/Profile",
         component: <Perfil />,
       },
     ],
