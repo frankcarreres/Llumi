@@ -23,7 +23,6 @@ const CustomToolbar = () => (
     </span>
     <span className="ql-formats">
       <button className="ql-link" title="Insertar enlace"></button>
-      <button className="ql-image" title="Insertar imagen"></button>
     </span>
     <span className="ql-formats">
       <button className="ql-clean" title="Quitar formato"></button>
@@ -32,14 +31,10 @@ const CustomToolbar = () => (
 );
 
 // eslint-disable-next-line react/prop-types
-// eslint-disable-next-line react/prop-types
 export default function EditorArticulo({ value, onChange }) {
   return (
     <>
-      {/* Toolbar queda FUERA de la página A4 */}
       <CustomToolbar />
-
-      {/* El “folio” A4 envuelve SOLO el editor */}
       <A4Paper>
         <ReactQuill
           theme="snow"
