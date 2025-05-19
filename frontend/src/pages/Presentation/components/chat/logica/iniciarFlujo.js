@@ -13,11 +13,12 @@ export async function iniciarFlujo({
   setResultId,
   setIsMultipleChoice,
   setOpcionesActivas,
+  variables: { hasTest, hasDenuncia },
 }) {
   setMensajes((prev) => [...prev, { autor: "bot", texto: `¡Hola, ${usuario?.nombre}!` }]);
   await esperar(1000);
 
-  const res = await startConversation();
+  const res = await startConversation({ hasTest, hasDenuncia });
   if (!res?.sessionId) return;
 
   setSessionId(res.sessionId);

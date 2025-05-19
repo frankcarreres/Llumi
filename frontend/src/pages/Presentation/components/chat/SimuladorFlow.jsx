@@ -8,6 +8,7 @@ import TypingIndicator from "./componenetes/TypingIndicator";
 import { enviarMensaje } from "./logica/enviarMensaje";
 import { iniciarFlujo } from "./logica/iniciarFlujo";
 import { getSession } from "admin/utils/session";
+import { obtenerTests } from "pages/Presentation/components/chat/services/api";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -24,6 +25,7 @@ function SimuladorFlujo() {
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [escribiendo, setEscribiendo] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [tests, setTests] = useState(null);
 
   const [, setPuntuacionFinal] = useState(null);
   const [, setNivelRiesgo] = useState(null);
@@ -47,7 +49,7 @@ function SimuladorFlujo() {
       if (session?.token && session?.data) {
         try {
           mensajeInicial = `Hola, ${session.data.nombre} 👋`;
-          setToken(session.token); // activará iniciarFlujo automáticamente
+          setToken(session?.token); // activará iniciarFlujo automáticamente
         } catch (err) {
           console.error("Error al leer datos de la sesión:", err);
         }
@@ -60,17 +62,39 @@ function SimuladorFlujo() {
   }, []);
 
   useEffect(() => {
-    if (token) {
-      iniciarFlujo({
-        usuario,
-        setMensajes,
-        setSessionId,
-        setResultId,
-        setIsMultipleChoice,
-        setOpcionesActivas,
+    if (!token) return;
+
+    // 1) Cargo los tests
+    obtenerTests(token)
+      .then((t) => {
+        setTests(t);
+        return t; // para la siguiente fase
+      })
+      .catch((err) => {
+        console.error("Error al cargar tests:", err);
+        setMensajes([{ autor: "bot", texto: "Error comprobando tu test. Inténtalo más tarde." }]);
+        // Si quieres, aún llamas al flujo sin flags:
+        setTests([]);
       });
-    }
   }, [token]);
+
+  useEffect(() => {
+    if (tests === null) return; // Aún no hemos cargado nada
+
+    // 2) Una vez tengo tests, calculo flags y arranco el chat
+    const hasTest = Array.isArray(tests) && tests.length > 0;
+    const hasDenuncia = hasTest && Boolean(tests[0].Denuncia);
+
+    iniciarFlujo({
+      usuario,
+      setMensajes,
+      setSessionId,
+      setResultId,
+      setIsMultipleChoice,
+      setOpcionesActivas,
+      variables: { hasTest, hasDenuncia },
+    });
+  }, [tests]);
 
   const manejarEnvio = (msg = null) => {
     enviarMensaje({

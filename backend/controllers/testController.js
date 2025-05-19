@@ -63,10 +63,7 @@ exports.getTestPorIdUsuario = async (req, res, next) => {
       'SELECT id_test,resultado,fecha_realizacion,Denuncia FROM test_autoevaluacion WHERE id_usuario = ?',
       [id_usuario]
     );
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "No se han encontrado test de este usuario." });
-    }
-    return res.json(rows);
+    return res.status(200).json(rows);
   }catch (error){
     return next (error);
   }
