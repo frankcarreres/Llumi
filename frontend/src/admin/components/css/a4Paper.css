@@ -1,15 +1,46 @@
 .a4-page {
-  width: 210mm;
-min-height: 297mm;
-margin: 16px auto;
-background: #fff;
-border: 1px solid #ccc;
-box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    width: 210mm;
+    max-width: 100%;
+    margin: 16px auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 .a4-content {
     padding: 20mm 15mm;
     box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+    .a4-page {
+        width: 90%;
+        min-height: auto;
+        margin: 8px auto;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    .a4-content {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .a4-page {
+        width: 100%;
+        margin: 4px 0;
+        border: none;
+    }
+    .a4-content {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .a4-content {
+        padding: 5px;
+        font-size: 14px;
+    }
 }
 
 @media print {
