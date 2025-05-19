@@ -9,11 +9,17 @@ function RecursCentre() {
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await fetch("http://13.216.39.33:3001/recursos/articulos"); // cambia al host real si es necesario
+        const response = await fetch("http://localhost:3001/recursos/articulos");
         const data = await response.json();
-        setArticulos(data.articulos); // porque el backend devuelve { articulos: [...] }
+
+        // Ordenar por fecha_publicacion descendente (más reciente primero)
+        const articulosOrdenados = data.articulos.sort(
+          (a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)
+        );
+
+        setArticulos(articulosOrdenados);
       } catch (error) {
-        console.error("Error al obtener artículos:", error);
+        console.error("Error al obtener los artículos:", error);
       }
     };
 
@@ -32,8 +38,14 @@ function RecursCentre() {
       <MKBox mt={2} />
 
       <div>
-        {articulos.map(({ id, titulo, profesor, url }) => (
-          <TarjetaArticle key={id} titulo={titulo} profesor={profesor} url={url} />
+        {articulos.map(({ id, titulo, fecha_publicacion, contenido, url }) => (
+          <TarjetaArticle
+            key={id}
+            titulo={titulo}
+            fecha_publicacion={fecha_publicacion}
+            contenido={contenido}
+            url={url}
+          />
         ))}
       </div>
     </BaseLayout>

@@ -25,24 +25,84 @@ const Subtitle = styled.small`
   color: #555;
 `;
 
-const TarjetaArticle = ({ titulo, profesor, url }) => {
+const TarjetaArticle = ({ titulo, fecha_publicacion, contenido }) => {
+  // Formatear la fecha aquí, fuera de handleClick
+  const fechaFormateada = new Date(fecha_publicacion).toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   const handleClick = () => {
-    // Abrir la url en una pestaña nueva
+    const htmlContent = `
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>${titulo}</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+          }
+  
+          .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+          }
+  
+          h1 {
+            color: #222;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+          }
+  
+  
+          p {
+            font-size: 18px;
+          }
+  
+          .fecha {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #666;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>${titulo}</h1>
+          <p>${contenido}</p>
+          <p class="fecha"><strong>Fecha de publicación:</strong> ${fechaFormateada}</p>
+        </div>
+      </body>
+    </html>
+   `;
+
+    const blob = new Blob([htmlContent], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
     <Card onClick={handleClick}>
       <Title>{titulo}</Title>
-      <Subtitle>Escrito por: {profesor}</Subtitle>
+      <Subtitle>Fecha de publicación: {fechaFormateada}</Subtitle>
     </Card>
   );
 };
 
 TarjetaArticle.propTypes = {
   titulo: PropTypes.string.isRequired,
-  profesor: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired, // URL ahora es requerida
+  fecha_publicacion: PropTypes.string.isRequired,
+  contenido: PropTypes.string.isRequired,
 };
 
 export default TarjetaArticle;
