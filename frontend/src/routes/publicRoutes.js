@@ -7,8 +7,17 @@ const RecursMulti = lazy(() => import("layouts/sections/recursos/multimedia"));
 const RecursCentre = lazy(() => import("layouts/sections/recursos/centre"));
 const Denuncia = lazy(() => import("layouts/sections/denuncia"));
 const Perfil = lazy(() => import("pages/LandingPages/Profile"));
+const ArticleDetail = lazy(() =>
+  import("../layouts/sections/recursos/centre/components/article_detaill")
+);
 
 export default [
+  {
+    key: "rec-detalle",
+    route: "/sections/recursos/centre/:id_recurso",
+    component: <ArticleDetail />,
+    meta: { hidden: true },
+  },
   {
     name: "Recursos",
     key: "recursos",

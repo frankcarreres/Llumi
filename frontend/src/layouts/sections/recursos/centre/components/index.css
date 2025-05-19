@@ -1,0 +1,35 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 8px 0;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.title { flex: 1; margin: 0; }
+.subtitle { color: #555; font-size: 0.9em; }
+
+.download-btn {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+}
+
+.article-content {
+    padding: 16px;
+    background: #fff;
+    line-height: 1.6;
+}
+
+.article-content p {
+    margin-bottom: 1em;
+}

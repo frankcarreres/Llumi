@@ -68,6 +68,10 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     return ruta;
   });
 
+  const rutasVisibles = rutasConEstadoSesion
+    .filter((r) => r.name) // solo los que tienen nombre
+    .filter((r) => !r.meta?.hidden);
+
   useEffect(() => {
     window.addEventListener("beforeunload", handleLeave);
     return () => window.removeEventListener("beforeunload", handleLeave);
@@ -98,30 +102,28 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     return () => window.removeEventListener("resize", displayMobileNavbar);
   }, []);
 
-  const renderNavbarItems = rutasConEstadoSesion.map(
-    ({ name, icon, href, publicroute, collapse }) => (
-      <DefaultNavbarDropdown
-        key={name}
-        name={name}
-        icon={icon}
-        href={href}
-        route={publicroute}
-        collapse={Boolean(collapse)}
-        onMouseEnter={({ currentTarget }) => {
-          if (collapse) {
-            setDropdown(currentTarget);
-            setDropdownEl(currentTarget);
-            setDropdownName(name);
-          }
-        }}
-        onMouseLeave={() => collapse && setDropdown(null)}
-        light={light}
-      />
-    )
-  );
+  const renderNavbarItems = rutasVisibles.map(({ name, icon, href, publicroute, collapse }) => (
+    <DefaultNavbarDropdown
+      key={name}
+      name={name}
+      icon={icon}
+      href={href}
+      route={publicroute}
+      collapse={Boolean(collapse)}
+      onMouseEnter={({ currentTarget }) => {
+        if (collapse) {
+          setDropdown(currentTarget);
+          setDropdownEl(currentTarget);
+          setDropdownName(name);
+        }
+      }}
+      onMouseLeave={() => collapse && setDropdown(null)}
+      light={light}
+    />
+  ));
 
   // Render the routes on the dropdown menu
-  const renderRoutes = rutasConEstadoSesion.map(({ name, collapse, columns, rowsPerColumn }) => {
+  const renderRoutes = rutasVisibles.map(({ name, collapse, columns, rowsPerColumn }) => {
     let template;
 
     // Render the dropdown menu that should be display as columns
@@ -527,7 +529,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
           borderRadius="xl"
           px={transparent ? 2 : 0}
         >
-          {mobileView && <DefaultNavbarMobile routes={rutasConEstadoSesion} open={mobileNavbar} />}
+          {mobileView && <DefaultNavbarMobile routes={rutasVisibles} open={mobileNavbar} />}
         </MKBox>
       </MKBox>
       {dropdownMenu}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BaseLayout from "../../components/BaseLayout";
 import MKBox from "components/MKBox";
-import TarjetaArticle from "./components/TarjetaArticle";
+import TarjetaArticle from "./components/tarjetaArticle";
 
 function RecursCentre() {
   const [articulos, setArticulos] = useState([]);
@@ -23,7 +23,7 @@ function RecursCentre() {
       }
     };
 
-    fetchArticulos();
+    void fetchArticulos();
   }, []);
 
   return (
@@ -38,13 +38,13 @@ function RecursCentre() {
       <MKBox mt={2} />
 
       <div>
-        {articulos.map(({ id, titulo, fecha_publicacion, contenido, url }) => (
+        {articulos.map(({ id_recurso, titulo, fecha_publicacion, contenido }) => (
           <TarjetaArticle
-            key={id}
+            key={id_recurso}
+            id={id_recurso}
             titulo={titulo}
             fecha_publicacion={fecha_publicacion}
             contenido={contenido}
-            url={url}
           />
         ))}
       </div>
