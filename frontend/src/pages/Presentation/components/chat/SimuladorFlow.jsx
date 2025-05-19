@@ -108,7 +108,7 @@ function SimuladorFlujo() {
     <Box
       sx={{
         width: "100%",
-        maxWidth: "600px",
+        maxWidth: "1300px",
         height: "600px",
         display: "flex",
         flexDirection: "column",
