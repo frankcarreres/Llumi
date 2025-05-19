@@ -43,7 +43,7 @@ function SimuladorFlujo() {
 
   useEffect(() => {
     if (mensajes.length === 0) {
-      const session = getSession();
+      const session = getSession("token");
       let mensajeInicial = "Hola 👋 ¿Cuál es tu correo electrónico?";
 
       if (session?.token && session?.data) {
