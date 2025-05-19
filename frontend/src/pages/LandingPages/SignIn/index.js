@@ -24,6 +24,8 @@ import BotonLuminoso from "./components/BotonLuminoso";
 
 import publicRoutes from "../../../routes/publicRoutes";
 import { isCentro, isUsuario, saveSession } from "admin/utils/session";
+import { VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 // Importación del componente InputAnimado
 
@@ -31,6 +33,7 @@ function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [errorEmail, setErrorEmail] = useState("");
   const [errorContrasena, setErrorContrasena] = useState("");
@@ -151,13 +154,35 @@ function SignInBasic() {
                       </MKTypography>
                     )}
                   </MKBox>
-                  <MKBox mb={2}>
-                    <InputAnimado
-                      type="password"
-                      placeholder="Contrasenya"
-                      value={contrasena}
-                      onChange={(e) => setContrasena(e.target.value)}
-                    />
+                  <MKBox mb={2} sx={{ width: "100%" }}>
+                    {/* 1) Wrapper solo para input + ojo */}
+                    <MKBox sx={{ position: "relative" }}>
+                      <InputAnimado
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Contrasenya"
+                        value={contrasena}
+                        onChange={(e) => setContrasena(e.target.value)}
+                      />
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        size="small"
+                        sx={{
+                          position: "absolute",
+                          right: 0,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          padding: "8px",
+                          color: "#555",
+                        }}
+                      >
+                        {showPassword ? (
+                          <VisibilityOffRounded fontSize="small" />
+                        ) : (
+                          <VisibilityRounded fontSize="small" />
+                        )}
+                      </IconButton>
+                    </MKBox>
                     {errorContrasena && (
                       <MKTypography
                         variant="caption"
