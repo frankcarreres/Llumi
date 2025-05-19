@@ -58,8 +58,7 @@ function Configurator() {
     setTransparentSidenav(dispatch, false);
   };
   const handleFixedNavbar = () => setFixedNavbar(dispatch, !fixedNavbar);
-  const handleDarkMode = () => setDarkMode(dispatch, !darkMode);
-
+  const handleDarkMode = (event) => setDarkMode(dispatch, event.target.checked);
   // sidenav type buttons styles
   const sidenavTypeButtonsStyles = ({
     functions: { pxToRem },
@@ -104,9 +103,9 @@ function Configurator() {
         px={3}
       >
         <MDBox>
-          <MDTypography variant="h5">Material UI Configurator</MDTypography>
+          <MDTypography variant="h5">Configuración</MDTypography>
           <MDTypography variant="body2" color="text">
-            See our dashboard options.
+            Personaliza tu interfaz
           </MDTypography>
         </MDBox>
 
@@ -124,16 +123,14 @@ function Configurator() {
           close
         </Icon>
       </MDBox>
-
       <Divider />
 
       <MDBox pt={0.5} pb={3} px={3}>
         <MDBox mt={3} lineHeight={1}>
-          <MDTypography variant="h6">Sidenav Type</MDTypography>
+          <MDTypography variant="h6">Tipo de barra lateral</MDTypography>
           <MDTypography variant="button" color="text">
-            Choose between different sidenav types.
+            Elige el tipo de sidenav que quieres usar.
           </MDTypography>
-
           <MDBox
             sx={{
               display: "flex",
