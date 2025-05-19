@@ -13,7 +13,7 @@ export default {
   menus: [
     {
       name: "Mi cuenta",
-      items: [{ name: "Perfil", route: "/pages/authentication/profile" }],
+      items: [{ name: "Perfil", route: "/pages/LandingPages/Profile" }],
     },
     {
       name: "Recursos",
