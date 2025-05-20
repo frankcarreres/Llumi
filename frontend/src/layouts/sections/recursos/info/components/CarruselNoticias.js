@@ -9,6 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { IconButton } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import bgDefault from "../../../../../assets/images/bg-not-img.jpeg";
 
 function CarruselNoticias({ destacadas }) {
   const [noticias, setNoticias] = useState([]);
@@ -102,11 +103,11 @@ function CarruselNoticias({ destacadas }) {
       <MKBox sx={{ width: "100%" }}>
         <Slider ref={sliderRef} {...settings}>
           {noticias.map((noticia, index) => (
-            <MKBox key={index} mx={0.5} sx={{ height: "100%" }}>
+            <MKBox key={index} mx={0.4} sx={{ height: "100%" }}>
               <TarjetaNoticia
                 titulo={noticia.titulo}
                 descripcion={noticia.contenido}
-                imagen={noticia.img || "/"} // Cargar imagen default
+                imagen={noticia.img || bgDefault} // Cargar imagen default
                 url={noticia.url}
               />
             </MKBox>

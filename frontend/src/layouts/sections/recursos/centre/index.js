@@ -9,7 +9,7 @@ function RecursCentre() {
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await fetch("http://localhost:3001/recursos/articulos");
+        const response = await fetch("http://13.216.39.33:3001/recursos/articulos");
         const data = await response.json();
 
         // Ordenar por fecha_publicacion descendente (más reciente primero)

@@ -14,7 +14,7 @@ import Profile from "pages/LandingPages/Profile/sections/Profile";
 import publicRoutes from "../../../routes/publicRoutes";
 
 // Images
-import bgImage from "assets/images/inici2.jpg";
+import bgImage from "assets/bg.gif";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 
