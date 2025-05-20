@@ -12,8 +12,9 @@ import {
   Box,
 } from "@mui/material";
 import BotoDenuncia from "../../wizardTest/components/botoDenuncia";
+import PropTypes from "prop-types";
 
-function FormDenunciaAluTestigo() {
+function FormDenunciaAluTestigo({ onDenunciar }) {
   const [descripcion, setDescripcion] = useState("");
   const [tiposAcoso, setTiposAcoso] = useState([]);
   const [acosado, setAcosado] = useState("");
@@ -30,18 +31,18 @@ function FormDenunciaAluTestigo() {
     );
   };
 
-  const handleSubmit = () => {
-    // Mostrar en un alert los datos introducidos directamente
-    alert(`Formulario enviado con los siguientes datos: 
-    Descripción: ${descripcion}
-    Tipos de acoso: ${tiposAcoso.join(", ")}
-    Acosado/a: ${acosado}
-    Relación con el acosado: ${relacionAcosado}
-    Hay testigos: ${hayTestigos}
-    Quiénes son los testigos: ${quienTestigo}
-    Docente intervino: ${intervinoDocente}
-    Quién fue el docente: ${quienDocente}`);
-  };
+  // const handleSubmit = () => {
+  //   // Mostrar en un alert los datos introducidos directamente
+  //   alert(`Formulario enviado con los siguientes datos:
+  //   Descripción: ${descripcion}
+  //   Tipos de acoso: ${tiposAcoso.join(", ")}
+  //   Acosado/a: ${acosado}
+  //   Relación con el acosado: ${relacionAcosado}
+  //   Hay testigos: ${hayTestigos}
+  //   Quiénes son los testigos: ${quienTestigo}
+  //   Docente intervino: ${intervinoDocente}
+  //   Quién fue el docente: ${quienDocente}`);
+  // };
 
   return (
     <form
@@ -154,10 +155,14 @@ function FormDenunciaAluTestigo() {
 
       {/* Botón centrado */}
       <Box display="flex" justifyContent="center" mt={4}>
-        <BotoDenuncia onClick={handleSubmit}>DENÚNCIA</BotoDenuncia>
+        <BotoDenuncia onClick={onDenunciar}>DENÚNCIA</BotoDenuncia>
       </Box>
     </form>
   );
 }
+
+FormDenunciaAluTestigo.propTypes = {
+  onDenunciar: PropTypes.func.isRequired,
+};
 
 export default FormDenunciaAluTestigo;
