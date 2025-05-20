@@ -8,7 +8,7 @@ import {
 } from "../services/api";
 import { calcularNivelRiesgo } from "../utils/calculoRiesgo";
 import { sendMessageToBot } from "../services/typebotAPI";
-import Cookies from "js-cookie";
+import { saveSession } from "admin/utils/session";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -99,18 +99,20 @@ export async function enviarMensaje({
     setPassword(texto);
 
     try {
-      const data = await login(email, texto);
-      Cookies.set("token", data.token, { sameSite: "strict" });
-      sessionStorage.setItem(
-        "sesion",
-        JSON.stringify({
-          tipo: "usuario",
-          nombre: data.usuario.nombre,
-        })
-      );
-      window.dispatchEvent(new Event("sesionIniciada"));
-      setToken(data.token);
-      setUsuario(data.usuario);
+      const { token, usuario } = await login(email, texto);
+
+      // 2) Preparamos los datos de sesión idénticos a SignInBasic
+      const sessionData = {
+        ...usuario,
+        rol: "usuario",
+      };
+
+      // 3) Guardamos con tu util: cookie  almacenamiento interno
+      saveSession({ token, data: sessionData }, true);
+
+      // 4) Actualizamos estado local
+      setToken(token);
+      setUsuario(usuario);
       setFaseLogin("hecho");
     } catch {
       setMensajes((prev) => [
