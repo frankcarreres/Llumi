@@ -26,24 +26,25 @@ exports.syncNoticias = async (req, res) => {
 
     let guardadas = 0;
     for (const noticia of noticias) {
+      // Verifica por URL o por título
       const [existe] = await connection.query(
-        "SELECT id_recurso FROM recursos WHERE url = ?",
-        [noticia.url]
+          `SELECT id_recurso FROM recursos WHERE url = ? OR titulo = ?`,
+          [noticia.url, noticia.title]
       );
 
       if (existe.length === 0) {
         await connection.query(
-          `INSERT INTO recursos
+            `INSERT INTO recursos
                (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
-           VALUES (?, 'noticia', ?, ?, ?, ?, ?)`,
-          [
-            noticia.title,
-            noticia.description || "Sin descripción",
-            new Date(noticia.published_at || Date.now()),
-            ID_USUARIO_ADMIN,
-            noticia.url,
-            noticia.image || null
-          ]
+             VALUES (?, 'noticia', ?, ?, ?, ?, ?)`,
+            [
+              noticia.title,
+              noticia.description || "Sin descripción",
+              new Date(noticia.published_at || Date.now()),
+              ID_USUARIO_ADMIN,
+              noticia.url,
+              noticia.image || null
+            ]
         );
         guardadas++;
       }
