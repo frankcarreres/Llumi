@@ -46,17 +46,21 @@ function CarruselTarjetas() {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 5000,
+    centerMode: true,
+    centerPadding: "3px",
     responsive: [
       {
         breakpoint: 960,
         settings: {
           slidesToShow: 1,
+          centerPadding: "30px",
         },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
+          centerPadding: "20px",
         },
       },
     ],
@@ -86,7 +90,9 @@ function CarruselTarjetas() {
       <MKBox sx={{ width: "100%" }}>
         <Slider ref={sliderRef} {...settings}>
           {tarjetas.map((tarjeta, index) => (
-            <MKBox key={index} mx={1} sx={{ height: "100%" }}>
+            <MKBox key={index} px={1}>
+              {" "}
+              {/* 👈 espacio horizontal (padding o margin) */}
               <TarjetaRecurs
                 titulo={tarjeta.titulo}
                 descripcion={tarjeta.descripcion}

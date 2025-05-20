@@ -22,13 +22,15 @@ function TarjetaRecurs({ titulo, descripcion, imagen, ruta }) {
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
-        minHeight="600px"
+        minHeight="550px"
         height="100%"
         sx={{
           backgroundImage: `url(${imagen})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
+          borderRadius: "5px",
+          overflow: "hidden",
         }}
       >
         <MKBox
@@ -40,6 +42,7 @@ function TarjetaRecurs({ titulo, descripcion, imagen, ruta }) {
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 1,
+            borderRadius: "inherit",
           }}
         />
         <Container sx={{ position: "relative", zIndex: 2 }}>
