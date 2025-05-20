@@ -42,3 +42,25 @@
 .article-content p {
     margin-bottom: 1em;
 }
+
+.hoja {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 32px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.boton-volver,
+.boton-descargar {
+    color: #0057FF;
+}
+
+.boton-descargar {
+    text-decoration: underline;
+}
+
+.boton-volver:hover{color: #023DAF;
+}
+

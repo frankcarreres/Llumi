@@ -9,7 +9,7 @@ import React from "react";
 function RecursMultimedia() {
   return (
     <BaseLayout
-      title="Recursos multimedia"
+      // title="Recursos multimedia"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },

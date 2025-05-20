@@ -63,9 +63,15 @@ function BaseLayout({ breadcrumb, title, children }) {
 
 // Typechecking props for the BaseLayout
 BaseLayout.propTypes = {
-  breadcrumb: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])).isRequired,
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  breadcrumb: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
+
+BaseLayout.defaultProps = {
+  children: null,
+  title: "",
+  breadcrumb: [],
 };
 
 export default BaseLayout;
