@@ -14,17 +14,25 @@ import { useNavigate } from "react-router-dom";
 import bgImage from "assets/images/inici2.jpg";
 
 export default function ResetPassword() {
+  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorNew, setErrorNew] = useState("");
   const [errorConfirm, setErrorConfirm] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorEmail("");
     setErrorNew("");
     setErrorConfirm("");
+
+    if (!email) {
+      setErrorEmail("El campo ‘Usuario’ es obligatorio.");
+      return;
+    }
 
     if (!newPassword) {
       setErrorNew("La nueva contraseña es obligatoria.");
@@ -40,7 +48,7 @@ export default function ResetPassword() {
     }
 
     try {
-      await resetPassword(newPassword);
+      await resetPassword(email, newPassword, confirmPassword);
       navigate("/", { replace: true });
     } catch (err) {
       const msg = err.response?.data?.error || "Error de actualización";
@@ -76,6 +84,31 @@ export default function ResetPassword() {
                 <MKTypography variant="h5" mb={2} textAlign="center">
                   Cambiar su contraseña
                 </MKTypography>
+                <MKBox mb={2}>
+                  <InputAnimado
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {errorEmail && (
+                    <MKTypography
+                      variant="caption"
+                      color="error"
+                      sx={{
+                        display: "block",
+                        width: "100%",
+                        mt: 0.5,
+                        pl: 2,
+                        fontSize: "0.9375rem",
+                        textAlign: "left",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {errorEmail}
+                    </MKTypography>
+                  )}
+                </MKBox>
                 <MKBox mb={2}>
                   <InputAnimado
                     type={showPassword ? "text" : "password"}

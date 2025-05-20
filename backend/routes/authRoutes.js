@@ -8,6 +8,4 @@ router.post('/verificar-email', authController.verificarEmail);
 router.post( '/login-centro', authController.loginCentro)
 router.post('/reset-password', authController.resetPassword);
 
-
-
 module.exports = router;

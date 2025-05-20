@@ -38,7 +38,6 @@ exports.login = async (req, res) => {
     if (!match) {
       return res.status(401).json({ error: "ID de usuario o contraseña incorrectos." });
     }
-
     if (usuario.first_login === 1) {
       return res.status(403).json({
         error: "CAMBIO_OBLIGATORIO",
@@ -148,17 +147,21 @@ exports.loginCentro = async (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-  const { newPassword, confirmPassword } = req.body;
+  const { email, newPassword, confirmPassword } = req.body;
   if (newPassword !== confirmPassword) {
     return res.status(400).json({ error: "Las contraseñas no coinciden." });
   }
-  const { id_usuario } = req.user; // asumimos middleware que añade req.user
+
+  if (!email || !newPassword || !confirmPassword) {
+    return res.status(400).json({ error: "Faltan campos obligatorios." });
+  }
+
   const hash = await bcrypt.hash(newPassword, 10);
   await pool.query(
     `UPDATE usuarios
      SET contrasena = ?, first_login = FALSE
-     WHERE id_usuario = ?`,
-    [hash, id_usuario]
+     WHERE email = ?`,
+    [hash, email]
   );
   res.json({ mensaje: "Contraseña actualizada correctamente" });
 };

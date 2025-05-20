@@ -19,7 +19,7 @@ export async function verificarEmail(email) {
  * Devuelve { token, usuario } si es exitoso.
  */
 export async function login(email, contrasena) {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`http://localhost:3001/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, contrasena }),
@@ -143,7 +143,7 @@ export async function obtenerTests(token) {
 }
 
 export async function resetPassword(email, newPassword, confirmPassword) {
-  const res = await fetch(`${BASE_URL}/auth/reset-password`, {
+  const res = await fetch("http://localhost:3001/auth/reset-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, newPassword, confirmPassword }),

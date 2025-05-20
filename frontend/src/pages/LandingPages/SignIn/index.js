@@ -47,7 +47,7 @@ function SignInBasic() {
     // Detectar tipo de identificador
     const esUsuario = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const esCentro = /^\d+$/.test(email);
-
+    console.log("123");
     // Validaciones locales
     if (!email) {
       setErrorEmail("El campo ‘Usuario’ es obligatorio.");
@@ -64,9 +64,12 @@ function SignInBasic() {
 
     // Intentar login
     try {
+      console.log("456");
       const response = esUsuario
         ? await login(email, contrasena)
         : await loginCentro(email, contrasena);
+
+      console.log(response);
 
       const { token, usuario, centro } = response;
       if (centro) centro.rol = "centro";
@@ -82,6 +85,10 @@ function SignInBasic() {
       }
     } catch (err) {
       console.error("Login fallido:", err);
+      if (err.message === "CAMBIO_OBLIGATORIO") {
+        return navigate("/pages/authentication/reset-password");
+      }
+
       const msg = err.message || "Error de conexión";
       if (msg.toLowerCase().includes("no existe")) {
         setErrorEmail(msg);
@@ -93,17 +100,7 @@ function SignInBasic() {
 
   return (
     <>
-      <DefaultNavbar
-        routes={publicRoutes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-        brand="Llumí"
-      />
+      <DefaultNavbar routes={publicRoutes} sticky brand="Llumí" />
       <MKBox
         position="absolute"
         top={0}
