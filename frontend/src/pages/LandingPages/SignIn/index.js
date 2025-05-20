@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { login, loginCentro } from "../../Presentation/components/chat/services/api";
 
 // @mui material components
@@ -216,26 +215,32 @@ function SignInBasic() {
                     </MKTypography>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
-                    <BotonLuminoso onClick={handleLogin} />
+                    <BotonLuminoso onClick={handleLogin} text="Accedir" />
                   </MKBox>
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
-                      No tens un conter?{" "}
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      Se t'ha oblidat la contrasenya?
                       <MKTypography
-                        component={Link}
-                        to="/authentication/sign-up/cover"
+                        component="button"
+                        onClick={() => navigate("/pages/authentication/reset-password")}
                         variant="button"
                         fontWeight="medium"
                         textGradient={false}
                         sx={{
+                          background: "none",
+                          border: "none",
+                          p: 0,
+                          ml: 1,
                           color: "rgba(221, 90, 27, 0.7)",
+                          cursor: "pointer",
                           textDecoration: "none",
                           "&:hover": {
                             color: "rgba(221, 90, 27, 1)",
                           },
                         }}
                       >
-                        Registrat
+                        Reinicialitzar-ho
                       </MKTypography>
                     </MKTypography>
                   </MKBox>

@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const BotonLuminoso = ({ onClick }) => {
+// eslint-disable-next-line react/prop-types
+const BotonLuminoso = ({ onClick, text }) => {
   return (
     <StyledWrapper>
       <button id="botonInicio" onClick={onClick}>
-        <strong>ACCEDIR</strong>
+        <strong>{text}</strong>
       </button>
     </StyledWrapper>
   );
@@ -20,10 +21,7 @@ const StyledWrapper = styled.div`
   text-align: center;
 
   #botonInicio {
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px 70px;
     border-radius: 9px;
     background: #dd5a1bcc;
     border: none;

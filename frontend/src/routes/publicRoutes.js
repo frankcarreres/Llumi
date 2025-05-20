@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import Icon from "@mui/material/Icon";
-const SignIn = lazy(() => import("pages/LandingPages/SignIn"));
+const SignIn = lazy(() => import("layouts/pages/authentication/sign-in"));
 const RecursIni = lazy(() => import("layouts/sections/recursos"));
 const RecursInfo = lazy(() => import("layouts/sections/recursos/info"));
 const RecursMulti = lazy(() => import("layouts/sections/recursos/multimedia"));
@@ -8,8 +8,9 @@ const RecursCentre = lazy(() => import("layouts/sections/recursos/centre"));
 const Denuncia = lazy(() => import("layouts/sections/denuncia"));
 const Perfil = lazy(() => import("pages/LandingPages/Profile"));
 const ArticleDetail = lazy(() =>
-  import("../layouts/sections/recursos/centre/components/article_detaill")
+  import("layouts/sections/recursos/centre/components/article_detaill")
 );
+const ResetPassword = lazy(() => import("layouts/pages/authentication/reset-password/index"));
 
 export default [
   {
@@ -17,6 +18,11 @@ export default [
     route: "/sections/recursos/centre/:id_recurso",
     component: <ArticleDetail />,
     meta: { hidden: true },
+  },
+  {
+    key: "reset-password",
+    route: "/pages/authentication/reset-password",
+    component: <ResetPassword />,
   },
   {
     name: "Recursos",

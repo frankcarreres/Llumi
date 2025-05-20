@@ -39,6 +39,13 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: "ID de usuario o contraseña incorrectos." });
     }
 
+    if (usuario.first_login === 1) {
+      return res.status(403).json({
+        error: "CAMBIO_OBLIGATORIO",
+        mensaje: "Debes cambiar tu contraseña en tu primer acceso."
+      });
+    }
+
     const token = jwt.sign(
       {
         id_usuario: usuario.id_usuario,
@@ -138,4 +145,20 @@ exports.loginCentro = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Error en el servidor" });
   }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { newPassword, confirmPassword } = req.body;
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ error: "Las contraseñas no coinciden." });
+  }
+  const { id_usuario } = req.user; // asumimos middleware que añade req.user
+  const hash = await bcrypt.hash(newPassword, 10);
+  await pool.query(
+    `UPDATE usuarios
+     SET contrasena = ?, first_login = FALSE
+     WHERE id_usuario = ?`,
+    [hash, id_usuario]
+  );
+  res.json({ mensaje: "Contraseña actualizada correctamente" });
 };

@@ -141,3 +141,14 @@ export async function obtenerTests(token) {
   }
   return await res.json();
 }
+
+export async function resetPassword(email, newPassword, confirmPassword) {
+  const res = await fetch(`${BASE_URL}/auth/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, newPassword, confirmPassword }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "No se pudo resetear la contraseña");
+  return data;
+}
