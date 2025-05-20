@@ -1,4 +1,5 @@
 import { startConversation } from "../services/typebotAPI";
+import { saveSessionId, saveHistory } from "../utils/chatStorage";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -15,13 +16,18 @@ export async function iniciarFlujo({
   setOpcionesActivas,
   variables: { hasTest, hasDenuncia },
 }) {
-  setMensajes((prev) => [...prev, { autor: "bot", texto: `¡Hola, ${usuario?.nombre}!` }]);
+  setMensajes((prev) => {
+    const newState = [...prev, { autor: "bot", texto: `¡Hola, ${usuario?.nombre}!` }];
+    saveHistory(newState);
+    return newState;
+  });
   await esperar(1000);
 
   const res = await startConversation({ hasTest, hasDenuncia });
   if (!res?.sessionId) return;
 
   setSessionId(res.sessionId);
+  saveSessionId(res.sessionId);
   setResultId(res.resultId);
 
   // Añadir los mensajes de texto del bot
@@ -31,8 +37,11 @@ export async function iniciarFlujo({
       autor: "bot",
       texto: msg.content.richText.map((p) => p.children.map((c) => c.text).join("")).join("\n"),
     }));
-  setMensajes((prev) => [...prev, ...nuevos]);
-
+  setMensajes((prev) => {
+    const newState = [...prev, ...nuevos];
+    saveHistory(newState);
+    return newState;
+  });
   // Añadir opciones si hay input
   if (res.input?.items) {
     const multiple = res.input?.options?.isMultipleChoice || false;
@@ -44,6 +53,10 @@ export async function iniciarFlujo({
       tipo: "opcion",
       texto: item.content,
     }));
-    setMensajes((prev) => prev.filter((m) => m.tipo !== "opcion").concat(opciones));
+    setMensajes((prev) => {
+      const newState = prev.filter((m) => m.tipo !== "opcion").concat(opciones);
+      saveHistory(newState);
+      return newState;
+    });
   }
 }

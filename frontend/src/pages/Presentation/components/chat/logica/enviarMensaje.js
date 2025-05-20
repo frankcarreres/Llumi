@@ -9,6 +9,7 @@ import {
 import { calcularNivelRiesgo } from "../utils/calculoRiesgo";
 import { sendMessageToBot } from "../services/typebotAPI";
 import { saveSession } from "admin/utils/session";
+import { saveHistory } from "../utils/chatStorage";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -48,14 +49,16 @@ export async function enviarMensaje({
 
   const esLogin = !token;
 
-  setMensajes((prev) =>
-    prev
+  setMensajes((prev) => {
+    const newState = prev
       .filter((m) => m.tipo !== "opcion")
       .concat({
         autor: "user",
         texto: faseLogin === "password" ? "********" : texto,
-      })
-  );
+      });
+    saveHistory(newState);
+    return newState;
+  });
 
   setInput("");
   setOpcionesActivas([]);
@@ -66,10 +69,14 @@ export async function enviarMensaje({
     const esValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
     if (!esValido) {
       await esperar(500);
-      setMensajes((prev) => [
-        ...prev,
-        { autor: "bot", texto: "El formato del correo no es válido. Intenta de nuevo." },
-      ]);
+      setMensajes((prev) => {
+        const newState = [
+          ...prev,
+          { autor: "bot", texto: "El formato del correo no es válido. Intenta de nuevo." },
+        ];
+        saveHistory(newState);
+        return newState;
+      });
       return;
     }
 
@@ -80,12 +87,20 @@ export async function enviarMensaje({
       await verificarEmail(texto);
       await esperar(500);
       setFaseLogin("password");
-      setMensajes((prev) => [...prev, { autor: "bot", texto: "¿Cuál es tu contraseña?" }]);
+      setMensajes((prev) => {
+        const newState = [...prev, { autor: "bot", texto: "¿Cuál es tu contraseña?" }];
+        saveHistory(newState);
+        return newState;
+      });
     } catch {
-      setMensajes((prev) => [
-        ...prev,
-        { autor: "bot", texto: "Ese correo no está registrado. Intenta de nuevo." },
-      ]);
+      setMensajes((prev) => {
+        const newState = [
+          ...prev,
+          { autor: "bot", texto: "Ese correo no está registrado. Intenta de nuevo." },
+        ];
+        saveHistory(newState);
+        return newState;
+      });
     } finally {
       setCargando(false);
     }
@@ -115,10 +130,14 @@ export async function enviarMensaje({
       setUsuario(usuario);
       setFaseLogin("hecho");
     } catch {
-      setMensajes((prev) => [
-        ...prev,
-        { autor: "bot", texto: "Contraseña incorrecta. Intenta otra vez." },
-      ]);
+      setMensajes((prev) => {
+        const newState = [
+          ...prev,
+          { autor: "bot", texto: "Contraseña incorrecta. Intenta otra vez." },
+        ];
+        saveHistory(newState);
+        return newState;
+      });
     } finally {
       setCargando(false);
     }
@@ -143,7 +162,11 @@ export async function enviarMensaje({
       setEscribiendo(true);
       await esperar(1200);
       setEscribiendo(false);
-      setMensajes((prev) => [...prev, { autor: "bot", texto: textoPlano }]);
+      setMensajes((prev) => {
+        const newState = [...prev, { autor: "bot", texto: textoPlano }];
+        saveHistory(newState);
+        return newState;
+      });
       await esperar(1000);
 
       const esFinalDeTest = textoPlano.toLowerCase().includes("gracias por responder al test");
@@ -320,6 +343,10 @@ export async function enviarMensaje({
       texto: item.content,
     }));
 
-    setMensajes((prev) => prev.filter((m) => m.tipo !== "opcion").concat(opciones));
+    setMensajes((prev) => {
+      const newState = prev.filter((m) => m.tipo !== "opcion").concat(opciones);
+      saveHistory(newState);
+      return newState;
+    });
   }
 }

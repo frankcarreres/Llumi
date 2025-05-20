@@ -9,6 +9,7 @@ import { enviarMensaje } from "./logica/enviarMensaje";
 import { iniciarFlujo } from "./logica/iniciarFlujo";
 import { getSession } from "admin/utils/session";
 import { obtenerTests } from "pages/Presentation/components/chat/services/api";
+import { getHistory, saveHistory, getSessionId, saveSessionId } from "./utils/chatStorage";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -17,9 +18,9 @@ function SimuladorFlujo() {
   const [token, setToken] = useState(null);
   const [usuario, setUsuario] = useState(null);
 
-  const [mensajes, setMensajes] = useState([]);
+  const [mensajes, setMensajes] = useState(() => getHistory());
   const [input, setInput] = useState("");
-  const [sessionId, setSessionId] = useState(null);
+  const [sessionId, setSessionId] = useState(() => getSessionId());
   const [resultId, setResultId] = useState(null);
   const [opcionesActivas, setOpcionesActivas] = useState([]);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
@@ -40,6 +41,17 @@ function SimuladorFlujo() {
       behavior: "smooth",
     });
   }, [mensajes, escribiendo]);
+
+  useEffect(() => {
+    // Si ya había cookie/session almacenada, restauramos token y usuario
+    const session = getSession("token");
+    if (session?.token && session?.data) {
+      setToken(session.token);
+      setUsuario(session.data);
+      // Marcamos login como “hecho” para pasar directamente al chat/test
+      setFaseLogin("hecho");
+    }
+  }, []);
 
   useEffect(() => {
     if (mensajes.length === 0) {
@@ -80,6 +92,7 @@ function SimuladorFlujo() {
 
   useEffect(() => {
     if (tests === null) return; // Aún no hemos cargado nada
+    if (sessionId) return;
 
     // 2) Una vez tengo tests, calculo flags y arranco el chat
     const hasTest = Array.isArray(tests) && tests.length > 0;
@@ -94,7 +107,16 @@ function SimuladorFlujo() {
       setOpcionesActivas,
       variables: { hasTest, hasDenuncia },
     });
-  }, [tests]);
+  }, [tests, sessionId]);
+
+  useEffect(() => {
+    saveHistory(mensajes);
+  }, [mensajes]);
+
+  // 4. Cada vez que 'sessionId' cambie, persisto la sesión
+  useEffect(() => {
+    if (sessionId) saveSessionId(sessionId);
+  }, [sessionId]);
 
   const manejarEnvio = (msg = null) => {
     enviarMensaje({
