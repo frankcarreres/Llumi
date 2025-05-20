@@ -75,7 +75,7 @@ function WizardDenuncia() {
 
   return (
     <Box
-      minHeight="70vh" // esto le da un mínimo pero permite crecer
+      minHeight="70vh"
       width="100%"
       display="flex"
       flexDirection="column"

@@ -10,6 +10,7 @@ import { iniciarFlujo } from "./logica/iniciarFlujo";
 import { getSession } from "admin/utils/session";
 import { obtenerTests } from "pages/Presentation/components/chat/services/api";
 import { getHistory, saveHistory, getSessionId, saveSessionId } from "./utils/chatStorage";
+import { useNavigate } from "react-router-dom";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -27,6 +28,7 @@ function SimuladorFlujo() {
   const [escribiendo, setEscribiendo] = useState(false);
   const [cargando, setCargando] = useState(false);
   const [tests, setTests] = useState(null);
+  const navigate = useNavigate();
 
   const [, setPuntuacionFinal] = useState(null);
   const [, setNivelRiesgo] = useState(null);
@@ -119,6 +121,18 @@ function SimuladorFlujo() {
   }, [sessionId]);
 
   const manejarEnvio = (msg = null) => {
+    const texto = (msg ?? input).trim();
+    if (texto.toLowerCase() === "recursos") {
+      // antes de navegar, guarda el mensaje en el historial
+      setMensajes((prev) => {
+        const newState = [...prev, { autor: "user", texto }];
+        saveHistory(newState);
+        return newState;
+      });
+      // redirige a la página de Recursos
+      navigate("/sections/recursos/inici");
+      return;
+    }
     enviarMensaje({
       input: msg ?? input,
       isMultipleChoice,

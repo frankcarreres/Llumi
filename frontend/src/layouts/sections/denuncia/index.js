@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // ✅ AÑADIDO useNavigate
+import { useLocation, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -8,7 +8,7 @@ import MKTypography from "components/MKTypography";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
-import bgImage from "assets/images/inici2.jpg";
+import bgImage from "assets/bg.gif";
 import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
@@ -18,7 +18,7 @@ import publicRoutes from "../../../routes/publicRoutes";
 
 function DenunciaUsuari() {
   const location = useLocation();
-  const navigate = useNavigate(); // ✅ useNavigate para redireccionar
+  const navigate = useNavigate();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
   const [resultadoTest, setResultadoTest] = useState(null);
 
@@ -78,17 +78,28 @@ function DenunciaUsuari() {
         sticky
       />
       <MKBox
-        minHeight="75vh"
+        minHeight="80vh"
         width="100%"
         sx={{
+          position: "relative", // necesario para el pseudo-elemento absoluto
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
           display: "grid",
           placeItems: "center",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.3)", // filtro negro semitransparente
+            zIndex: 1,
+          },
         }}
       >
-        <Container>
+        <Container sx={{ position: "relative", zIndex: 2 }}>
           <Grid
             container
             item
@@ -119,8 +130,11 @@ function DenunciaUsuari() {
           </Grid>
         </Container>
       </MKBox>
+
       <Card
         sx={{
+          position: "relative",
+          zIndex: 10,
           p: 4,
           mx: { xs: 2, lg: 3 },
           mt: -8,

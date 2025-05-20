@@ -17,7 +17,7 @@ import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import { useNavigate } from "react-router-dom";
 
 // Imagenes
-import bgImage from "assets/images/inici2.jpg";
+import bgImage from "assets/bg.gif";
 import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
 
