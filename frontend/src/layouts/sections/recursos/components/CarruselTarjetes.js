@@ -2,8 +2,8 @@ import Slider from "react-slick";
 import MKBox from "../../../../components/MKBox";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import cardImage2 from "../../../../assets/images/ojo.png";
-import cardImage3 from "../../../../assets/images/bg2.jpg";
+import cardImage2 from "assets/images/bg-recurs-multi.png";
+import cardImage3 from "../../../../assets/images/bg-recurs-centre.jpg";
 import TarjetaRecurs from "./Tarjeta";
 import React, { useRef } from "react";
 import { IconButton } from "@mui/material";
@@ -27,7 +27,8 @@ const tarjetas = [
   },
   {
     titulo: "Recursos centre",
-    descripcion: "",
+    descripcion:
+      "Accedix a materials, protocols i suports del centre per a previndre i actuar enfront de l'assetjament escolar.",
     imagen: cardImage3,
     ruta: "/sections/recursos/centre",
   },
@@ -82,7 +83,7 @@ function CarruselTarjetas() {
       >
         <ArrowBackIosIcon />
       </IconButton>
-      <MKBox sx={{ width: "101%" }}>
+      <MKBox sx={{ width: "100%" }}>
         <Slider ref={sliderRef} {...settings}>
           {tarjetas.map((tarjeta, index) => (
             <MKBox key={index} mx={1} sx={{ height: "100%" }}>

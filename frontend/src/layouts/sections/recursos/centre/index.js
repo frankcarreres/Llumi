@@ -28,7 +28,6 @@ function RecursCentre() {
 
   return (
     <BaseLayout
-      title="Recursos centre"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },

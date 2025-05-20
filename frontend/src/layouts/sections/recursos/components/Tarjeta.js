@@ -22,7 +22,7 @@ function TarjetaRecurs({ titulo, descripcion, imagen, ruta }) {
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
-        minHeight="500px"
+        minHeight="600px"
         height="100%"
         sx={{
           backgroundImage: `url(${imagen})`,

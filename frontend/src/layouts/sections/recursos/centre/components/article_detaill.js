@@ -32,21 +32,25 @@ export default function ArticleDetail() {
   });
 
   return (
-    <div style={{ padding: 24, maxWidth: 800, margin: "auto" }}>
-      <Button onClick={() => navigate(-1)}>← Volver</Button>
-      <h1>{titulo}</h1>
-      <small>Fecha: {fechaFormateada}</small>
-      <Button
-        startIcon={<Icon>download</Icon>}
-        onClick={() => exportToPDF(contenido, titulo)}
-        sx={{ ml: 2 }}
-      >
-        Descargar PDF
-      </Button>
-      <div
-        style={{ marginTop: 24, lineHeight: 1.6 }}
-        dangerouslySetInnerHTML={{ __html: contenido }}
-      />
+    <div className="hoja">
+      <div style={{ padding: 24, maxWidth: 800, margin: "auto" }}>
+        <Button onClick={() => navigate(-1)} className="boton-volver">
+          ← Volver
+        </Button>
+        <h1>{titulo}</h1>
+        <small>Fecha: {fechaFormateada}</small>
+        <Button
+          startIcon={<Icon className="boton-descargar">download</Icon>}
+          onClick={() => exportToPDF(contenido, titulo)}
+          className="boton-descargar"
+        >
+          Descargar PDF
+        </Button>
+        <div
+          style={{ marginTop: 24, lineHeight: 1.6 }}
+          dangerouslySetInnerHTML={{ __html: contenido }}
+        />
+      </div>
     </div>
   );
 }

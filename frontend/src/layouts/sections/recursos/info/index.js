@@ -7,7 +7,6 @@ import MKTypography from "../../../../components/MKTypography";
 function RecursInfo() {
   return (
     <BaseLayout
-      title="Recursos informatius"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },
@@ -33,7 +32,7 @@ function RecursInfo() {
       </MKTypography>
 
       <CarruselNoticias destacadas={true} />
-      <MKBox mt={2} />
+      <MKBox mt={8} />
       <MKTypography
         variant="h4"
         fontWeight="light"

@@ -7,7 +7,7 @@ function RecursIni() {
     <MKBox mt={2}>
       <BaseLayout
         breadcrumb={[{ label: "Inici", route: "/pages/presentation" }, { label: "Recursos" }]}
-        title="Recursos"
+        // title="Recursos"
       >
         <CarruselTarjetes />
       </BaseLayout>

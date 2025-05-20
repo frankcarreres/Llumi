@@ -106,7 +106,7 @@ function CarruselNoticias({ destacadas }) {
               <TarjetaNoticia
                 titulo={noticia.titulo}
                 descripcion={noticia.contenido}
-                imagen={noticia.img}
+                imagen={noticia.img || "/"} // Cargar imagen default
                 url={noticia.url}
               />
             </MKBox>
