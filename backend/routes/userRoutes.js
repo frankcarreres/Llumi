@@ -4,6 +4,6 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const verifyToken = require("../middlewares/verificarToken");
 
-router.get('/:id_usuario',verifyToken, userController.getUsuarioPorId);
+router.get('/me',verifyToken, userController.getUsuarioPorId);
 
 module.exports = router;

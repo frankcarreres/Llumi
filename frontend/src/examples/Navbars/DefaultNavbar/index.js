@@ -1,4 +1,5 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 // react-router components
 import { Link } from "react-router-dom";
@@ -39,12 +40,13 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
+  const navigate = useNavigate();
   const session = getSession("token");
-  const handleLeave = () => {
+  const handleLeave = useCallback(() => {
     clearSession();
     clearHistory();
-    window.location.href = "/pages/Presentation";
-  };
+    navigate("/pages/Presentation", { replace: true });
+  }, [navigate]);
   const rutasConEstadoSesion = routes.map((ruta) => {
     if (ruta.name === "Mi cuenta") {
       const isLogged = Boolean(session?.token);
@@ -52,12 +54,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
       if (isLogged) {
         return {
           ...ruta,
-          collapse: [
-            { name: "Perfil", route: "pages/LandingPages/Profile" },
-            // aquí podrías añadir más, por ejemplo:
-            // { name: "Ajustes", route: "/sections/mi-cuenta/ajustes" },
-            { name: "Cerrar sesión", onClick: handleLeave },
-          ],
+          collapse: [{ name: "Perfil", route: "pages/LandingPages/Profile" }],
         };
       }
 
@@ -74,10 +71,10 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
     .filter((r) => r.name) // solo los que tienen nombre
     .filter((r) => !r.meta?.hidden);
 
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleLeave);
-    return () => window.removeEventListener("beforeunload", handleLeave);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", handleLeave);
+  //   return () => window.removeEventListener("beforeunload", handleLeave);
+  // }, []);
 
   useEffect(() => {
     // A function that sets the display state for the DefaultNavbarMobile.
@@ -512,6 +509,20 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
             mr={center ? "auto" : 0}
           >
             {renderNavbarItems}
+            {session?.token && (
+              <MKBox
+                component="div"
+                onClick={handleLeave}
+                display="inline-flex"
+                alignItems="center"
+                lineHeight={0}
+                py={1.5}
+                pl={1.5}
+                sx={{ cursor: "pointer" }}
+              >
+                <Icon fontSize="small">logout</Icon>
+              </MKBox>
+            )}
           </MKBox>
           <MKBox
             display={{ xs: "inline-block", lg: "none" }}
@@ -523,6 +534,19 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
             onClick={openMobileNavbar}
           >
             <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
+            {session?.token && (
+              <MKBox
+                onClick={handleLeave}
+                sx={{
+                  ml: 1,
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                <Icon fontSize="default">logout</Icon>
+              </MKBox>
+            )}
           </MKBox>
         </MKBox>
         <MKBox

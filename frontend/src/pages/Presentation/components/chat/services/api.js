@@ -100,7 +100,7 @@ export async function loginCentro(id_centro, contrasena) {
 }
 
 export async function obtenerUsuario(token) {
-  const res = await fetch(`${BASE_URL}/usuario/:id_usuario`, {
+  const res = await fetch(`${BASE_URL}/usuario/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
