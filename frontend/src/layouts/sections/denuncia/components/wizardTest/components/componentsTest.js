@@ -172,8 +172,8 @@ Inicio.propTypes = {
 export const IniciSolucio = ({ onComenzar }) => {
   return (
     <Box textAlign="center">
-      <Typography variant="h4" fontWeight={300} mb={8}>
-        Ja has realitzat un test. Comprova els resultats...{" "}
+      <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
+        Ja has realitzat un test. Comprova els teus resultats...{" "}
       </Typography>
       <Box mt={4}>
         <BotoTest onClick={onComenzar}>Veure resultats</BotoTest>

@@ -1,42 +1,42 @@
 import React, { useState } from "react";
 import { Typography, Box, Grid, Paper, IconButton } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import PersonIcon from "@mui/icons-material/Person";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormDenunciaAluVictima from "./components/formAluVictima";
-import FormDenunciaAluTestigo from "./components/formAluTestigo"; // Importamos el formulario para testigos
+import FormDenunciaAluTestigo from "./components/formAluTestigo";
+import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
+import BotoTest from "../wizardTest/components/botoTest";
 
 const optionsStep1 = [
-  { label: "Alumno", icon: <SchoolIcon sx={{ fontSize: 70 }} /> },
-  { label: "Docente", icon: <PersonIcon sx={{ fontSize: 70 }} /> },
-  { label: "Tutor", icon: <SupervisorAccountIcon sx={{ fontSize: 70 }} /> },
-];
-
-const optionsStep2 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },
   { label: "Testigo", icon: <VisibilityIcon sx={{ fontSize: 70 }} /> },
 ];
 
 function WizardDenuncia() {
   const [step, setStep] = useState(1);
-  const [selectedStep1, setSelectedStep1] = useState("");
-  const [selectedStep2, setSelectedStep2] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
+  const navigate = useNavigate(); // Hook para navegación
 
   const handleSelect = (label) => {
-    if (step === 1) {
-      setSelectedStep1(label);
-      if (label === "Tutor") {
-        setStep(3);
-      } else {
-        setStep(2);
-      }
-    } else {
-      setSelectedStep2(label);
-      setStep(3);
+    setSelectedOption(label);
+    setStep(2);
+  };
+
+  const handleBack = () => {
+    if (step === 2) {
+      setSelectedOption("");
+      setStep(1);
     }
+  };
+
+  const handleDenunciaRealizada = () => {
+    setStep(3);
+  };
+
+  const handleReturn = () => {
+    navigate("/sections/denuncia/components/wizardTest");
   };
 
   const renderOptions = (options, selected) => (
@@ -81,17 +81,15 @@ function WizardDenuncia() {
       flexDirection="column"
       justifyContent="flex-start"
       alignItems="center"
-      position="relative"
-      sx={{ paddingY: 2 }}
+      sx={{ paddingY: 2, position: "relative" }}
     >
       {step === 2 && (
         <IconButton
-          onClick={() => setStep(1)}
+          onClick={handleBack}
           sx={{
             position: "absolute",
             left: 16,
-            top: "50%",
-            transform: "translateY(-50%)",
+            top: 16,
             backgroundColor: "#eee",
             "&:hover": {
               backgroundColor: "#ddd",
@@ -102,15 +100,8 @@ function WizardDenuncia() {
         </IconButton>
       )}
 
-      <Box
-        mt={3}
-        sx={{
-          width: "100%",
-          maxWidth: "900px",
-          px: 2,
-        }}
-      >
-        {step === 1 || step === 2 ? (
+      <Box mt={3} sx={{ width: "100%", maxWidth: "900px", px: 2 }}>
+        {step === 1 && (
           <Box
             sx={{
               display: "flex",
@@ -118,24 +109,53 @@ function WizardDenuncia() {
               alignItems: "center",
               justifyContent: "center",
               minHeight: "50vh",
-              textAlign: "center", // centrado horizontal del texto
+              textAlign: "center",
             }}
           >
             <Typography variant="h4" sx={{ fontSize: "2rem", fontWeight: 100, mb: 4 }}>
-              {step === 1 ? "¿Qué eres?" : "¿En qué posición te encuentras?"}
+              ¿En qué posición te encuentras?
             </Typography>
-            {step === 1
-              ? renderOptions(optionsStep1, selectedStep1)
-              : renderOptions(optionsStep2, selectedStep2)}
+            {renderOptions(optionsStep1, selectedOption)}
           </Box>
-        ) : selectedStep1 === "Alumno" && selectedStep2 === "Víctima" ? (
-          <FormDenunciaAluVictima />
-        ) : selectedStep1 === "Alumno" && selectedStep2 === "Testigo" ? (
-          <FormDenunciaAluTestigo />
-        ) : (
-          <Typography variant="h6" sx={{ fontSize: "1.5rem" }}>
-            {selectedStep1} {selectedStep2}
-          </Typography>
+        )}
+
+        {step === 2 && selectedOption === "Víctima" && (
+          <FormDenunciaAluVictima onDenunciar={handleDenunciaRealizada} />
+        )}
+
+        {step === 2 && selectedOption === "Testigo" && (
+          <FormDenunciaAluTestigo onDenunciar={handleDenunciaRealizada} />
+        )}
+
+        {step === 3 && (
+          <Box
+            sx={{
+              minHeight: "50vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              gap: 3,
+            }}
+          >
+            <img
+              src={imgDenuncia}
+              alt="Confirmación"
+              style={{ maxWidth: "100%", height: "auto", borderRadius: "8px" }}
+            />
+            <Typography
+              component="h4"
+              fontSize="2rem"
+              fontWeight={100}
+              mb={4}
+              sx={{ color: "#354667" }}
+            >
+              La denúncia s&apos;ha realitzat correctament{" "}
+            </Typography>
+
+            <BotoTest onClick={handleReturn}>tornar</BotoTest>
+          </Box>
         )}
       </Box>
     </Box>
