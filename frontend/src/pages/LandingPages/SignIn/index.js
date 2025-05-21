@@ -47,7 +47,6 @@ function SignInBasic() {
     // Detectar tipo de identificador
     const esUsuario = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const esCentro = /^\d+$/.test(email);
-    console.log("123");
     // Validaciones locales
     if (!email) {
       setErrorEmail("El campo ‘Usuario’ es obligatorio.");
@@ -64,7 +63,6 @@ function SignInBasic() {
 
     // Intentar login
     try {
-      console.log("456");
       const response = esUsuario
         ? await login(email, contrasena)
         : await loginCentro(email, contrasena);
@@ -73,7 +71,11 @@ function SignInBasic() {
 
       const { token, usuario, centro } = response;
       if (centro) centro.rol = "centro";
-      const sessionData = usuario ?? centro;
+      const baseData = usuario ?? centro;
+      const sessionData = {
+        ...baseData,
+        loginWeb: true, // ¡aquí lo ajustas!
+      };
       saveSession({ token, data: sessionData }, rememberMe);
 
       if (isUsuario()) {
