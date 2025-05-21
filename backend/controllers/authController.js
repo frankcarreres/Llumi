@@ -48,7 +48,8 @@ exports.login = async (req, res) => {
     const token = jwt.sign(
       {
         id_usuario: usuario.id_usuario,
-        rol: usuario.rol
+        rol: usuario.rol,
+        loginWeb: false
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
@@ -123,7 +124,8 @@ exports.loginCentro = async (req, res) => {
     const token = jwt.sign(
       {
         id_centro: centro.id_centro,
-        nombre: centro.nombre
+        nombre: centro.nombre,
+        loginWeb: false
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }

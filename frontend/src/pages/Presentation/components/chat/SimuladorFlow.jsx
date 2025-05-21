@@ -29,6 +29,9 @@ function SimuladorFlujo() {
   const [cargando, setCargando] = useState(false);
   const [tests, setTests] = useState(null);
   const navigate = useNavigate();
+  const SALUDO = "Hola 👋 ¿Cuál es tu correo electrónico?";
+  const session = getSession("token");
+  const esLoginWeb = session?.data?.loginWeb === true;
 
   const [, setPuntuacionFinal] = useState(null);
   const [, setNivelRiesgo] = useState(null);
@@ -46,7 +49,6 @@ function SimuladorFlujo() {
 
   useEffect(() => {
     // Si ya había cookie/session almacenada, restauramos token y usuario
-    const session = getSession("token");
     if (session?.token && session?.data) {
       setToken(session.token);
       setUsuario(session.data);
@@ -110,6 +112,15 @@ function SimuladorFlujo() {
       variables: { hasTest, hasDenuncia },
     });
   }, [tests, sessionId]);
+
+  useEffect(() => {
+    if (!esLoginWeb) return;
+    // Eliminamos sólo el mensaje exacto del saludo por defecto
+    const filtrados = mensajes.filter((m) => !(m.autor === "bot" && m.texto === SALUDO));
+    if (filtrados.length !== mensajes.length) {
+      setMensajes(filtrados);
+    }
+  }, [mensajes, esLoginWeb]);
 
   useEffect(() => {
     saveHistory(mensajes);
