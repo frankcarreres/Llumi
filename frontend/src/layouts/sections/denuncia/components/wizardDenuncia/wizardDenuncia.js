@@ -144,9 +144,16 @@ function WizardDenuncia() {
               alt="Confirmación"
               style={{ maxWidth: "100%", height: "auto", borderRadius: "8px" }}
             />
-            <Typography variant="h4" fontWeight={100} mb={4}>
+            <Typography
+              component="h4"
+              fontSize="2rem"
+              fontWeight={100}
+              mb={4}
+              sx={{ color: "#354667" }}
+            >
               La denúncia s&apos;ha realitzat correctament{" "}
             </Typography>
+
             <BotoTest onClick={handleReturn}>tornar</BotoTest>
           </Box>
         )}
