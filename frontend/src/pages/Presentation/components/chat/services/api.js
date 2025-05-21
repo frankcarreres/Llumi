@@ -143,7 +143,7 @@ export async function obtenerTests(token) {
 }
 
 export async function resetPassword(email, newPassword, confirmPassword) {
-  const res = await fetch(`${BASE_URL}auth/reset-password`, {
+  const res = await fetch(`${BASE_URL}/auth/reset-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, newPassword, confirmPassword }),
