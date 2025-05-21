@@ -7,7 +7,7 @@ const Tables = lazy(() => import("admin/layouts/tables"));
 const Notifications = lazy(() => import("admin/layouts/notifications"));
 const Profile = lazy(() => import("admin/layouts/profile"));
 const DenunciaPage = lazy(() => import("admin/layouts/denuncias"));
-const CreateNoticia = lazy(() => import("admin/layouts/Recursos"));
+const CreateNoticia = lazy(() => import("admin/layouts/recursos"));
 
 export default [
   /* ---------- DASHBOARD (centro) ---------- */

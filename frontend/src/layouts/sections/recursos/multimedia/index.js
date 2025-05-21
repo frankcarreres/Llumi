@@ -9,11 +9,11 @@ import React from "react";
 function RecursMultimedia() {
   return (
     <BaseLayout
-      // title="Recursos multimedia"
+      // title="recursos multimedia"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
-        { label: "Recursos", route: "/sections/recursos/inici" },
-        { label: "Recursos multimèdia" },
+        { label: "recursos", route: "/sections/recursos/inici" },
+        { label: "recursos multimèdia" },
       ]}
     >
       <MKBox mt={2} />

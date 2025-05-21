@@ -100,9 +100,9 @@ function SimuladorFlujo() {
 
     // 2) Una vez tengo tests, calculo flags y arranco el chat
     const hasTest = Array.isArray(tests) && tests.length > 0;
-    const hasDenuncia = hasTest && Boolean(tests[0].Denuncia);
+    const hasDenuncia = hasTest && Boolean(tests[0].denuncia);
 
-    iniciarFlujo({
+    void iniciarFlujo({
       usuario,
       setMensajes,
       setSessionId,
@@ -140,11 +140,11 @@ function SimuladorFlujo() {
         saveHistory(newState);
         return newState;
       });
-      // redirige a la página de Recursos
+      // redirige a la página de recursos
       navigate("/sections/recursos/inici");
       return;
     }
-    enviarMensaje({
+    void enviarMensaje({
       input: msg ?? input,
       isMultipleChoice,
       opcionesActivas,

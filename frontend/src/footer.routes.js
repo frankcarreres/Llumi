@@ -16,7 +16,7 @@ export default {
       items: [{ name: "Perfil", route: "/pages/LandingPages/Profile" }],
     },
     {
-      name: "Recursos",
+      name: "recursos",
       route: "/sections/recursos/inici",
       items: [
         { name: "Informatius", route: "/sections/recursos/info" },

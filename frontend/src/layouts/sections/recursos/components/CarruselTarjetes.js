@@ -13,20 +13,20 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const tarjetas = [
   {
-    titulo: "Recursos informatius",
+    titulo: "recursos informatius",
     descripcion: "Informa't de les ultimes notícies sobre l'assetjament escolar...",
     imagen: cardImage1,
     ruta: "/sections/recursos/info",
   },
   {
-    titulo: "Recursos multimèdia",
+    titulo: "recursos multimèdia",
     descripcion:
       "Descobrix recursos multimedia i audiovisual per a sensibilitzar i actuar contra l'assetjament.",
     imagen: cardImage2,
     ruta: "/sections/recursos/multimedia",
   },
   {
-    titulo: "Recursos centre",
+    titulo: "recursos centre",
     descripcion:
       "Accedix a materials, protocols i suports del centre per a previndre i actuar enfront de l'assetjament escolar.",
     imagen: cardImage3,

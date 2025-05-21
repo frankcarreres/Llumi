@@ -74,7 +74,7 @@ const CustomToolbar = () => (
 // eslint-disable-next-line react/prop-types
 export default function EditorArticulo({ value, onChange }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {/* STICKY en el viewport */}
       <CustomToolbar />
 

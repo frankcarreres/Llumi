@@ -30,8 +30,8 @@ function RecursCentre() {
     <BaseLayout
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
-        { label: "Recursos", route: "/sections/recursos/inici" },
-        { label: "Recursos centre" },
+        { label: "recursos", route: "/sections/recursos/inici" },
+        { label: "recursos centre" },
       ]}
     >
       <MKBox mt={2} />
