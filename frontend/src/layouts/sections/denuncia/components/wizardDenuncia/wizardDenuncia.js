@@ -8,6 +8,8 @@ import FormDenunciaAluVictima from "./components/formAluVictima";
 import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
 import BotoTest from "../wizardTest/components/botoTest";
+import { guardarDenuncia } from "pages/Presentation/components/chat/services/api";
+import { getSession } from "admin/utils/session";
 
 const optionsStep1 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },
@@ -31,8 +33,19 @@ function WizardDenuncia() {
     }
   };
 
-  const handleDenunciaRealizada = () => {
-    setStep(3);
+  const handleDenunciaRealizada = async (datos) => {
+    console.log("Datos recogidos del formulario:", datos);
+
+    try {
+      const session = getSession("token");
+      console.log(session?.token);
+      console.log(session?.data);
+      await guardarDenuncia(session?.token, session?.data.id_centro, datos); // llamada a la API
+      setStep(3);
+    } catch (error) {
+      console.error("Error al registrar la denuncia:", error);
+      alert("Hubo un error al registrar la denuncia. Inténtalo de nuevo.");
+    }
   };
 
   const handleReturn = () => {

@@ -29,6 +29,8 @@ exports.guardarDenuncia = async (req, res) => {
     nombre_docente
   } = datosDenuncia;
 
+  console.log(datosDenuncia);
+
   try {
     const [result] = await pool.query(
       `INSERT INTO denuncias (

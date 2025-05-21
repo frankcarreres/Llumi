@@ -19,7 +19,7 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
   const [tiposAcoso, setTiposAcoso] = useState([]);
   const [acosado, setAcosado] = useState("");
   const [relacionAcosado, setRelacionAcosado] = useState("");
-  const [hayTestigos, setHayTestigos] = useState("si"); // Por defecto, "sí"
+  const [hayTestigos, setHayTestigos] = useState("");
   const [quienTestigo, setQuienTestigo] = useState("");
   const [intervinoDocente, setIntervinoDocente] = useState("");
   const [quienDocente, setQuienDocente] = useState("");
@@ -30,19 +30,6 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
-
-  // const handleSubmit = () => {
-  //   // Mostrar en un alert los datos introducidos directamente
-  //   alert(`Formulario enviado con los siguientes datos:
-  //   Descripción: ${descripcion}
-  //   Tipos de acoso: ${tiposAcoso.join(", ")}
-  //   Acosado/a: ${acosado}
-  //   Relación con el acosado: ${relacionAcosado}
-  //   Hay testigos: ${hayTestigos}
-  //   Quiénes son los testigos: ${quienTestigo}
-  //   Docente intervino: ${intervinoDocente}
-  //   Quién fue el docente: ${quienDocente}`);
-  // };
 
   return (
     <form
@@ -155,7 +142,24 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
 
       {/* Botón centrado */}
       <Box display="flex" justifyContent="center" mt={4}>
-        <BotoDenuncia onClick={onDenunciar}>DENÚNCIA</BotoDenuncia>
+        <BotoDenuncia
+          onClick={() => {
+            const datos = {
+              descripcion: descripcion,
+              tipo_acoso: tiposAcoso,
+              nombre_victima: acosado,
+              relacion_victima: relacionAcosado,
+              es_testigo: true,
+              testigos: hayTestigos === "si",
+              nombre_testigo_extra: quienTestigo,
+              intervencion_docente: intervinoDocente === "si",
+              nombre_docente: quienDocente,
+            };
+            onDenunciar(datos);
+          }}
+        >
+          DENÚNCIA
+        </BotoDenuncia>
       </Box>
     </form>
   );

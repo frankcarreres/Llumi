@@ -11,7 +11,18 @@ export const WizardTestSol = ({ resultadoTest, setMostrarDenuncia }) => {
   };
 
   return (
-    <Box>
+    <Box
+      p={3}
+      width={{ xs: "100%", sm: "80%", md: "60%", lg: "90%" }}
+      minHeight="70vh"
+      mx="auto"
+      position="relative"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      textAlign="center"
+    >
       {paso === 1 && <IniciSolucio onComenzar={handleComenzar} />}
       {paso === 2 && (
         <TotalSolucio resultado={resultadoTest} onDenunciaClick={() => setMostrarDenuncia(true)} />
