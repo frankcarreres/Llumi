@@ -54,7 +54,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
       if (isLogged) {
         return {
           ...ruta,
-          collapse: [{ name: "Perfil", route: "pages/LandingPages/Profile" }],
+          collapse: [{ name: "Perfil", route: "/pages/LandingPages/Profile" }],
         };
       }
 
