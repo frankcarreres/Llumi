@@ -49,7 +49,7 @@ export default function ResetPassword() {
 
     try {
       await resetPassword(email, newPassword, confirmPassword);
-      navigate("/", { replace: true });
+      navigate("/pages/authentication/sign-in", { replace: true });
     } catch (err) {
       const msg = err.response?.data?.error || "Error de actualización";
       setErrorNew(msg);
