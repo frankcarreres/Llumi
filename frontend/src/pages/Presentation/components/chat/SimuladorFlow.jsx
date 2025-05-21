@@ -32,6 +32,7 @@ function SimuladorFlujo() {
   const SALUDO = "Hola 👋 ¿Cuál es tu correo electrónico?";
   const session = getSession("token");
   const esLoginWeb = session?.data?.loginWeb === true;
+  const [faseDenuncia, setFaseDenuncia] = useState(false);
 
   const [, setPuntuacionFinal] = useState(null);
   const [, setNivelRiesgo] = useState(null);
@@ -39,6 +40,18 @@ function SimuladorFlujo() {
   const [preguntasMostradas, setPreguntasMostradas] = useState([]);
   const idTestRef = useRef(null);
   const scrollRef = useRef(null);
+  const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
+  const inputDisabled =
+    cargando ||
+    hayOpciones || // SIEMPRE deshabilitar el text‐field cuando haya opciones
+    (sessionId && !testEnviado && !faseDenuncia);
+
+  // 3) Bloqueo para el <Button>
+  const buttonDisabled =
+    cargando || // Si es texto libre, mismo bloqueo que input…
+    (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) || // …pero **no** bloqueamos aquí por hayOpciones // Y para opciones múltiples, exigir al menos 1 seleccionada
+    (isMultipleChoice && opcionesActivas.length === 0) ||
+    (!isMultipleChoice && !input.trim());
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -133,6 +146,9 @@ function SimuladorFlujo() {
 
   const manejarEnvio = (msg = null) => {
     const texto = (msg ?? input).trim();
+    if (texto.toLowerCase() === "denunciar") {
+      setFaseDenuncia(true);
+    }
     if (texto.toLowerCase() === "recursos") {
       // antes de navegar, guarda el mensaje en el historial
       setMensajes((prev) => {
@@ -172,6 +188,7 @@ function SimuladorFlujo() {
       setTestEnviado,
       setEscribiendo,
       idTestRef,
+      setFaseDenuncia,
     });
   };
 
@@ -252,9 +269,7 @@ function SimuladorFlujo() {
           onKeyDown={(e) => e.key === "Enter" && manejarEnvio()}
           type={faseLogin === "password" && !token ? "password" : "text"}
           variant="outlined"
-          disabled={
-            cargando || (sessionId && !testEnviado) // 👈 desactiva mientras el test está en curso
-          }
+          disabled={inputDisabled}
           InputProps={{
             sx: {
               borderRadius: "20px",
@@ -276,9 +291,7 @@ function SimuladorFlujo() {
         <Button
           variant="contained"
           onClick={() => manejarEnvio()}
-          disabled={
-            cargando || (!input.trim() && !(isMultipleChoice && opcionesActivas.length > 0))
-          }
+          disabled={buttonDisabled}
           sx={{
             background: "#ea8917",
             color: "#fff",

@@ -41,10 +41,13 @@ export async function enviarMensaje({
   setTestEnviado,
   setEscribiendo,
   idTestRef,
+  setFaseDenuncia,
 }) {
   const texto =
     input || (isMultipleChoice && opcionesActivas.length > 0 ? opcionesActivas.join(", ") : "");
-
+  if (texto.toLowerCase() === "denunciar") {
+    setFaseDenuncia(true);
+  }
   if (!texto) return;
 
   const esLogin = !token;
@@ -320,6 +323,7 @@ export async function enviarMensaje({
 
             await vincularDenuncia(token, idTestRef.current, id_denuncia);
             idTestRef.current = null;
+            setFaseDenuncia(false);
           }
         } catch (err) {
           console.error("❌ Error al guardar la denuncia:", err);
