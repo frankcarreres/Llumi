@@ -3,9 +3,11 @@ require("dotenv").config();
 
 exports.syncNoticias = async (req, res) => {
   const API_KEY = process.env.MEDIASTACK_API_KEY;
-  const ID_USUARIO_ADMIN = 1;
+  const { id_centro } = req.user;
+  let connection;
 
   try {
+    // 1) Fetch a MediaStack
     const url = new URL("http://api.mediastack.com/v1/news");
     url.searchParams.append("access_key", API_KEY);
     url.searchParams.append("keywords", "acoso escolar");
@@ -13,51 +15,73 @@ exports.syncNoticias = async (req, res) => {
     url.searchParams.append("countries", "ES");
     url.searchParams.append("sort", "published_desc");
 
+    console.log("🔍 Llamando a MediaStack:", url.toString());
     const response = await fetch(url);
+    console.log("📩 Status MediaStack:", response.status);
 
     if (!response.ok) {
-      throw new Error(`MediaStack error: ${response.status}`);
+      const text = await response.text();
+      throw new Error(`MediaStack error ${response.status}: ${text}`);
     }
 
     const data = await response.json();
-    const noticias = data.data;
+    console.log("✅ Datos recibidos:", Array.isArray(data.data) ? data.data.length : "none");
 
-    const connection = await pool.getConnection();
+    const noticias = data.data || [];
+
+    // 2) Conectar a la base de datos
+    connection = await pool.getConnection();
+    console.log("🔌 Conexión MySQL obtenida");
 
     let guardadas = 0;
+
     for (const noticia of noticias) {
-      // Verifica por URL o por título
-      const [existe] = await connection.query(
+      try {
+        // 2.1) Verificar existencia
+        console.log("🔎 Comprobando existencia:", noticia.url);
+        const [existeRows] = await connection.query(
           `SELECT id_recurso FROM recursos WHERE url = ? OR titulo = ?`,
           [noticia.url, noticia.title]
-      );
+        );
 
-      if (existe.length === 0) {
-        await connection.query(
+        if (existeRows.length === 0) {
+          // 2.2) Insertar
+          console.log("➕ Insertando noticia:", noticia.title);
+          await connection.query(
             `INSERT INTO recursos
-               (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
+               (titulo, tipo, contenido, fecha_publicacion, url, img, id_centro)
              VALUES (?, 'noticia', ?, ?, ?, ?, ?)`,
             [
               noticia.title,
               noticia.description || "Sin descripción",
               new Date(noticia.published_at || Date.now()),
-              ID_USUARIO_ADMIN,
               noticia.url,
-              noticia.image || null
+              noticia.image || null,
+              id_centro
             ]
-        );
-        guardadas++;
+          );
+          guardadas++;
+        } else {
+          console.log("⏭️ Ya existe, salto:", noticia.url);
+        }
+      } catch (dbErr) {
+        console.error("❌ Error al procesar noticia:", noticia.url, dbErr);
+        // Opcional: seguir con la siguiente noticia en lugar de abortar todo
       }
     }
 
-    connection.release();
+    res.json({ message: `Se han sincronizado ${guardadas} noticias correctamente.` });
 
-    res.json({
-      message: `Se han sincronizado ${guardadas} noticias correctamente.`
-    });
   } catch (error) {
-    console.error("Error al sincronizar noticias:", error);
-    res.status(500).json({ error: "Error al sincronizar noticias" });
+    res.status(500).json({
+            error: error.message || "Error al sincronizar noticias",
+            stack: error.stack    // ¡TEMPORAL! para depuración
+        });
+  } finally {
+    if (connection) {
+      connection.release();
+      console.log("🔌 Conexión MySQL liberada");
+    }
   }
 };
 
@@ -74,8 +98,8 @@ exports.getNoticias = async (req, res) => {
 };
 
 exports.syncMultimedia = async (req, res) => {
+  const { id_centro }  = req.user;
   const API_KEY = process.env.YOUTUBE_API_KEY;
-  const ID_USUARIO_ADMIN = 1;
 
   try {
     const query = "acoso escolar";
@@ -113,16 +137,16 @@ exports.syncMultimedia = async (req, res) => {
 
       if (existe.length === 0) {
         await connection.query(
-          `INSERT INTO recursos
-               (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
-           VALUES (?, 'video', ?, ?, ?, ?, ?)`,
+          `INSERT INTO recursos    
+            (titulo, tipo, contenido, fecha_publicacion, id_centro, url, img)
+            VALUES (?, 'video', ?, ?, ?, ?, ?)`,
           [
             video.snippet.title,
             video.snippet.description || "Sin descripción",
             new Date(video.snippet.publishedAt),
-            ID_USUARIO_ADMIN,
+            id_centro,
             embedUrl,
-            video.snippet.thumbnails?.medium?.url || null
+            video.snippet.thumbnails?.medium?.url || null,
           ]
         );
         guardados++;
@@ -159,7 +183,7 @@ exports.getMultimedia = async (req, res) => {
 
 exports.syncPodcasts = async (req, res) => {
   const API_KEY = process.env.YOUTUBE_API_KEY;
-  const ID_USUARIO_ADMIN = 1;
+  const { id_centro }  = req.user;
 
   try {
     const query = "podcast bullying";
@@ -198,13 +222,13 @@ exports.syncPodcasts = async (req, res) => {
       if (existe.length === 0) {
         await connection.query(
           `INSERT INTO recursos
-               (titulo, tipo, contenido, fecha_publicacion, id_usuario, url, img)
+               (titulo, tipo, contenido, fecha_publicacion,id_centro, url, img)
            VALUES (?, 'podcast', ?, ?, ?, ?, ?)`,
           [
             podcast.snippet.title,
             podcast.snippet.description || "Sin descripción",
             new Date(podcast.snippet.publishedAt),
-            ID_USUARIO_ADMIN,
+            id_centro,
             embedUrl,
             podcast.snippet.thumbnails?.medium?.url || null
           ]
@@ -237,7 +261,6 @@ exports.getPodcasts = async (req, res) => {
     res.status(500).json({ error: "Error al obtener los recursos podcast" });
   }
 };
-
 
 exports.postNoticias = async (req, res) => {
   // Imprime el contenido de la request para depuración

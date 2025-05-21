@@ -6,19 +6,19 @@ const multer = require("multer");
 const upload = multer({ limits: { fileSize: 5 * 1024 * 1024 } });
 
 // Ruta para sincronizar noticias
-router.get('/syncNoticias', syncNoticias);
+router.get('/syncNoticias',verifyToken, syncNoticias);
 
 // Ruta para obtener las noticias
 router.get('/noticias', getNoticias);
 
 // Ruta para sincronizar los videos
-router.get('/syncMultimedia', syncMultimedia);
+router.get('/syncMultimedia',verifyToken, syncMultimedia);
 
 // Ruta para obtener las videos
 router.get('/multimedia', getMultimedia);
 
 // Ruta para sincronizar los videos de podcast
-router.get('/syncPodcasts', syncPodcasts);
+router.get('/syncPodcasts',verifyToken, syncPodcasts);
 
 router.get('/podcast', getPodcasts);
 
