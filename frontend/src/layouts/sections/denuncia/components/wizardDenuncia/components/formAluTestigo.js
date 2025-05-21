@@ -149,10 +149,10 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
               tipo_acoso: tiposAcoso,
               nombre_victima: acosado,
               relacion_victima: relacionAcosado,
-              es_testigo: true,
-              testigos: hayTestigos === "si",
+              es_testigo: "si",
+              testigos: hayTestigos,
               nombre_testigo_extra: quienTestigo,
-              intervencion_docente: intervinoDocente === "si",
+              intervencion_docente: intervinoDocente,
               nombre_docente: quienDocente,
             };
             onDenunciar(datos);

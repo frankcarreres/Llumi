@@ -13,47 +13,59 @@ import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
 import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
-import Cookies from "js-cookie";
 import publicRoutes from "../../../routes/publicRoutes";
+import { getDenunciaPorUsuario } from "pages/Presentation/components/chat/services/api";
+import { WizardDenunciaSol } from "./components/wizardDenuncia/wizardDenunciaSol";
+import { getSession } from "admin/utils/session";
 
 function DenunciaUsuari() {
   const location = useLocation();
   const navigate = useNavigate();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
   const [resultadoTest, setResultadoTest] = useState(null);
+  const [denunciaPendiente, setDenunciaPendiente] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const session = getSession("token");
 
-    if (!token) {
-      // ✅ Si no hay token, redirigimos al login
+    if (!session?.token) {
       navigate("/pages/authentication/sign-in");
       return;
     }
 
-    const fetchResultadoTest = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://13.216.39.33:3001/denuncias/resultadoTest", {
+        // Obtener resultado del test
+        const responseTest = await fetch("http://13.216.39.33:3001/denuncias/resultadoTest", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${session?.token}`,
           },
         });
-
-        const result = await response.json();
+        const result = await responseTest.json();
         setResultadoTest(result);
+
+        // Obtener denuncias y verificar si hay alguna pendiente
+        const data = await getDenunciaPorUsuario(session?.token);
+        const tienePendiente = data.denuncias.some((d) => d.estado === "pendiente");
+        setDenunciaPendiente(tienePendiente);
+        console.log(denunciaPendiente);
       } catch (error) {
-        console.error("Error al obtener el resultado del test:", error);
+        console.error("Error al obtener los datos del usuario:", error);
       }
     };
 
-    fetchResultadoTest();
-  }, [navigate]); // ✅ Dependencia de navigate
+    fetchData();
+  }, [navigate]);
 
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
-      <WizardDenuncia />
+      denunciaPendiente ? (
+        <WizardDenunciaSol />
+      ) : (
+        <WizardDenuncia />
+      )
     ) : resultadoTest && resultadoTest.resultado ? (
       <WizardTestSol
         resultadoTest={resultadoTest.resultado}

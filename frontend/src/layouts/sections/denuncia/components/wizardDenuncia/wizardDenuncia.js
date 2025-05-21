@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Box, Grid, Paper, IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -19,7 +19,7 @@ const optionsStep1 = [
 function WizardDenuncia() {
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
-  const navigate = useNavigate(); // Hook para navegación
+  const navigate = useNavigate();
 
   const handleSelect = (label) => {
     setSelectedOption(label);
@@ -34,13 +34,9 @@ function WizardDenuncia() {
   };
 
   const handleDenunciaRealizada = async (datos) => {
-    console.log("Datos recogidos del formulario:", datos);
-
     try {
       const session = getSession("token");
-      console.log(session?.token);
-      console.log(session?.data);
-      await guardarDenuncia(session?.token, session?.data.id_centro, datos); // llamada a la API
+      await guardarDenuncia(session?.token, session?.data.id_centro, datos);
       setStep(3);
     } catch (error) {
       console.error("Error al registrar la denuncia:", error);
@@ -166,7 +162,6 @@ function WizardDenuncia() {
             >
               La denúncia s&apos;ha realitzat correctament{" "}
             </Typography>
-
             <BotoTest onClick={handleReturn}>tornar</BotoTest>
           </Box>
         )}
