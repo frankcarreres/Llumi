@@ -144,6 +144,7 @@ function Casos() {
             </MenuItem>
             <MenuItem value="pendiente">Pendiente</MenuItem>
             <MenuItem value="en_progreso">En progreso</MenuItem>
+            <MenuItem value="en_observacion">En observación</MenuItem>
             <MenuItem value="resuelta">Resuelta</MenuItem>
             <MenuItem value="rechazada">Rechazada</MenuItem>
           </Select>

@@ -56,6 +56,9 @@ export default function EditDropdown({ row, setRowsData, updateData }) {
         <MenuItem value="en_progreso">
           <MDTypography variant="body2">En progreso</MDTypography>
         </MenuItem>
+        <MenuItem value="en_observacion">
+          <MDTypography variant="body2">En Observación</MDTypography>
+        </MenuItem>
         <MenuItem value="pendiente">
           <MDTypography variant="body2">Pendiente</MDTypography>
         </MenuItem>
