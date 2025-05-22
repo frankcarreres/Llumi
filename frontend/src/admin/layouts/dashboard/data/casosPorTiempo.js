@@ -1,4 +1,4 @@
-import { agruparPorFecha } from "../../../hooks/filtroPorTiempo";
+import { agruparPorFecha } from "hooks/filtroPorTiempo";
 
 export default function casosPorTiempo(denuncias) {
   const grouped = agruparPorFecha(denuncias);

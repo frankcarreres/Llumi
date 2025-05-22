@@ -1,7 +1,7 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
 
-import denunciasPeticiones from "admin/hooks/denunciasPeticiones";
+import denunciasPeticiones from "hooks/denunciasPeticiones";
 import { useMemo } from "react";
 //data
 import casosResueltos from "./data/casoResueltos";

@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 // eslint-disable-next-line react/prop-types
 export default function RequireCentro({ children }) {

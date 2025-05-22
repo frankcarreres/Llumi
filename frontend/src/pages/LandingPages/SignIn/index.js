@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login, loginCentro } from "../../../services/api";
+import { login, loginCentro } from "services/api";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -22,7 +22,7 @@ import InputAnimado from "./components/InputAnimado";
 import BotonLuminoso from "./components/BotonLuminoso";
 
 import publicRoutes from "../../../routes/publicRoutes";
-import { isCentro, isUsuario, saveSession } from "admin/utils/session";
+import { isCentro, isUsuario, saveSession } from "utils/session";
 import { VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 

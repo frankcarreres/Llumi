@@ -18,7 +18,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/bg.gif";
 import Index from "./components/chat/SimuladorFlow";
 import publicRoutes from "../../routes/publicRoutes";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 import { useNavigate } from "react-router-dom";
 
 function Presentation() {

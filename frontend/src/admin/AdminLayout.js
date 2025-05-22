@@ -21,7 +21,7 @@ import themeDark from "admin/assets/theme-dark";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "admin/context";
 
 // session and auth utilities
-import { getSession, clearSession } from "admin/utils/session";
+import { getSession, clearSession } from "utils/session";
 
 // Images
 import brandWhite from "admin/assets/images/logo-ct.png";

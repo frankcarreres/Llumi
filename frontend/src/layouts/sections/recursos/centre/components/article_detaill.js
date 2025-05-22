@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
-import { exportToPDF } from "admin/utils/exportToPDF";
+import { exportToPDF } from "utils/exportToPDF";
 import "./index.css";
 
 export default function ArticleDetail() {

@@ -9,7 +9,7 @@ import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
 import BotoTest from "../wizardTest/components/botoTest";
 import { guardarDenuncia } from "services/api";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 const optionsStep1 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },

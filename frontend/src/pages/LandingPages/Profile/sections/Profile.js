@@ -10,7 +10,7 @@ import MKTypography from "components/MKTypography";
 // Images
 import profilePicture from "assets/images/img_perfil.png";
 import { obtenerTests, obtenerUsuario } from "services/api";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import { CardContent } from "@mui/material";

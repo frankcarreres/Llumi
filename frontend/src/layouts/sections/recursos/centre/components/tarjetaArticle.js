@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { exportToPDF } from "admin/utils/exportToPDF";
+import { exportToPDF } from "utils/exportToPDF";
 import Icon from "@mui/material/Icon";
 import "./index.css";
 import Button from "@mui/material/Button";

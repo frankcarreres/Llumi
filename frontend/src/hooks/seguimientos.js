@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 export function useSeguimientos(idDenuncia) {
   const [seguimientos, setSeguimientos] = useState([]);

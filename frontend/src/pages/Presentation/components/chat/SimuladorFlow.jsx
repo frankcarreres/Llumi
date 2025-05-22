@@ -5,7 +5,7 @@ import TypingIndicator from "components/ChatComponents/TypingIndicator";
 
 import { enviarMensaje } from "./logica/enviarMensaje";
 import { iniciarFlujo } from "./logica/iniciarFlujo";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 import { obtenerTests } from "services/api";
 import { useNavigate } from "react-router-dom";
 import { getHistory, getSessionId, saveHistory, saveSessionId } from "utils/chatStorage";
