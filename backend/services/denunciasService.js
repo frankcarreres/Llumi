@@ -38,7 +38,7 @@ async function updateEstadoDenuncia(idDenuncia, idCentro, nuevoEstado) {
 
 async function fetchDenunciasPorId(id_usuario) {
     const [rows] = await pool.query(
-        `SELECT estado FROM denuncias WHERE id_usuario = ? ORDER BY id_denuncia DESC`,
+        `SELECT id_denuncia,estado FROM denuncias WHERE id_usuario = ? ORDER BY id_denuncia DESC`,
         [id_usuario]
     );
 
