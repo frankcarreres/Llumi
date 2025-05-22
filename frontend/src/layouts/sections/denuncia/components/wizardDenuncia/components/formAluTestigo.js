@@ -11,7 +11,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import BotoDenuncia from "../../wizardTest/components/botoDenuncia";
+import BotoDenuncia from "components/botoDenuncia";
 import PropTypes from "prop-types";
 
 function FormDenunciaAluTestigo({ onDenunciar }) {
@@ -149,16 +149,16 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
               tipo_acoso: tiposAcoso,
               nombre_victima: acosado,
               relacion_victima: relacionAcosado,
-              es_testigo: true,
-              testigos: hayTestigos === "si",
+              es_testigo: "si",
+              testigos: hayTestigos,
               nombre_testigo_extra: quienTestigo,
-              intervencion_docente: intervinoDocente === "si",
+              intervencion_docente: intervinoDocente,
               nombre_docente: quienDocente,
             };
             onDenunciar(datos);
           }}
         >
-          DENÚNCIA
+          DENUNCIA
         </BotoDenuncia>
       </Box>
     </form>

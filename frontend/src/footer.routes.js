@@ -16,33 +16,33 @@ export default {
       items: [{ name: "Perfil", route: "/pages/LandingPages/Profile" }],
     },
     {
-      name: "recursos",
+      name: "Recursos",
       route: "/sections/recursos/inici",
       items: [
-        { name: "Informatius", route: "/sections/recursos/info" },
-        { name: "Audiovisuals", route: "/sections/recursos/multimedia" },
-        { name: "Centre", route: "/sections/recursos/centre" },
+        { name: "Informativos", route: "/sections/recursos/info" },
+        { name: "Multimedia", route: "/sections/recursos/multimedia" },
+        { name: "Centro", route: "/sections/recursos/centre" },
       ],
     },
     {
-      name: "Denúncia",
+      name: "Denuncia",
       items: [
-        { name: "Test de autoavaluació", route: "/sections/denuncia/components/wizardTest" },
-        { name: "Denúncia", route: "/sections/denuncia/components/wizardDenuncia" },
+        { name: "Test de autoevaluación", route: "/sections/denuncia/components/wizardTest" },
+        { name: "Denuncia", route: "/sections/denuncia/components/wizardDenuncia" },
       ],
     },
     {
       name: "legal",
       items: [
-        { name: "termes i condicions" },
-        { name: "política de privacitat" },
-        { name: "llicencies (EULA)" },
+        { name: "terminos y condiciones" },
+        { name: "política de privacidad" },
+        { name: "licencias (EULA)" },
       ],
     },
   ],
   copyright: (
     <MKTypography variant="button" fontWeight="regular">
-      Tots els drets reservats. Copyright &copy; {new Date().getFullYear()} Llumí
+      Todos los derechos reservados. Copyright &copy; {new Date().getFullYear()} Llumí
     </MKTypography>
   ),
 };

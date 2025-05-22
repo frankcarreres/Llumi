@@ -26,8 +26,8 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
-import { clearSession, getSession } from "admin/utils/session";
-import { clearHistory } from "pages/Presentation/components/chat/utils/chatStorage";
+import { clearSession, getSession } from "utils/session";
+import { clearHistory } from "utils/chatStorage";
 
 function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
@@ -54,14 +54,14 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
       if (isLogged) {
         return {
           ...ruta,
-          collapse: [{ name: "Perfil", route: "pages/LandingPages/Profile" }],
+          collapse: [{ name: "Perfil", route: "/pages/LandingPages/Profile" }],
         };
       }
 
       // Si NO está logueado, muestro solo "Iniciar sessió"
       return {
         ...ruta,
-        collapse: [{ name: "Iniciar sessió", route: "/pages/authentication/sign-in" }],
+        collapse: [{ name: "Iniciar sesión", route: "/pages/authentication/sign-in" }],
       };
     }
     return ruta;
@@ -472,7 +472,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
   );
 
   return (
-    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
+    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 1000 } : null}>
       <MKBox
         py={1}
         px={{ xs: 4, sm: transparent ? 2 : 3, lg: transparent ? 0 : 2 }}
@@ -516,11 +516,11 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
                 display="inline-flex"
                 alignItems="center"
                 lineHeight={0}
-                py={1.5}
-                pl={1.5}
+                py={1}
+                pl={1}
                 sx={{ cursor: "pointer" }}
               >
-                <Icon fontSize="small">logout</Icon>
+                <Icon sx={{ fontSize: "18px !important", color: "#808592" }}>logout</Icon>
               </MKBox>
             )}
           </MKBox>

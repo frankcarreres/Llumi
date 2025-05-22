@@ -6,7 +6,7 @@ import MDBox from "admin/components/MDBox";
 import MDTypography from "admin/components/MDTypography";
 import MDInput from "admin/components/MDInput";
 import MDButton from "admin/components/MDButton";
-import { useSeguimientos } from "admin/hooks/seguimientos";
+import { useSeguimientos } from "hooks/seguimientos";
 
 export default function SeguimientosSection({ idDenuncia }) {
   const { seguimientos, loading, crearSeguimiento } = useSeguimientos(idDenuncia);

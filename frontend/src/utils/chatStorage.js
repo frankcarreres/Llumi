@@ -4,15 +4,15 @@ const SESSION_KEY = "chat_sessionId";
 const HISTORY_KEY = "chat_history";
 
 export function getSessionId() {
-  return localStorage.getItem(SESSION_KEY);
+  return sessionStorage.getItem(SESSION_KEY);
 }
 
 export function saveSessionId(sessionId) {
-  localStorage.setItem(SESSION_KEY, sessionId);
+  sessionStorage.setItem(SESSION_KEY, sessionId);
 }
 
 export function getHistory() {
-  const json = localStorage.getItem(HISTORY_KEY);
+  const json = sessionStorage.getItem(HISTORY_KEY);
   if (!json) return [];
   try {
     const raw = JSON.parse(json);
@@ -36,10 +36,10 @@ export function saveHistory(history) {
     }
     return m;
   });
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(toStore));
+  sessionStorage.setItem(HISTORY_KEY, JSON.stringify(toStore));
 }
 
 export function clearHistory() {
-  localStorage.removeItem(HISTORY_KEY);
-  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(HISTORY_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
 }

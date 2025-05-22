@@ -1,6 +1,6 @@
 // src/views/Profile/OverviewProfile.jsx
 import React, { useState, useEffect } from "react";
-import { clearSession, getSession } from "admin/utils/session";
+import { clearSession, getSession } from "utils/session";
 
 // @mui material components
 import Grid from "@mui/material/Grid";

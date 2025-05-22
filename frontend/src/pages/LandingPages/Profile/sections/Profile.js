@@ -9,12 +9,13 @@ import MKTypography from "components/MKTypography";
 
 // Images
 import profilePicture from "assets/images/img_perfil.png";
-import { obtenerTests, obtenerUsuario } from "pages/Presentation/components/chat/services/api";
-import { getSession } from "admin/utils/session";
+import { getDenunciaPorId, obtenerTests, obtenerUsuario } from "services/api";
+import { getSession } from "utils/session";
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import { CardContent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import EstadoCell from "components/MKBadge/estadoBadge";
 
 function colorPorRiesgo(riesgo) {
   switch (riesgo.toLowerCase()) {
@@ -35,6 +36,7 @@ function Profile() {
   const sesion = getSession("token");
   const [usuario, setUsuario] = useState(null);
   const [tests, setTests] = useState([]);
+  const [denuncia, setDenuncia] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -54,6 +56,9 @@ function Profile() {
         // 2) Cargar tests (puedes incluso pasar algún dato de usuario si hace falta)
         const t = await obtenerTests(sesion?.token);
         setTests(t);
+
+        const d = await getDenunciaPorId(sesion?.token);
+        setDenuncia(Array.isArray(d.denuncias) ? d.denuncias : []);
       } catch (e) {
         setError(e.message);
       } finally {
@@ -124,6 +129,12 @@ function Profile() {
         {tests.length > 0 ? (
           <Grid container spacing={2}>
             {tests.map((test) => {
+              const denunciaParaTest = denuncia.find(
+                (d) => String(d.id_denuncia) === String(test.Denuncia)
+              );
+              const estadoDenuncia = denunciaParaTest
+                ? denunciaParaTest.estado
+                : "Estado no disponible";
               const color = colorPorRiesgo(test.resultado);
               // Desestructuramos renombrando para claridad:
               const { id_test, resultado: riesgo, fecha_realizacion, Denuncia: id_denuncia } = test;
@@ -146,6 +157,7 @@ function Profile() {
                         })}
                       </MKTypography>
                       <MKTypography variant="body2">Denuncia vinculada: {id_denuncia}</MKTypography>
+                      <EstadoCell estado={estadoDenuncia} />
                     </CardContent>
                   </Card>
                 </Grid>

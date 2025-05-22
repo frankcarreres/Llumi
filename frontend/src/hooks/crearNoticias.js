@@ -1,6 +1,6 @@
 // hooks/useCrearNoticia.js
 import { useState } from "react";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 export default function useCrearNoticia() {
   const [loading, setLoading] = useState(false);

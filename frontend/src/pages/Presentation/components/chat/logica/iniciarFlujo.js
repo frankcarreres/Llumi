@@ -1,5 +1,5 @@
-import { startConversation } from "../services/typebotAPI";
-import { saveSessionId, saveHistory } from "../utils/chatStorage";
+import { startConversation } from "../../../../../services/typebotAPI";
+import { saveSessionId, saveHistory } from "../../../../../utils/chatStorage";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 

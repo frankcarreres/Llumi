@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import hayCambiosSinGuardar from "admin/hooks/confirmacionCambios";
+import hayCambiosSinGuardar from "hooks/confirmacionCambios";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -10,14 +10,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Icon from "@mui/material/Icon";
-import useCrearNoticia from "admin/hooks/crearNoticias";
+import useCrearNoticia from "hooks/crearNoticias";
 import DashboardNavbar from "admin/widgets/Navbars/DashboardNavbar";
 import DashboardLayout from "admin/widgets/LayoutContainers/DashboardLayout";
 import MDBox from "admin/components/MDBox";
 import EditorArticulo from "admin/components/MDQuill/MDEditor";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { exportToPDF } from "admin/utils/exportToPDF";
+import { exportToPDF } from "utils/exportToPDF";
 
 function CreateNoticiaForm({ onCreated }) {
   const [titulo, setTitulo] = useState("");

@@ -29,8 +29,6 @@ function Perfil() {
           label: "free download",
           color: "info",
         }}
-        transparent
-        light
       />
       <MKBox bgColor="white">
         <MKBox

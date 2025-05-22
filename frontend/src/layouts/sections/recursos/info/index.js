@@ -8,9 +8,9 @@ function RecursInfo() {
   return (
     <BaseLayout
       breadcrumb={[
-        { label: "Inici", route: "/pages/presentation" },
-        { label: "recursos", route: "/sections/recursos/inici" },
-        { label: "recursos informatius" },
+        { label: "Inicio", route: "/pages/presentation" },
+        { label: "Recursos", route: "/sections/recursos/inici" },
+        { label: "Recursos informativos" },
       ]}
     >
       <MKBox mt={2} />
@@ -28,7 +28,7 @@ function RecursInfo() {
           borderRadius: "3px",
         }}
       >
-        NOTÍCIES DESTACADES
+        NOTICIAS DESTACADAS
       </MKTypography>
 
       <CarruselNoticias destacadas={true} />
@@ -47,7 +47,7 @@ function RecursInfo() {
           borderRadius: "3px",
         }}
       >
-        ÚLTIMES NOTÍCIES
+        ÚLTIMAS NOTICIAS
       </MKTypography>
       <CarruselNoticias />
     </BaseLayout>

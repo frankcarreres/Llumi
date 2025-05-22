@@ -1,4 +1,4 @@
-import { agruparPorMesEnYear } from "../../../hooks/filtroPorTiempo";
+import { agruparPorMesEnYear } from "hooks/filtroPorTiempo";
 
 const monthLabels = [
   "Ene",

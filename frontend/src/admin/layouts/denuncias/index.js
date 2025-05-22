@@ -1,4 +1,4 @@
-import denunciasPeticiones from "admin/hooks/denunciasPeticiones";
+import denunciasPeticiones from "hooks/denunciasPeticiones";
 import { useParams } from "react-router-dom";
 import Footer from "admin/widgets/Footer";
 import DenunciaDetail from "admin/components/MDDenuncia/DenunciaDetail";

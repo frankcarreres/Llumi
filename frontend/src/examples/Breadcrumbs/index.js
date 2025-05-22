@@ -18,7 +18,7 @@ function Breadcrumbs({ routes, ...rest }) {
       borderRadius="md"
       py={1}
       px={2}
-      width="95%"
+      width="97%"
       sx={{
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
       }}

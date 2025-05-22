@@ -11,49 +11,63 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/bg.gif";
 import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
-import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
+import BotoDenuncia from "components/botoDenuncia";
 import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
-import Cookies from "js-cookie";
 import publicRoutes from "../../../routes/publicRoutes";
+import { getDenunciaPorId } from "services/api";
+import { WizardDenunciaSol } from "./components/wizardDenuncia/wizardDenunciaSol";
+import { getSession } from "utils/session";
 
 function DenunciaUsuari() {
   const location = useLocation();
   const navigate = useNavigate();
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
   const [resultadoTest, setResultadoTest] = useState(null);
+  const [denunciaPendiente, setDenunciaPendiente] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const session = getSession("token");
 
-    if (!token) {
-      // ✅ Si no hay token, redirigimos al login
+    if (!session?.token) {
       navigate("/pages/authentication/sign-in");
       return;
     }
 
-    const fetchResultadoTest = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://13.216.39.33:3001/denuncias/resultadoTest", {
+        // Obtener resultado del test
+        const responseTest = await fetch("http://13.216.39.33:3001/denuncias/resultadoTest", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${session?.token}`,
           },
         });
-
-        const result = await response.json();
+        const result = await responseTest.json();
         setResultadoTest(result);
+
+        // Obtener denuncias y verificar si hay alguna pendiente
+        const data = await getDenunciaPorId(session?.token);
+        const tienePendiente = data.denuncias.some((d) =>
+          ["pendiente", "en_progreso", "en_observacion"].includes(d.estado)
+        );
+        setDenunciaPendiente(tienePendiente);
+        console.log(denunciaPendiente);
       } catch (error) {
-        console.error("Error al obtener el resultado del test:", error);
+        console.error("Error al obtener los datos del usuario:", error);
       }
     };
 
-    fetchResultadoTest();
-  }, [navigate]); // ✅ Dependencia de navigate
+    fetchData();
+  }, [navigate]);
 
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
-      <WizardDenuncia />
+      denunciaPendiente ? (
+        <WizardDenunciaSol />
+      ) : (
+        <WizardDenuncia />
+      )
     ) : resultadoTest && resultadoTest.resultado ? (
       <WizardTestSol
         resultadoTest={resultadoTest.resultado}
@@ -67,21 +81,12 @@ function DenunciaUsuari() {
 
   return (
     <>
-      <DefaultNavbar
-        routes={publicRoutes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "default",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={publicRoutes} sticky />
       <MKBox
         minHeight="80vh"
         width="100%"
         sx={{
-          position: "relative", // necesario para el pseudo-elemento absoluto
+          position: "relative",
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
@@ -94,7 +99,7 @@ function DenunciaUsuari() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.3)", // filtro negro semitransparente
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
             zIndex: 1,
           },
         }}
@@ -119,10 +124,10 @@ function DenunciaUsuari() {
                 },
               })}
             >
-              Realitza la teua denúncia{" "}
+              Realiza tu denuncia{" "}
             </MKTypography>
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-              Si estes patint assetjament o saps d&apos;algun cas no dubtes
+              Si estas sufriendo acoso o sabes de algún caso no dudas{" "}
             </MKTypography>
             {mostrarBotonDenuncia && (
               <BotoDenuncia onClick={() => setMostrarDenuncia(true)}>DENÚNCIA</BotoDenuncia>

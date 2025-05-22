@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Typography, Box, Grid, Paper, IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormDenunciaAluVictima from "./components/formAluVictima";
 import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
-import BotoTest from "../wizardTest/components/botoTest";
-import { guardarDenuncia } from "pages/Presentation/components/chat/services/api";
-import { getSession } from "admin/utils/session";
+import BotoTest from "components/botoTest";
+import { guardarDenuncia } from "services/api";
+import { getSession } from "utils/session";
 
 const optionsStep1 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },
@@ -19,7 +19,7 @@ const optionsStep1 = [
 function WizardDenuncia() {
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
-  const navigate = useNavigate(); // Hook para navegación
+  const navigate = useNavigate();
 
   const handleSelect = (label) => {
     setSelectedOption(label);
@@ -34,13 +34,9 @@ function WizardDenuncia() {
   };
 
   const handleDenunciaRealizada = async (datos) => {
-    console.log("Datos recogidos del formulario:", datos);
-
     try {
       const session = getSession("token");
-      console.log(session?.token);
-      console.log(session?.data);
-      await guardarDenuncia(session?.token, session?.data.id_centro, datos); // llamada a la API
+      await guardarDenuncia(session?.token, session?.data.id_centro, datos);
       setStep(3);
     } catch (error) {
       console.error("Error al registrar la denuncia:", error);
@@ -164,10 +160,9 @@ function WizardDenuncia() {
               mb={4}
               sx={{ color: "#354667" }}
             >
-              La denúncia s&apos;ha realitzat correctament{" "}
+              La denuncia se ha realizado correctamente
             </Typography>
-
-            <BotoTest onClick={handleReturn}>tornar</BotoTest>
+            <BotoTest onClick={handleReturn}>volver</BotoTest>
           </Box>
         )}
       </Box>

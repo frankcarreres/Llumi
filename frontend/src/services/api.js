@@ -73,6 +73,22 @@ export async function guardarDenuncia(token, id_centro, datosDenuncia) {
   return await res.json();
 }
 
+export const getDenunciaPorId = async (token) => {
+  const response = await fetch(`${BASE_URL}/denuncias/misDenuncias`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return null;
+  }
+
+  return await response.json();
+};
+
 export async function vincularDenuncia(token, idTest, idDenuncia) {
   const res = await fetch(`${BASE_URL}/api/test/${idTest}/denuncia`, {
     method: "PATCH",
