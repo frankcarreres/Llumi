@@ -13,7 +13,7 @@ router.post('/denuncias/:id_denuncia', verifyToken, denunciasController.getDenun
 router.patch('/updateEstado/:id_denuncia', verifyToken, denunciasController.updateEstado);
 // Obtener id_usuario por nombre (sin token porque solo necesita el nombre)
 router.get('/resultadoTest', verifyToken, denunciasController.getResultadoTestAutoevaluacion);
-router.get('/misDenuncias', verifyToken, denunciasController.getDenunciasPorId);
+router.get('/misDenuncias', verifyToken, denunciasController.getDenunciasPorIdUsuario);
 
 
 module.exports = router;

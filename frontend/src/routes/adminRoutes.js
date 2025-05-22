@@ -4,7 +4,7 @@ import RequireCentro from "auth/requiereCentro";
 
 const Dashboard = lazy(() => import("admin/layouts/dashboard"));
 const Tables = lazy(() => import("admin/layouts/tables"));
-const Notifications = lazy(() => import("admin/layouts/notifications"));
+// const Notifications = lazy(() => import("admin/layouts/notifications"));
 const Profile = lazy(() => import("admin/layouts/profile"));
 const DenunciaPage = lazy(() => import("admin/layouts/denuncias"));
 const CreateNoticia = lazy(() => import("admin/layouts/recursos"));
@@ -13,7 +13,7 @@ export default [
   /* ---------- DASHBOARD (centro) ---------- */
   {
     type: "collapse",
-    name: "Dashboard",
+    name: "Panel",
     key: "admin-dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/admin/dashboard",
@@ -25,7 +25,7 @@ export default [
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Denuncias en Progreso",
     key: "admin-tables",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/admin/tables",
@@ -35,18 +35,18 @@ export default [
       </RequireCentro>
     ),
   },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "admin-notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/admin/notifications",
-    component: (
-      <RequireCentro>
-        <Notifications />
-      </RequireCentro>
-    ),
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "admin-notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/admin/notifications",
+  //   component: (
+  //     <RequireCentro>
+  //       <Notifications />
+  //     </RequireCentro>
+  //   ),
+  // },
   {
     route: "/admin/denuncias/:id_denuncia",
     component: (

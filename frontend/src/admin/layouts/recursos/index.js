@@ -38,7 +38,7 @@ function CreateNoticiaForm({ onCreated }) {
 
   /* ── Recuperar borrador ── */
   useEffect(() => {
-    const guardado = localStorage.getItem("borrador_articulo");
+    const guardado = sessionStorage.getItem("borrador_articulo");
     if (guardado) setContenido(guardado);
   }, []);
   /* ---------- handlers ---------- */
@@ -57,7 +57,7 @@ function CreateNoticiaForm({ onCreated }) {
   const handleEditorChange = (html) => {
     setContenido(html);
     setHayCambios(true);
-    localStorage.setItem("borrador_articulo", html);
+    sessionStorage.setItem("borrador_articulo", html);
   };
 
   const handleSubmit = async (e) => {
@@ -84,7 +84,7 @@ function CreateNoticiaForm({ onCreated }) {
       setUrl("");
       setDestacada(false);
       setHayCambios(false);
-      localStorage.removeItem("borrador_articulo");
+      sessionStorage.removeItem("borrador_articulo");
     } catch (_) {
       /* apiError ya lo muestra */
     }

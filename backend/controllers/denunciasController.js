@@ -154,7 +154,7 @@ exports.getResultadoTestAutoevaluacion = async (req, res) => {
   }
 };
 
-exports.getDenunciasPorId = async (req, res) => {
+exports.getDenunciasPorIdUsuario = async (req, res) => {
   const { id_usuario } = req.user;
 
   try {
