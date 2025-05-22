@@ -69,9 +69,12 @@ export default function DenunciaDetail({ denuncia }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <MDTypography variant="subtitle2" color="text">
-                Usuario (ID)
+                Víctima
               </MDTypography>
-              <MDTypography>{denuncia.id_usuario}</MDTypography>
+              <MDTypography>
+                {/* eslint-disable-next-line react/prop-types */}
+                {denuncia.usuario_nombre} {denuncia.usuario_apellido}
+              </MDTypography>
             </Grid>
 
             {/* Descripción */}

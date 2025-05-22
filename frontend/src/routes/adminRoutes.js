@@ -16,7 +16,7 @@ export default [
     name: "Panel",
     key: "admin-dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/admin/dashboard",
+    route: "/admin/panel",
     component: (
       <RequireCentro>
         <Dashboard />
@@ -28,7 +28,7 @@ export default [
     name: "Denuncias en Progreso",
     key: "admin-tables",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/admin/tables",
+    route: "/admin/tablas",
     component: (
       <RequireCentro>
         <Tables />

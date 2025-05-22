@@ -216,10 +216,10 @@ function Casos() {
                 mt: -0.5,
               }}
             >
-              done
+              warning
             </Icon>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              &nbsp;<strong>{originalRows.length}</strong> en este mes
+              &nbsp;<strong>{originalRows.length}</strong>
             </MDTypography>
           </MDBox>
         </MDBox>

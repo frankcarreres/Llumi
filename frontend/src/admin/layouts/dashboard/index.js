@@ -41,39 +41,17 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="Casos por año"
-                  description="Distribución anual de denuncias"
-                  chart={casos_por_tiempo}
-                  date=""
-                />
+                <ReportsBarChart color="info" title="Casos por año" chart={casos_por_tiempo}  date={}/>
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="warning"
-                  title="Casos"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date=""
-                  chart={cActivos}
-                />
+                <ReportsLineChart color="warning" title="Casos" date="" chart={cActivos} />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="Casos resueltos"
-                  description="1"
-                  chart={cResueltos}
-                  date=""
-                />
+                <ReportsLineChart color="success" title="Casos resueltos" chart={cResueltos}  date={}/>
               </MDBox>
             </Grid>
           </Grid>
