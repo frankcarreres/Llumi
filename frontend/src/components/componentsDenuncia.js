@@ -168,7 +168,7 @@ TotalSolucio.propTypes = {
 
 export const Inicio = ({ onComenzar }) => (
   <Box textAlign="center">
-    <Typography variant="h4" fontWeight={300} mb={8}>
+    <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
       Realiza el siguiente test para ayudarnos a conocer tu caso
     </Typography>
     <Box mt={4}>
