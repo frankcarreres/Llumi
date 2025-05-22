@@ -20,26 +20,18 @@ import Index from "./components/chat/SimuladorFlow";
 import publicRoutes from "../../routes/publicRoutes";
 import { getSession } from "utils/session";
 import { useNavigate } from "react-router-dom";
+import { clearHistory } from "utils/chatStorage";
 
 function Presentation() {
   const sesion = getSession("token");
   const navigate = useNavigate();
-  if (sesion?.data.rol === "centro") {
+  if (sesion?.data.rol === "centro" && sesion?.token) {
+    clearHistory();
     navigate("/admin/dashboard", { replace: true });
   }
   return (
     <>
-      <DefaultNavbar
-        brand="Llumí"
-        routes={publicRoutes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        sticky
-      />
+      <DefaultNavbar brand="Llumí" routes={publicRoutes} sticky />
       <MKBox
         minHeight="80vh"
         width="100%"
