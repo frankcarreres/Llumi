@@ -19,9 +19,18 @@ async function fetchDenunciasPorCentro(idCentro, estado) {
  */
 async function fetchDenunciaById(idDenuncia, idCentro) {
     const [rows] = await pool.query(
-        'SELECT * FROM denuncias WHERE id_denuncia = ? AND id_centro = ?',
-        [idDenuncia, idCentro]
+      `SELECT
+           d.*,
+           u.nombre   AS usuario_nombre,
+           u.apellido AS usuario_apellido
+       FROM llumi.denuncias AS d
+                JOIN llumi.usuarios AS u
+                     ON d.id_usuario = u.id_usuario
+       WHERE d.id_denuncia = ?
+         AND d.id_centro   = ?`,
+      [idDenuncia, idCentro]
     );
+
     return rows[0] || null;
 }
 
