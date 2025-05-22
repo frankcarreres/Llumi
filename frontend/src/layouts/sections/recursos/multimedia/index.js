@@ -11,9 +11,9 @@ function RecursMultimedia() {
     <BaseLayout
       // title="recursos multimedia"
       breadcrumb={[
-        { label: "Inici", route: "/pages/presentation" },
+        { label: "Inicio", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },
-        { label: "Recursos multimèdia" },
+        { label: "Recursos multimedia" },
       ]}
     >
       <MKBox mt={2} />
@@ -31,7 +31,7 @@ function RecursMultimedia() {
           borderRadius: "3px",
         }}
       >
-        VÍDEOS FORMATIUS
+        VIDEOS FORMATIVOS
       </MKTypography>
       <CarruselMultimedia tipo="video" />
       <MKBox mt={6} />
@@ -49,7 +49,7 @@ function RecursMultimedia() {
           borderRadius: "3px",
         }}
       >
-        PÒDCASTS/ENTREVISTES
+        PODCASTS/ENTREVISTAS
       </MKTypography>
       <CarruselMultimedia tipo="podcast" />
     </BaseLayout>

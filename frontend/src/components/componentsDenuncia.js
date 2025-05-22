@@ -26,29 +26,29 @@ export const Total = ({ totalScore, onDenunciaClick }) => {
   let color = "";
 
   if (score <= 10) {
-    titulo = "Sense risc";
+    titulo = "Sin riesgo";
     mensaje =
-      "Ara com ara no es detecten senyals de risc. T'animem a continuar informant-te sobre l'assetjament escolar i a estar pendent de tu i dels qui t'envolten.";
+      "Por ahora no se detectan señales de riesgo. Te animamos a continuar informándote sobre el acoso escolar y a estar pendiente de tú y de quienes te rodean.";
     color = "#4CAF50";
   } else if (score <= 13) {
-    titulo = "Situació de risc mitjà";
+    titulo = "Situación de riesgo medio";
     mensaje =
-      "Podries estar enfrontant algunes situacions que mereixen atenció. Parla amb un professor o una persona adulta de confiança. No estàs només/a, i és important expressar com et sents per a evitar que les coses empitjoren.";
+      "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoran.";
     color = "#FFC107";
   } else if (score <= 16) {
-    titulo = "Situació greu";
+    titulo = "Situación grave";
     mensaje =
-      "Estàs mostrant senyals clars d'estar travessant una situació difícil. No ho enfrontes en silenci. Parla amb algú de confiança i busca secunde. És important que revisem el cas.";
+      "Estás mostrando señales claras de estar atravesando una situación difícil. No lo enfrentas en silencio. Parla con alguien de confianza y busca secundo. Es importante que revisemos el caso.";
     color = "#FF9800";
   } else if (score <= 19) {
-    titulo = "Situació molt greu";
+    titulo = "Situación muy grave";
     mensaje =
-      "La teua situació és seriosa i necessita ser atesa amb urgència. Denuncia-la. És fonamental que busques ajuda immediatament. Acudix a una persona adulta de confiança, un professor, un orientador...";
+      "Tu situación es seria y necesita ser atendida con urgencia. Denúnciala. Es fundamental que busques ayuda inmediatamente. Acude a una persona adulta de confianza, un profesor, un orientador...";
     color = "#F44336";
   } else {
-    titulo = "Situació crítica";
+    titulo = "Situación crítica";
     mensaje =
-      "Estàs en una situació crítica. No esperes més, busca ajuda urgent. Comunica el que estàs vivint a algú de confiança i denúncia la situació immediatament.";
+      "Estás en una situación crítica. No esperas más, busca ayuda urgente. Comunica el que estás viviendo en alguien de confianza y denuncia la situación inmediatamente.";
     color = "#c20000";
   }
 
@@ -73,7 +73,7 @@ export const Total = ({ totalScore, onDenunciaClick }) => {
       {score > 13 && (
         <Box mt={4}>
           <BotoDenuncia onClick={handleDenunciar} color={color}>
-            Denúncia
+            Denuncia
           </BotoDenuncia>
         </Box>
       )}
@@ -97,38 +97,38 @@ export const TotalSolucio = ({ resultado, onDenunciaClick }) => {
 
   switch (resultado) {
     case "Sin riesgo":
-      titulo = "Sense risc";
+      titulo = "Sin riesgo";
       mensaje =
-        "Ara com ara no es detecten senyals de risc. T'animem a continuar informant-te sobre l'assetjament escolar i a estar pendent de tu i dels qui t'envolten.";
+        "Por ahora no se detectan señales de riesgo. Te animamos a continuar informándote sobre el acoso escolar y a estar pendiente de tú y de quienes te rodean.";
       color = "#4CAF50";
       break;
     case "Riesgo medio":
-      titulo = "Situació de risc mitjà";
+      titulo = "Situación de riesgo medio";
       mensaje =
-        "Podries estar enfrontant algunes situacions que mereixen atenció. Parla amb un professor o una persona adulta de confiança. No estàs només/a, i és important expressar com et sents per a evitar que les coses empitjoren.";
+        "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoran.";
       color = "#FFC107";
       break;
     case "Riesgo alto":
-      titulo = "Situació greu";
+      titulo = "Situación grave";
       mensaje =
-        "Estàs mostrant senyals clars d'estar travessant una situació difícil. No ho enfrontes en silenci. Parla amb algú de confiança i busca secunde. És important que revisem el cas.";
+        "Estás mostrando señales claras de estar atravesando una situación difícil. No lo enfrentas en silencio. Parla con alguien de confianza y busca secundo. Es importante que revisemos el caso.";
       color = "#FF9800";
       break;
     case "Riesgo muy alto":
-      titulo = "Situació molt greu";
+      titulo = "Situación muy grave";
       mensaje =
-        "La teua situació és seriosa i necessita ser atesa amb urgència. Denuncia-la. És fonamental que busques ajuda immediatament. Acudix a una persona adulta de confiança, un professor, un orientador...";
+        "Tu situación es seria y necesita ser atendida con urgencia. Denúnciala. Es fundamental que busques ayuda inmediatamente. Acude a una persona adulta de confianza, un profesor, un orientador...";
       color = "#F44336";
       break;
     case "Riesgo crítico":
-      titulo = "Situació crítica";
+      titulo = "Situación crítica";
       mensaje =
-        "Estàs en una situació crítica. No esperes més, busca ajuda urgent. Comunica el que estàs vivint a algú de confiança i denúncia la situació immediatament.";
+        "Estás en una situación crítica. No esperas más, busca ayuda urgente. Comunica el que estás viviendo en alguien de confianza y denuncia la situación inmediatamente.";
       color = "#c20000";
       break;
     default:
-      titulo = "Resultat no disponible :(";
-      mensaje = "No s'ha pogut determinar el teu resultat.";
+      titulo = "Resultado no disponible :(";
+      mensaje = "No se ha podido determinar el resultado.";
       color = "#9E9E9E";
   }
 
@@ -153,7 +153,7 @@ export const TotalSolucio = ({ resultado, onDenunciaClick }) => {
       {["Riesgo alto", "Riesgo muy alto", "Riesgo crítico"].includes(resultado) && (
         <Box mt={4}>
           <BotoDenuncia onClick={handleDenunciar} color={color}>
-            Denúncia
+            Denuncia
           </BotoDenuncia>
         </Box>
       )}
@@ -169,10 +169,10 @@ TotalSolucio.propTypes = {
 export const Inicio = ({ onComenzar }) => (
   <Box textAlign="center">
     <Typography variant="h4" fontWeight={300} mb={8}>
-      Realitza el següent test per a ajudar-nos a conéixer el teu cas
+      Realiza el siguiente test para ayudarnos a conocer tu caso
     </Typography>
     <Box mt={4}>
-      <BotoTest onClick={onComenzar}>Començar</BotoTest>
+      <BotoTest onClick={onComenzar}>Empezar</BotoTest>
     </Box>
   </Box>
 );
@@ -185,10 +185,10 @@ export const IniciSolucio = ({ onComenzar }) => {
   return (
     <Box textAlign="center">
       <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
-        Ja has realitzat un test. Comprova els teus resultats...{" "}
+        Ya has realizado un test. Comprueba tus resultados...{" "}
       </Typography>
       <Box mt={4}>
-        <BotoTest onClick={onComenzar}>Veure resultats</BotoTest>
+        <BotoTest onClick={onComenzar}>Ver resultados</BotoTest>
       </Box>
     </Box>
   );
@@ -202,10 +202,10 @@ export const DenunciaSolucio = ({ irASeguimiento }) => {
   return (
     <Box textAlign="center">
       <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
-        Tens una denúncia activa en estos moments...
+        Tienes una denuncia activa en estos momentos...
       </Typography>
       <Box mt={4}>
-        <BotoTest onClick={irASeguimiento}>Veure seguiment</BotoTest>
+        <BotoTest onClick={irASeguimiento}>Ver seguimiento</BotoTest>
       </Box>
     </Box>
   );
@@ -218,11 +218,11 @@ DenunciaSolucio.propTypes = {
 export const SeguimentDenuncia = ({ estado, volver }) => {
   const currentStep = steps.indexOf(estado);
   const estadosBonitos = {
-    pendiente: "Pendent",
-    en_progreso: "En procés",
-    en_observacion: "En observació",
-    resuelta: "Resolta",
-    rechazada: "Rebutjada",
+    pendiente: "Pendiente",
+    en_progreso: "En proceso",
+    en_observacion: "En observación",
+    resuelta: "Resuelta",
+    rechazada: "Rechazada",
   };
 
   return (
@@ -266,7 +266,7 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
             textAlign: "center",
           }}
         >
-          Seguiment de l&apos;estat de la denúncia
+          Seguimento del estado de la denúncia
         </Typography>
 
         <Typography
@@ -277,7 +277,7 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
             mb: 8,
           }}
         >
-          Estat actual: {estadosBonitos[estado] || estado}
+          Estado actual: {estadosBonitos[estado] || estado}
         </Typography>
 
         {/* Barra de seguimiento */}

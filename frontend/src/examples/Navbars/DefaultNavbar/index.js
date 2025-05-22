@@ -61,7 +61,7 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
       // Si NO está logueado, muestro solo "Iniciar sessió"
       return {
         ...ruta,
-        collapse: [{ name: "Iniciar sessió", route: "/pages/authentication/sign-in" }],
+        collapse: [{ name: "Iniciar sesión", route: "/pages/authentication/sign-in" }],
       };
     }
     return ruta;

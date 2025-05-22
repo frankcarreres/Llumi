@@ -35,7 +35,7 @@ export default [
         component: <RecursInfo />,
       },
       {
-        name: "Multimèdia",
+        name: "Multimedia",
         key: "rec-multi",
         route: "/sections/recursos/multimedia",
         component: <RecursMulti />,

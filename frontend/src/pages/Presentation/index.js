@@ -79,7 +79,7 @@ function Presentation() {
               px={{ xs: 6, lg: 12 }}
               mt={1}
             >
-              No estàs soles, junts som la llum que guia el camí
+              No estás solo,&nbsp;&nbsp;juntos somos la luz que guía el camino
             </MKTypography>
           </Grid>
         </Container>

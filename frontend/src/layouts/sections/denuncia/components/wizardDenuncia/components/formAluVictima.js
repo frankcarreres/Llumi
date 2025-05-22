@@ -151,7 +151,7 @@ function FormDenunciaAluVictima({ onDenunciar }) {
             onDenunciar(datos);
           }}
         >
-          DENÚNCIA
+          DENUNCIA
         </BotoDenuncia>
       </Box>
     </form>

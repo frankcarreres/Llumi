@@ -95,7 +95,7 @@ function DenunciaUsuari() {
         minHeight="80vh"
         width="100%"
         sx={{
-          position: "relative", // necesario para el pseudo-elemento absoluto
+          position: "relative",
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
@@ -108,7 +108,7 @@ function DenunciaUsuari() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.3)", // filtro negro semitransparente
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
             zIndex: 1,
           },
         }}
@@ -133,10 +133,10 @@ function DenunciaUsuari() {
                 },
               })}
             >
-              Realitza la teua denúncia{" "}
+              Realiza tu denuncia{" "}
             </MKTypography>
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-              Si estes patint assetjament o saps d&apos;algun cas no dubtes
+              Si estas sufriendo acoso o sabes de algún caso no dudas{" "}
             </MKTypography>
             {mostrarBotonDenuncia && (
               <BotoDenuncia onClick={() => setMostrarDenuncia(true)}>DENÚNCIA</BotoDenuncia>

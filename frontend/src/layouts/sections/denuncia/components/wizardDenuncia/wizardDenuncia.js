@@ -160,9 +160,9 @@ function WizardDenuncia() {
               mb={4}
               sx={{ color: "#354667" }}
             >
-              La denúncia s&apos;ha realitzat correctament{" "}
+              La denuncia se ha realizado correctamente
             </Typography>
-            <BotoTest onClick={handleReturn}>tornar</BotoTest>
+            <BotoTest onClick={handleReturn}>volver</BotoTest>
           </Box>
         )}
       </Box>
