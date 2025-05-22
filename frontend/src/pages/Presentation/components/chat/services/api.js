@@ -73,9 +73,8 @@ export async function guardarDenuncia(token, id_centro, datosDenuncia) {
   return await res.json();
 }
 
-export const getDenunciaPorUsuario = async (token) => {
-  console.log(token);
-  const response = await fetch(`${LOCAL_URL}/denuncias/mis-denuncias`, {
+export const getDenunciaPorId = async (token) => {
+  const response = await fetch(`${LOCAL_URL}/denuncias/misDenuncias`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

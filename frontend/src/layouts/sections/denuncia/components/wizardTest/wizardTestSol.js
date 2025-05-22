@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PropTypes from "prop-types";
 import { IniciSolucio, TotalSolucio } from "./components/componentsTest";
 
@@ -8,6 +9,10 @@ export const WizardTestSol = ({ resultadoTest, setMostrarDenuncia }) => {
 
   const handleComenzar = () => {
     setPaso(2);
+  };
+
+  const volverAInici = () => {
+    setPaso(1);
   };
 
   return (
@@ -23,6 +28,26 @@ export const WizardTestSol = ({ resultadoTest, setMostrarDenuncia }) => {
       alignItems="center"
       textAlign="center"
     >
+      {/* Botón de volver, solo en paso 2 */}
+      {paso === 2 && (
+        <IconButton
+          onClick={volverAInici}
+          sx={{
+            position: "absolute",
+            left: 16,
+            top: "50%",
+            transform: "translateY(-50%)",
+            backgroundColor: "#eee",
+            "&:hover": {
+              backgroundColor: "#ddd",
+            },
+            zIndex: 10,
+          }}
+        >
+          <ArrowBackIcon sx={{ fontSize: 36 }} />
+        </IconButton>
+      )}
+
       {paso === 1 && <IniciSolucio onComenzar={handleComenzar} />}
       {paso === 2 && (
         <TotalSolucio resultado={resultadoTest} onDenunciaClick={() => setMostrarDenuncia(true)} />

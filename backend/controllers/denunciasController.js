@@ -4,7 +4,7 @@ const {
   fetchDenunciasPorCentro,
   fetchDenunciaById,
   updateEstadoDenuncia,
-  fetchDenunciasPorUsuario,
+  fetchDenunciasPorId,
 } = require('../services/denunciasService');
 
 exports.guardarDenuncia = async (req, res) => {
@@ -154,11 +154,11 @@ exports.getResultadoTestAutoevaluacion = async (req, res) => {
   }
 };
 
-exports.getDenunciasPorUsuario = async (req, res) => {
+exports.getDenunciasPorId = async (req, res) => {
   const { id_usuario } = req.user;
 
   try {
-    const denuncias = await fetchDenunciasPorUsuario(id_usuario);
+    const denuncias = await fetchDenunciasPorId(id_usuario);
 
     if (denuncias.length === 0) {
       return res.status(404).json({ mensaje: 'No se encontraron denuncias para este usuario.' });
@@ -166,7 +166,7 @@ exports.getDenunciasPorUsuario = async (req, res) => {
 
     return res.json({ denuncias });
   } catch (error) {
-    console.error('getDenunciasPorUsuario:', error);
+    console.error('getDenunciasPorId:', error);
     return res.status(500).json({ error: 'Error al obtener las denuncias del usuario.' });
   }
 };

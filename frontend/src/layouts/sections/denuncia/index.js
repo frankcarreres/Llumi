@@ -14,7 +14,7 @@ import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
 import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
 import publicRoutes from "../../../routes/publicRoutes";
-import { getDenunciaPorUsuario } from "pages/Presentation/components/chat/services/api";
+import { getDenunciaPorId } from "pages/Presentation/components/chat/services/api";
 import { WizardDenunciaSol } from "./components/wizardDenuncia/wizardDenunciaSol";
 import { getSession } from "admin/utils/session";
 
@@ -47,8 +47,10 @@ function DenunciaUsuari() {
         setResultadoTest(result);
 
         // Obtener denuncias y verificar si hay alguna pendiente
-        const data = await getDenunciaPorUsuario(session?.token);
-        const tienePendiente = data.denuncias.some((d) => d.estado === "pendiente");
+        const data = await getDenunciaPorId(session?.token);
+        const tienePendiente = data.denuncias.some((d) =>
+          ["pendiente", "en_progreso", "en_observacion"].includes(d.estado)
+        );
         setDenunciaPendiente(tienePendiente);
         console.log(denunciaPendiente);
       } catch (error) {

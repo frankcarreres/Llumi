@@ -1,15 +1,16 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 import BotoTest from "./botoTest";
 import BotoDenuncia from "./botoDenuncia";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const steps = ["pendiente", "en_progreso", "en_observacion", "resuelta"];
 
 const colors = {
   pendiente: "#f1c40f",
   en_progreso: "#2980b9",
-  en_observacion: "#8e44ad",
+  en_observacion: "#1B5883",
   resuelta: "#27ae60",
   gris: "#ccc",
 };
@@ -214,77 +215,112 @@ DenunciaSolucio.propTypes = {
   irASeguimiento: PropTypes.func.isRequired,
 };
 
-export const SeguimentDenuncia = ({ estado }) => {
+export const SeguimentDenuncia = ({ estado, volver }) => {
   const currentStep = steps.indexOf(estado);
+  const estadosBonitos = {
+    pendiente: "Pendent",
+    en_progreso: "En procés",
+    en_observacion: "En observació",
+    resuelta: "Resolta",
+    rechazada: "Rebutjada",
+  };
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 600, margin: "0 auto" }}>
-      {/* Título */}
-      <Typography
-        component="h4"
-        fontSize="2rem"
-        fontWeight={100}
+    <Box sx={{ position: "relative", width: "100%" }}>
+      {/* Botón de volver flotante a la izquierda */}
+      <IconButton
+        onClick={volver}
         sx={{
-          color: "#354667",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          position: "absolute",
+          left: 32, // ajústalo según lo que necesites
+          top: "50%",
+          transform: "translateY(-50%)",
+          backgroundColor: "#eee",
+          "&:hover": {
+            backgroundColor: "#ddd",
+          },
+          zIndex: 10,
         }}
       >
-        Seguiment de l&apos;estat de la denúncia
-      </Typography>
+        <ArrowBackIcon sx={{ fontSize: 48 }} />
+      </IconButton>
 
-      {/* Subtítulo con el estado */}
-      <Typography
-        variant="subtitle1"
-        sx={{
-          color: colors[estado] || "#666",
-          mb: 8, // separación con la barra
-        }}
-      >
-        Estat actual: {estado}
-      </Typography>
-
-      {/* Barra de seguimiento */}
+      {/* Contenedor blanco centrado */}
       <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ width: "100%", gap: 1 }}
+        sx={{
+          width: "100%",
+          maxWidth: 600,
+          margin: "0 auto",
+          position: "relative",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          padding: "32px 24px",
+        }}
       >
-        {steps.map((step, index) => {
-          const isActive = index <= currentStep;
-          const pointColor = isActive ? colors[estado] : colors.gris;
-          const lineColor = index < currentStep ? colors[estado] : colors.gris;
+        <Typography
+          component="h4"
+          fontSize="2rem"
+          fontWeight={100}
+          sx={{
+            color: "#354667",
+            textAlign: "center",
+          }}
+        >
+          Seguiment de l&apos;estat de la denúncia
+        </Typography>
 
-          return (
-            <React.Fragment key={step}>
-              <Box
-                sx={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: "50%",
-                  backgroundColor: pointColor,
-                  border: `2px solid ${pointColor}`,
-                  zIndex: 2,
-                  position: "relative",
-                }}
-              />
-              {index < steps.length - 1 && (
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: colors[estado] || "#666",
+            textAlign: "center",
+            mb: 8,
+          }}
+        >
+          Estat actual: {estadosBonitos[estado] || estado}
+        </Typography>
+
+        {/* Barra de seguimiento */}
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ width: "100%", gap: 1 }}
+        >
+          {steps.map((step, index) => {
+            const isActive = index <= currentStep;
+            const pointColor = isActive ? colors[estado] : colors.gris;
+            const lineColor = index < currentStep ? colors[estado] : colors.gris;
+
+            return (
+              <React.Fragment key={step}>
                 <Box
                   sx={{
-                    height: 4,
-                    flexGrow: 1,
-                    backgroundColor: lineColor,
-                    mx: 0.5,
-                    borderRadius: 2,
-                    zIndex: 1,
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    backgroundColor: pointColor,
+                    border: `2px solid ${pointColor}`,
+                    zIndex: 2,
+                    position: "relative",
                   }}
                 />
-              )}
-            </React.Fragment>
-          );
-        })}
+                {index < steps.length - 1 && (
+                  <Box
+                    sx={{
+                      height: 4,
+                      flexGrow: 1,
+                      backgroundColor: lineColor,
+                      mx: 0.5,
+                      borderRadius: 2,
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );
@@ -292,4 +328,5 @@ export const SeguimentDenuncia = ({ estado }) => {
 
 SeguimentDenuncia.propTypes = {
   estado: PropTypes.string.isRequired,
+  volver: PropTypes.func.isRequired,
 };

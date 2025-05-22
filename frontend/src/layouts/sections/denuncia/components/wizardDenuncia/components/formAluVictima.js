@@ -139,7 +139,7 @@ function FormDenunciaAluVictima({ onDenunciar }) {
           onClick={() => {
             const datos = {
               descripcion: descripcion,
-              tipo_acoso: tiposAcoso,
+              tipo_acoso: tiposAcoso.join(", "),
               nombre_victima: session?.data.nombre,
               nombre_acosador: acosador,
               es_testigo: "no",
