@@ -13,8 +13,8 @@ import {
   Pregunta7,
 } from "./components/preguntasTest";
 import { Inicio, Total } from "./components/componentsTest";
-import { calcularNivelRiesgo } from "pages/Presentation/components/chat/utils/calculoRiesgo";
-import { guardarTest } from "pages/Presentation/components/chat/services/api";
+import { calcularNivelRiesgo } from "utils/calculoRiesgo";
+import { guardarTest } from "services/api";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 

@@ -27,7 +27,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 import { clearSession, getSession } from "admin/utils/session";
-import { clearHistory } from "pages/Presentation/components/chat/utils/chatStorage";
+import { clearHistory } from "utils/chatStorage";
 
 function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");

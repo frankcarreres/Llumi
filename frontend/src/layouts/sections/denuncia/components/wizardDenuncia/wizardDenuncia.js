@@ -8,7 +8,7 @@ import FormDenunciaAluVictima from "./components/formAluVictima";
 import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
 import BotoTest from "../wizardTest/components/botoTest";
-import { guardarDenuncia } from "pages/Presentation/components/chat/services/api";
+import { guardarDenuncia } from "services/api";
 import { getSession } from "admin/utils/session";
 
 const optionsStep1 = [

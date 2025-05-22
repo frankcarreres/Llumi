@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { resetPassword } from "../../Presentation/components/chat/services/api";
+import { resetPassword } from "../../../services/api";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";

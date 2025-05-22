@@ -5,11 +5,11 @@ import {
   obtenerVariablesTest,
   guardarDenuncia,
   vincularDenuncia,
-} from "../services/api";
-import { calcularNivelRiesgo } from "../utils/calculoRiesgo";
-import { sendMessageToBot } from "../services/typebotAPI";
+} from "../../../../../services/api";
+import { calcularNivelRiesgo } from "../../../../../utils/calculoRiesgo";
+import { sendMessageToBot } from "../../../../../services/typebotAPI";
 import { saveSession } from "admin/utils/session";
-import { saveHistory } from "../utils/chatStorage";
+import { saveHistory } from "../../../../../utils/chatStorage";
 
 const esperar = (ms) => new Promise((res) => setTimeout(res, ms));
 
