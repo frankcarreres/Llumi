@@ -516,11 +516,11 @@ function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, ce
                 display="inline-flex"
                 alignItems="center"
                 lineHeight={0}
-                py={1.5}
-                pl={1.5}
+                py={1}
+                pl={1}
                 sx={{ cursor: "pointer" }}
               >
-                <Icon fontSize="small">logout</Icon>
+                <Icon sx={{ fontSize: "18px !important", color: "#808592" }}>logout</Icon>
               </MKBox>
             )}
           </MKBox>

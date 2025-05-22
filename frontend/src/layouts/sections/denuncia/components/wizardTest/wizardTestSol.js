@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PropTypes from "prop-types";
-import { IniciSolucio, TotalSolucio } from "./components/componentsTest";
+import { IniciSolucio, TotalSolucio } from "components/componentsDenuncia";
 
 export const WizardTestSol = ({ resultadoTest, setMostrarDenuncia }) => {
   const [paso, setPaso] = useState(1);

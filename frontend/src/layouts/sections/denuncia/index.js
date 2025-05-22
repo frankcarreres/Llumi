@@ -11,7 +11,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/bg.gif";
 import WizardTest from "./components/wizardTest/wizardTest";
 import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
-import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
+import BotoDenuncia from "components/botoDenuncia";
 import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
 import publicRoutes from "../../../routes/publicRoutes";
 import { getDenunciaPorId } from "services/api";

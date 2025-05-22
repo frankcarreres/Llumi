@@ -9,8 +9,8 @@ function RecursInfo() {
     <BaseLayout
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
-        { label: "recursos", route: "/sections/recursos/inici" },
-        { label: "recursos informatius" },
+        { label: "Recursos", route: "/sections/recursos/inici" },
+        { label: "Recursos informatius" },
       ]}
     >
       <MKBox mt={2} />

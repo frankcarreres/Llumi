@@ -12,8 +12,8 @@ function RecursMultimedia() {
       // title="recursos multimedia"
       breadcrumb={[
         { label: "Inici", route: "/pages/presentation" },
-        { label: "recursos", route: "/sections/recursos/inici" },
-        { label: "recursos multimèdia" },
+        { label: "Recursos", route: "/sections/recursos/inici" },
+        { label: "Recursos multimèdia" },
       ]}
     >
       <MKBox mt={2} />

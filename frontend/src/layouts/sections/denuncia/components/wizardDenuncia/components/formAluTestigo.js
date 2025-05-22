@@ -11,7 +11,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import BotoDenuncia from "../../wizardTest/components/botoDenuncia";
+import BotoDenuncia from "components/botoDenuncia";
 import PropTypes from "prop-types";
 
 function FormDenunciaAluTestigo({ onDenunciar }) {

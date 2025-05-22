@@ -29,7 +29,7 @@ export default [
     key: "recursos",
     collapse: [
       {
-        name: "Informatius",
+        name: "Informativos",
         key: "rec-info",
         route: "/sections/recursos/info",
         component: <RecursInfo />,
@@ -41,13 +41,13 @@ export default [
         component: <RecursMulti />,
       },
       {
-        name: "Centre",
+        name: "Centro",
         key: "rec-centre",
         route: "/sections/recursos/centre",
         component: <RecursCentre />,
       },
       {
-        name: "Tots els recursos",
+        name: "Todos los recursos",
         key: "rec-inici",
         route: "/sections/recursos/inici",
         component: <RecursIni />,
@@ -55,17 +55,17 @@ export default [
     ],
   },
   {
-    name: "Denúncia",
+    name: "Denuncia",
     key: "denuncia",
     collapse: [
       {
-        name: "Test de autoavaluació",
+        name: "Test de autoevaluación",
         key: "test-wizard",
         route: "/sections/denuncia/components/wizardTest",
         component: <Denuncia />,
       },
       {
-        name: "Denúncia",
+        name: "Denuncia",
         key: "denuncia-wizard",
         route: "/sections/denuncia/components/wizardDenuncia",
         component: <Denuncia />,
@@ -78,7 +78,7 @@ export default [
     icon: <Icon>person</Icon>,
     collapse: [
       {
-        name: "Iniciar sessió",
+        name: "Iniciar sesión",
         key: "login",
         route: "/pages/authentication/sign-in",
         component: <SignIn />,

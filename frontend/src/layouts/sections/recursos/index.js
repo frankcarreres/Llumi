@@ -4,7 +4,7 @@ import CarruselTarjetes from "./components/CarruselTarjetes";
 function RecursIni() {
   return (
     <BaseLayout
-      breadcrumb={[{ label: "Inici", route: "/pages/presentation" }, { label: "recursos" }]}
+      breadcrumb={[{ label: "Inici", route: "/pages/presentation" }, { label: "Recursos" }]}
     >
       <CarruselTarjetes />
     </BaseLayout>

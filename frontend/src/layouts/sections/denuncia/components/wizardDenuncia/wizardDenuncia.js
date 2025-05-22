@@ -7,7 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormDenunciaAluVictima from "./components/formAluVictima";
 import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
-import BotoTest from "../wizardTest/components/botoTest";
+import BotoTest from "components/botoTest";
 import { guardarDenuncia } from "services/api";
 import { getSession } from "utils/session";
 

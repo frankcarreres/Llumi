@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { DenunciaSolucio, SeguimentDenuncia } from "../wizardTest/components/componentsTest";
+import { DenunciaSolucio, SeguimentDenuncia } from "components/componentsDenuncia";
 import { getSession } from "utils/session";
 import { getDenunciaPorId } from "services/api";
 

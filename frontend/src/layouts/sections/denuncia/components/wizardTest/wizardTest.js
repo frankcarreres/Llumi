@@ -12,7 +12,7 @@ import {
   Pregunta6,
   Pregunta7,
 } from "./components/preguntasTest";
-import { Inicio, Total } from "./components/componentsTest";
+import { Inicio, Total } from "components/componentsDenuncia";
 import { calcularNivelRiesgo } from "utils/calculoRiesgo";
 import { guardarTest } from "services/api";
 import Cookies from "js-cookie";
