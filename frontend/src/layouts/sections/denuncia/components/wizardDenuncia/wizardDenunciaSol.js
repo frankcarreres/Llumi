@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DenunciaSolucio, SeguimentDenuncia } from "../wizardTest/components/componentsTest";
-import { getSession } from "admin/utils/session";
-import { getDenunciaPorId } from "pages/Presentation/components/chat/services/api";
+import { getSession } from "utils/session";
+import { getDenunciaPorId } from "services/api";
 
 export const WizardDenunciaSol = () => {
   const [paso, setPaso] = useState(1);

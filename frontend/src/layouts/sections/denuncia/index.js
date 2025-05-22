@@ -14,9 +14,9 @@ import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
 import BotoDenuncia from "./components/wizardTest/components/botoDenuncia";
 import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
 import publicRoutes from "../../../routes/publicRoutes";
-import { getDenunciaPorId } from "pages/Presentation/components/chat/services/api";
+import { getDenunciaPorId } from "services/api";
 import { WizardDenunciaSol } from "./components/wizardDenuncia/wizardDenunciaSol";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 function DenunciaUsuari() {
   const location = useLocation();

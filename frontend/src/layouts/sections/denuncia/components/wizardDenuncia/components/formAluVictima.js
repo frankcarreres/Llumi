@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import BotoDenuncia from "../../wizardTest/components/botoDenuncia";
 import PropTypes from "prop-types";
-import { getSession } from "admin/utils/session";
+import { getSession } from "utils/session";
 
 function FormDenunciaAluVictima({ onDenunciar }) {
   const [descripcion, setDescripcion] = useState("");
