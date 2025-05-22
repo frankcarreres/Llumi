@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import BotoDenuncia from "../../wizardTest/components/botoDenuncia";
 import PropTypes from "prop-types";
+import { getSession } from "admin/utils/session";
 
 function FormDenunciaAluVictima({ onDenunciar }) {
   const [descripcion, setDescripcion] = useState("");
@@ -22,6 +23,7 @@ function FormDenunciaAluVictima({ onDenunciar }) {
   const [quienTestigo, setQuienTestigo] = useState("");
   const [intervinoDocente, setIntervinoDocente] = useState("");
   const [quienDocente, setQuienDocente] = useState("");
+  const session = getSession("token");
 
   const handleTipoAcosoChange = (event) => {
     const value = event.target.name;
@@ -29,18 +31,6 @@ function FormDenunciaAluVictima({ onDenunciar }) {
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
-
-  // const handleSubmit = () => {
-  //   // Mostrar en un alert los datos introducidos directamente
-  //   alert(`Formulario enviado con los siguientes datos:
-  //   Descripción: ${descripcion}
-  //   Tipos de acoso: ${tiposAcoso.join(", ")}
-  //   Acosador: ${acosador}
-  //   Hay testigos: ${hayTestigos}
-  //   Quiénes son los testigos: ${quienTestigo}
-  //   Docente intervino: ${intervinoDocente}
-  //   Quién fue el docente: ${quienDocente}`);
-  // };
 
   return (
     <form
@@ -145,7 +135,24 @@ function FormDenunciaAluVictima({ onDenunciar }) {
 
       {/* Botón centrado */}
       <Box display="flex" justifyContent="center" mt={4}>
-        <BotoDenuncia onClick={onDenunciar}>DENÚNCIA</BotoDenuncia>
+        <BotoDenuncia
+          onClick={() => {
+            const datos = {
+              descripcion: descripcion,
+              tipo_acoso: tiposAcoso.join(", "),
+              nombre_victima: session?.data.nombre,
+              nombre_acosador: acosador,
+              es_testigo: "no",
+              testigos: hayTestigos,
+              nombre_testigo_extra: quienTestigo,
+              intervencion_docente: intervinoDocente,
+              nombre_docente: quienDocente,
+            };
+            onDenunciar(datos);
+          }}
+        >
+          DENÚNCIA
+        </BotoDenuncia>
       </Box>
     </form>
   );

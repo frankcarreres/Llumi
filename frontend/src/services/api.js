@@ -1,5 +1,5 @@
 const BASE_URL = "http://13.216.39.33:3001";
-// const LOCAL_URL = "http://localhost:3001";
+const LOCAL_URL = "http://localhost:3001";
 
 /**
  * Verifica si el email está registrado.
@@ -72,6 +72,22 @@ export async function guardarDenuncia(token, id_centro, datosDenuncia) {
   if (!res.ok) throw new Error("No se pudo registrar la denuncia");
   return await res.json();
 }
+
+export const getDenunciaPorId = async (token) => {
+  const response = await fetch(`${LOCAL_URL}/denuncias/misDenuncias`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudieron cargar las denuncias del usuario.");
+  }
+
+  return await response.json();
+};
 
 export async function vincularDenuncia(token, idTest, idDenuncia) {
   const res = await fetch(`${BASE_URL}/api/test/${idTest}/denuncia`, {

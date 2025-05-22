@@ -4,6 +4,7 @@ const {
   fetchDenunciasPorCentro,
   fetchDenunciaById,
   updateEstadoDenuncia,
+  fetchDenunciasPorId,
 } = require('../services/denunciasService');
 
 exports.guardarDenuncia = async (req, res) => {
@@ -127,31 +128,6 @@ exports.updateEstado = async (req, res) => {
   }
 };
 
-// exports.getUsuarioIdPorNombre = async (req, res) => {
-//   const { nombre_usuario } = req.params; // Obtener el nombre directamente de los parámetros de la ruta
-//
-//   if (!nombre_usuario) {
-//     return res.status(400).json({ error: "El nombre es obligatorio." });
-//   }
-//
-//   try {
-//     const [rows] = await pool.query(
-//         "SELECT id_usuario FROM usuarios WHERE nombre = ? LIMIT 1",
-//         [nombre_usuario]
-//     );
-//
-//     if (rows.length === 0) {
-//       return res.status(404).json({ error: "Usuario no encontrado." });
-//     }
-//
-//     // Devolver solo el ID del usuario
-//     return res.json(rows[0].id_usuario);
-//   } catch (err) {
-//     console.error("Error al buscar el id del usuario:", err);
-//     return res.status(500).json({ error: "Error interno del servidor." });
-//   }
-// };
-
 exports.getResultadoTestAutoevaluacion = async (req, res) => {
   const { id_usuario } = req.user; // Obtenemos el id_usuario de los parámetros de la URL
 
@@ -178,5 +154,21 @@ exports.getResultadoTestAutoevaluacion = async (req, res) => {
   }
 };
 
+exports.getDenunciasPorId = async (req, res) => {
+  const { id_usuario } = req.user;
+
+  try {
+    const denuncias = await fetchDenunciasPorId(id_usuario);
+
+    if (denuncias.length === 0) {
+      return res.status(404).json({ mensaje: 'No se encontraron denuncias para este usuario.' });
+    }
+
+    return res.json({ denuncias });
+  } catch (error) {
+    console.error('getDenunciasPorId:', error);
+    return res.status(500).json({ error: 'Error al obtener las denuncias del usuario.' });
+  }
+};
 
 

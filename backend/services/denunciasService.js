@@ -36,8 +36,21 @@ async function updateEstadoDenuncia(idDenuncia, idCentro, nuevoEstado) {
     return result.affectedRows > 0;
 }
 
+async function fetchDenunciasPorId(id_usuario) {
+    const [rows] = await pool.query(
+        `SELECT estado FROM denuncias WHERE id_usuario = ? ORDER BY id_denuncia DESC`,
+        [id_usuario]
+    );
+
+    return rows;
+}
+
 module.exports = {
     fetchDenunciasPorCentro,
     fetchDenunciaById,
     updateEstadoDenuncia,
+    fetchDenunciasPorId
 };
+
+
+

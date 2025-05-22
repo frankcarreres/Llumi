@@ -1,14 +1,26 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 import BotoTest from "./botoTest";
 import BotoDenuncia from "./botoDenuncia";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+const steps = ["pendiente", "en_progreso", "en_observacion", "resuelta"];
+
+const colors = {
+  pendiente: "#f1c40f",
+  en_progreso: "#2980b9",
+  en_observacion: "#1B5883",
+  resuelta: "#27ae60",
+  gris: "#ccc",
+};
 
 export const Total = ({ totalScore, onDenunciaClick }) => {
   const score = parseFloat(totalScore);
   const handleDenunciar = () => {
     if (onDenunciaClick) onDenunciaClick(); // Llamamos a la función del padre
   };
+
   let titulo = "";
   let mensaje = "";
   let color = "";
@@ -184,4 +196,137 @@ export const IniciSolucio = ({ onComenzar }) => {
 
 IniciSolucio.propTypes = {
   onComenzar: PropTypes.func.isRequired,
+};
+
+export const DenunciaSolucio = ({ irASeguimiento }) => {
+  return (
+    <Box textAlign="center">
+      <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
+        Tens una denúncia activa en estos moments...
+      </Typography>
+      <Box mt={4}>
+        <BotoTest onClick={irASeguimiento}>Veure seguiment</BotoTest>
+      </Box>
+    </Box>
+  );
+};
+
+DenunciaSolucio.propTypes = {
+  irASeguimiento: PropTypes.func.isRequired,
+};
+
+export const SeguimentDenuncia = ({ estado, volver }) => {
+  const currentStep = steps.indexOf(estado);
+  const estadosBonitos = {
+    pendiente: "Pendent",
+    en_progreso: "En procés",
+    en_observacion: "En observació",
+    resuelta: "Resolta",
+    rechazada: "Rebutjada",
+  };
+
+  return (
+    <Box sx={{ position: "relative", width: "100%" }}>
+      {/* Botón de volver flotante a la izquierda */}
+      <IconButton
+        onClick={volver}
+        sx={{
+          position: "absolute",
+          left: 32, // ajústalo según lo que necesites
+          top: "50%",
+          transform: "translateY(-50%)",
+          backgroundColor: "#eee",
+          "&:hover": {
+            backgroundColor: "#ddd",
+          },
+          zIndex: 10,
+        }}
+      >
+        <ArrowBackIcon sx={{ fontSize: 48 }} />
+      </IconButton>
+
+      {/* Contenedor blanco centrado */}
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 600,
+          margin: "0 auto",
+          position: "relative",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          padding: "32px 24px",
+        }}
+      >
+        <Typography
+          component="h4"
+          fontSize="2rem"
+          fontWeight={100}
+          sx={{
+            color: "#354667",
+            textAlign: "center",
+          }}
+        >
+          Seguiment de l&apos;estat de la denúncia
+        </Typography>
+
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: colors[estado] || "#666",
+            textAlign: "center",
+            mb: 8,
+          }}
+        >
+          Estat actual: {estadosBonitos[estado] || estado}
+        </Typography>
+
+        {/* Barra de seguimiento */}
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ width: "100%", gap: 1 }}
+        >
+          {steps.map((step, index) => {
+            const isActive = index <= currentStep;
+            const pointColor = isActive ? colors[estado] : colors.gris;
+            const lineColor = index < currentStep ? colors[estado] : colors.gris;
+
+            return (
+              <React.Fragment key={step}>
+                <Box
+                  sx={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    backgroundColor: pointColor,
+                    border: `2px solid ${pointColor}`,
+                    zIndex: 2,
+                    position: "relative",
+                  }}
+                />
+                {index < steps.length - 1 && (
+                  <Box
+                    sx={{
+                      height: 4,
+                      flexGrow: 1,
+                      backgroundColor: lineColor,
+                      mx: 0.5,
+                      borderRadius: 2,
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+SeguimentDenuncia.propTypes = {
+  estado: PropTypes.string.isRequired,
+  volver: PropTypes.func.isRequired,
 };
