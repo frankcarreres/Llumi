@@ -41,7 +41,7 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsBarChart color="info" title="Casos por año" chart={casos_por_tiempo}  date={}/>
+                <ReportsBarChart color="info" title="Casos por año" chart={casos_por_tiempo} />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
@@ -51,7 +51,7 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart color="success" title="Casos resueltos" chart={cResueltos}  date={}/>
+                <ReportsLineChart color="success" title="Casos resueltos" chart={cResueltos} />
               </MDBox>
             </Grid>
           </Grid>
