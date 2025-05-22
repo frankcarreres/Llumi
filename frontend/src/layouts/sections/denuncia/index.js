@@ -81,16 +81,7 @@ function DenunciaUsuari() {
 
   return (
     <>
-      <DefaultNavbar
-        routes={publicRoutes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "default",
-        }}
-        sticky
-      />
+      <DefaultNavbar routes={publicRoutes} sticky />
       <MKBox
         minHeight="80vh"
         width="100%"
