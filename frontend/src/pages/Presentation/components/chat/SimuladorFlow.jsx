@@ -6,7 +6,7 @@ import TypingIndicator from "components/ChatComponents/TypingIndicator";
 import { enviarMensaje } from "./logica/enviarMensaje";
 import { iniciarFlujo } from "./logica/iniciarFlujo";
 import { getSession } from "utils/session";
-import { obtenerTests } from "services/api";
+import { getDenunciaPorId, obtenerTests } from "services/api";
 import { useNavigate } from "react-router-dom";
 import { getHistory, getSessionId, saveHistory, saveSessionId } from "utils/chatStorage";
 import OptionAnimada from "components/ChatComponents/OpcionAnimada";
@@ -29,7 +29,6 @@ function SimuladorFlujo() {
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [escribiendo, setEscribiendo] = useState(false);
   const [cargando, setCargando] = useState(false);
-  const [tests, setTests] = useState(null);
   const navigate = useNavigate();
   const SALUDO = "Hola 👋 ¿Cuál es tu correo electrónico?";
   const session = getSession("token");
@@ -43,15 +42,13 @@ function SimuladorFlujo() {
   const idTestRef = useRef(null);
   const scrollRef = useRef(null);
   const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
-  const inputDisabled =
-    cargando ||
-    hayOpciones || // SIEMPRE deshabilitar el text‐field cuando haya opciones
-    (sessionId && !testEnviado && !faseDenuncia);
-
+  const inputDisabled = cargando || hayOpciones || (sessionId && !testEnviado && !faseDenuncia);
+  // valores: `null` = ningún test; número = id de test a reanudar
+  // valores: "null" | "pending" | "observation"
   // 3) Bloqueo para el <Button>
   const buttonDisabled =
-    cargando || // Si es texto libre, mismo bloqueo que input…
-    (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) || // …pero **no** bloqueamos aquí por hayOpciones // Y para opciones múltiples, exigir al menos 1 seleccionada
+    cargando ||
+    (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) ||
     (isMultipleChoice && opcionesActivas.length === 0) ||
     (!isMultipleChoice && !input.trim());
 
@@ -93,40 +90,49 @@ function SimuladorFlujo() {
   }, []);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token || sessionId != null) return;
 
-    // 1) Cargo los tests
-    obtenerTests(token)
-      .then((t) => {
-        setTests(t);
-        return t; // para la siguiente fase
-      })
-      .catch((err) => {
-        console.error("Error al cargar tests:", err);
-        setMensajes([{ autor: "bot", texto: "Error comprobando tu test. Inténtalo más tarde." }]);
-        // Si quieres, aún llamas al flujo sin flags:
-        setTests([]);
-      });
+    const init = async () => {
+      try {
+        // 1) Cargo todos los tests
+        const allTests = await obtenerTests(token);
+
+        // 2) Encuentro el primero con Denuncia
+        const vinculado = allTests.find((t) => t.Denuncia != null);
+        const localTestId = vinculado?.id_test ?? null;
+        const localHasTest = Boolean(vinculado);
+        let localStatus = "none";
+
+        // 3) Si existe Denuncia, voy a buscar su estado
+        if (vinculado?.Denuncia) {
+          const { denuncias } = await getDenunciaPorId(token);
+          const encontrada = denuncias.find((d) => d.id_denuncia === vinculado.Denuncia);
+          localStatus = encontrada?.estado ?? "none";
+        }
+
+        // 4) Actualizo tu state (si lo necesitas en render)
+
+        // 5) **Y ahora sí**, inicio el flujo
+        await iniciarFlujo({
+          usuario,
+          setMensajes,
+          setSessionId,
+          setResultId,
+          setIsMultipleChoice,
+          setOpcionesActivas,
+          variables: {
+            testId: localTestId,
+            hasTest: localHasTest,
+            denunciaStatus: localStatus,
+          },
+        });
+      } catch (err) {
+        console.error("Error inicializando flujo:", err);
+      }
+    };
+
+    init();
   }, [token]);
-
-  useEffect(() => {
-    if (tests === null) return; // Aún no hemos cargado nada
-    if (sessionId) return;
-
-    // 2) Una vez tengo tests, calculo flags y arranco el chat
-    const hasTest = Array.isArray(tests) && tests.length > 0;
-    const hasDenuncia = hasTest && Boolean(tests[0].denuncia);
-
-    void iniciarFlujo({
-      usuario,
-      setMensajes,
-      setSessionId,
-      setResultId,
-      setIsMultipleChoice,
-      setOpcionesActivas,
-      variables: { hasTest, hasDenuncia },
-    });
-  }, [tests, sessionId]);
 
   useEffect(() => {
     if (!esLoginWeb) return;

@@ -1,17 +1,15 @@
 const BASE_URL = "https://typebot.io/api/v1";
 const FLOW_ID = "chat-gpt-personas-6uxgbb9"; // ID del bot público
 
-export const startConversation = async ({ hasTest, hasDenuncia }) => {
+export const startConversation = async ({ hasTest, denunciaStatus }) => {
   const res = await fetch(`${BASE_URL}/typebots/${FLOW_ID}/startChat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      // Mensaje inicial (puedes poner cualquier texto)
-      message: { type: "text", text: "¡Hola!" },
       // Aquí inyectas tus flags como Session Variables
       prefilledVariables: {
         hasTest: String(hasTest),
-        hasDenuncia: String(hasDenuncia),
+        denunciaStatus: denunciaStatus,
       },
       // Si usas streaming de respuesta:
       isStreamEnabled: false,
@@ -24,7 +22,6 @@ export const startConversation = async ({ hasTest, hasDenuncia }) => {
   }
 
   const data = await res.json();
-  console.log("🎯 Session iniciada:", data);
   return data;
 };
 
@@ -48,6 +45,5 @@ export const sendMessageToBot = async (sessionId, message) => {
   }
 
   const data = await res.json();
-  console.log("📥 Respuesta completa:", data);
   return data; // ✅ devuelve messages + input
 };
