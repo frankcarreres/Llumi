@@ -48,26 +48,37 @@ function Profile() {
         navigate("/pages/authentication/sign-in", { replace: true });
         return;
       }
+      // 1) Cargar usuario (error real → fallback a la pantalla de error)
       try {
-        // 1) Cargar usuario
-        const u = await obtenerUsuario(sesion?.token);
+        const u = await obtenerUsuario(sesion.token);
         setUsuario(u);
-
-        // 2) Cargar tests (puedes incluso pasar algún dato de usuario si hace falta)
-        const t = await obtenerTests(sesion?.token);
-        setTests(t);
-
-        const d = await getDenunciaPorId(sesion?.token);
-        setDenuncia(Array.isArray(d.denuncias) ? d.denuncias : []);
       } catch (e) {
-        setError(e.message);
-      } finally {
+        setError(`No se pudo cargar el usuario: ${e.message}`);
         setLoading(false);
+        return;
       }
+
+      // 2) Cargar tests (si hay 404 u otro fallo, simplemente array vacío)
+      try {
+        const t = await obtenerTests(sesion.token);
+        setTests(t);
+      } catch (_e) {
+        setTests([]);
+      }
+
+      // 3) Cargar denuncias (igual: si fallan, array vacío)
+      try {
+        const d = await getDenunciaPorId(sesion.token);
+        setDenuncia(Array.isArray(d.denuncias) ? d.denuncias : []);
+      } catch (_e) {
+        setDenuncia([]);
+      }
+
+      setLoading(false);
     }
 
     fetchData();
-  }, [sesion?.token]);
+  }, [sesion.token]);
 
   if (loading) {
     return (
