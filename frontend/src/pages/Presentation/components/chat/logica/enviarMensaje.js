@@ -1,7 +1,7 @@
 import {
   verificarEmail,
   login,
-  guardarTest,
+  upsertTest,
   obtenerVariablesTest,
   guardarDenuncia,
   vincularDenuncia,
@@ -42,6 +42,8 @@ export async function enviarMensaje({
   setEscribiendo,
   idTestRef,
   setFaseDenuncia,
+  testActivo, // <-- nuevo
+  hasBlockingDenuncia, // <-- nuevo
 }) {
   const texto =
     input || (isMultipleChoice && opcionesActivas.length > 0 ? opcionesActivas.join(", ") : "");
@@ -151,6 +153,21 @@ export async function enviarMensaje({
   // Envío normal de mensaje
   if (!sessionId) return;
 
+  if (hasBlockingDenuncia) {
+    setMensajes((prev) => {
+      const newState = [
+        ...prev,
+        {
+          autor: "bot",
+          texto: "Tienes una denuncia pendiente o en curso. No puedes hacer test ahora.",
+        },
+      ];
+      saveHistory(newState);
+      return newState;
+    });
+    return;
+  }
+
   await esperar(1000);
   // ✅ Esto llama directamente a Typebot
   const data = await sendMessageToBot(sessionId, texto);
@@ -191,7 +208,7 @@ export async function enviarMensaje({
                 respuestasTest[pregunta] = respuesta;
               });
 
-              const { id_test } = await guardarTest(token, respuestasTest, nivel);
+              const { id_test } = await upsertTest(token, testActivo, respuestasTest, nivel);
               idTestRef.current = id_test;
               setTestEnviado(true);
             }
