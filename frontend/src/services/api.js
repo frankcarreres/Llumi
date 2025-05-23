@@ -169,3 +169,29 @@ export async function resetPassword(email, newPassword, confirmPassword) {
   if (!res.ok) throw new Error(data.error || "No se pudo resetear la contraseña");
   return data;
 }
+
+export async function actualizarTest(token, id_test, respuestas, resultado) {
+  const res = await fetch(`${BASE_URL}/api/test/${id_test}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ respuestas, resultado }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || "Error al actualizar el test");
+  }
+  return await res.json(); // { mensaje, id_test }
+}
+
+// Helper: crea o actualiza dependiendo de si ya hay test activo
+export async function upsertTest(token, testActivo, respuestas, resultado) {
+  if (testActivo && testActivo.id_test) {
+    return actualizarTest(token, testActivo.id_test, respuestas, resultado);
+  } else {
+    return guardarTest(token, respuestas, resultado);
+  }
+}
