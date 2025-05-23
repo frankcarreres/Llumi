@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, TextField, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 
 import TypingIndicator from "components/ChatComponents/TypingIndicator";
 
@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { getHistory, getSessionId, saveHistory, saveSessionId } from "utils/chatStorage";
 import OptionAnimada from "components/ChatComponents/OpcionAnimada";
 import BurbujaMensaje from "components/ChatComponents/BurbujasMensaje";
+// import SendIcon from "@mui/icons-material/Send";
+import TextFieldChat from "../../../../components/TextFieldChat";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -196,12 +198,11 @@ function SimuladorFlujo() {
     <Box
       sx={{
         width: "100%",
-        maxWidth: "1300px",
+        maxWidth: "1400px",
         height: "600px",
         display: "flex",
         flexDirection: "column",
         borderRadius: 2,
-        boxShadow: 3,
         overflow: "hidden",
         mx: "auto",
         my: 4,
@@ -213,9 +214,20 @@ function SimuladorFlujo() {
           flex: 1,
           overflowY: "auto",
           p: 2,
-          backgroundColor: "#f9f9fb",
+          backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "transparent",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "transparent",
+          },
+          scrollbarWidth: "thin",
+          scrollbarColor: "transparent transparent",
         }}
       >
         {mensajes.map(
@@ -271,21 +283,7 @@ function SimuladorFlujo() {
           variant="outlined"
           disabled={inputDisabled}
           InputProps={{
-            sx: {
-              borderRadius: "20px",
-              backgroundColor: "#f5f5f5",
-              "&.MuiOutlinedInput-root": {
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid #ccc",
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "2px solid #f08636",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid #f08636",
-                },
-              },
-            },
+            inputComponent: TextFieldChat,
           }}
         />
         <Button

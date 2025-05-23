@@ -35,9 +35,14 @@ function WizardDenuncia() {
 
   const handleDenunciaRealizada = async (datos) => {
     try {
-      const session = getSession("token");
-      await guardarDenuncia(session?.token, session?.data.id_centro, datos);
-      setStep(3);
+      const guardarDatosDenuncia = async () => {
+        const session = getSession("token");
+        const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
+        setStep(3);
+        const idDenuncia = response.id_denuncia;
+        console.log("Denuncia:", idDenuncia);
+      };
+      await guardarDatosDenuncia();
     } catch (error) {
       console.error("Error al registrar la denuncia:", error);
       alert("Hubo un error al registrar la denuncia. Inténtalo de nuevo.");
