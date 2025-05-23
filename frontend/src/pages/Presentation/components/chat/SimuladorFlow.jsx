@@ -42,6 +42,7 @@ function SimuladorFlujo() {
   const idTestRef = useRef(null);
   const scrollRef = useRef(null);
   const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
+
   const inputDisabled = cargando || hayOpciones || (sessionId && !testEnviado && !faseDenuncia);
   // valores: `null` = ningún test; número = id de test a reanudar
   // valores: "null" | "pending" | "observation"
@@ -94,25 +95,25 @@ function SimuladorFlujo() {
 
     const init = async () => {
       try {
-        // 1) Cargo todos los tests
         const allTests = await obtenerTests(token);
+        const vivos = allTests.filter(
+          (t) => !t.Denuncia || !["resuelta", "rechazada"].includes(t.Denuncia.estado)
+        );
 
-        // 2) Encuentro el primero con Denuncia
-        const vinculado = allTests.find((t) => t.Denuncia != null);
-        const localTestId = vinculado?.id_test ?? null;
-        const localHasTest = Boolean(vinculado);
+        // Calcula todo en variables locales
+        const localHasTest = vivos.length > 0;
+        const reusable = vivos.find((t) => !t.Denuncia) || null;
+        const localTestId = reusable?.id_test ?? null;
+
         let localStatus = "none";
-
-        // 3) Si existe Denuncia, voy a buscar su estado
-        if (vinculado?.Denuncia) {
+        const vinculado = vivos.find((t) => t.Denuncia) || null;
+        if (vinculado) {
+          const idDenuncia = vinculado.Denuncia.id_denuncia ?? vinculado.Denuncia;
           const { denuncias } = await getDenunciaPorId(token);
-          const encontrada = denuncias.find((d) => d.id_denuncia === vinculado.Denuncia);
+          const encontrada = denuncias.find((d) => d.id_denuncia === idDenuncia);
           localStatus = encontrada?.estado ?? "none";
         }
-
-        // 4) Actualizo tu state (si lo necesitas en render)
-
-        // 5) **Y ahora sí**, inicio el flujo
+        // Y arranca el flujo con *estos* valores, no con los estados
         await iniciarFlujo({
           usuario,
           setMensajes,
@@ -121,8 +122,8 @@ function SimuladorFlujo() {
           setIsMultipleChoice,
           setOpcionesActivas,
           variables: {
-            testId: localTestId,
             hasTest: localHasTest,
+            testId: localTestId,
             denunciaStatus: localStatus,
           },
         });
