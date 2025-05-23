@@ -47,7 +47,7 @@ export default function App() {
               route: r.route.replace("/admin/", ""),
             }))
           )}
-          <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/admin/panel" replace />} />
         </Route>
 
         <Route path="/*" element={<PublicShell />} />
