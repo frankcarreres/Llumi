@@ -47,10 +47,14 @@ export default function AdminLayout() {
     return <Navigate to="/" replace />;
   }
   useEffect(() => {
-    const handleLeave = () => clearSession();
-    window.addEventListener("beforeunload", handleLeave);
-    return () => window.removeEventListener("beforeunload", handleLeave);
-  }, []);
+    // Si NO estamos en modo "remember me", limpiamos al cerrar pestaña
+    if (!session.remember) {
+      const handleLeave = () => clearSession();
+      window.addEventListener("beforeunload", handleLeave);
+      return () => window.removeEventListener("beforeunload", handleLeave);
+    }
+    // Si remember === true, no instalamos ningún listener
+  }, [session.remember]);
 
   // Forzar LTR
   useEffect(() => {

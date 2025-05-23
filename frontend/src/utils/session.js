@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 // Claves constantes
 const TOKEN_KEY = "token";
 const DATA_KEY = "data";
+const REMEMBER_KEY = "remember_session";
 
 // Opciones comunes a todas las cookies
 const BASE_COOKIE_OPTIONS = {
@@ -27,6 +28,7 @@ export function saveSession({ token, data }, remember = false, days = 7) {
   if (data) {
     Cookies.set(DATA_KEY, JSON.stringify(data), opts);
   }
+  Cookies.set(REMEMBER_KEY, remember.toString(), opts);
 }
 
 /**
@@ -36,9 +38,14 @@ export function getSession() {
   const token = Cookies.get(TOKEN_KEY);
   if (!token) return null;
 
+  const rememberRaw = Cookies.get(REMEMBER_KEY);
+  if (rememberRaw == null) return null;
+  const remember = rememberRaw === "true";
+
   try {
     const raw = Cookies.get(DATA_KEY);
-    return { token, data: raw ? JSON.parse(raw) : null };
+    const data = raw ? JSON.parse(raw) : null;
+    return { token, data, remember };
   } catch (e) {
     return null;
   }
@@ -67,4 +74,5 @@ export function isUsuario() {
 export function clearSession() {
   Cookies.remove(TOKEN_KEY, { path: "/" });
   Cookies.remove(DATA_KEY, { path: "/" });
+  Cookies.remove(REMEMBER_KEY, { path: "/" });
 }

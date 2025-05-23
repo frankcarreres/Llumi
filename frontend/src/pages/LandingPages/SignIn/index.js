@@ -81,7 +81,7 @@ function SignInBasic() {
       if (isUsuario()) {
         navigate("/");
       } else if (isCentro()) {
-        navigate("/admin/dashboard");
+        navigate("/admin/panel");
       } else {
         navigate("/");
       }
