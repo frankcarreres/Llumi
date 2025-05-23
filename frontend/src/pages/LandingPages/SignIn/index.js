@@ -130,7 +130,7 @@ function SignInBasic() {
                   <MKBox mb={2}>
                     <InputAnimado
                       type="text"
-                      placeholder="Usuari"
+                      placeholder="Usuario"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -157,7 +157,7 @@ function SignInBasic() {
                     <MKBox sx={{ position: "relative" }}>
                       <InputAnimado
                         type={showPassword ? "text" : "password"}
-                        placeholder="Contrasenya"
+                        placeholder="Contraseña"
                         value={contrasena}
                         onChange={(e) => setContrasena(e.target.value)}
                       />
@@ -219,7 +219,7 @@ function SignInBasic() {
                   <MKBox mt={3} mb={1} textAlign="center">
                     <MKTypography variant="button" color="text">
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
-                      Se t'ha oblidat la contrasenya?
+                      Has olvidado tu contraseña?
                       <MKTypography
                         component="button"
                         onClick={() => navigate("/pages/authentication/reset-password")}
@@ -239,7 +239,7 @@ function SignInBasic() {
                           },
                         }}
                       >
-                        Reinicialitzar-ho
+                        Cambiarla{" "}
                       </MKTypography>
                     </MKTypography>
                   </MKBox>

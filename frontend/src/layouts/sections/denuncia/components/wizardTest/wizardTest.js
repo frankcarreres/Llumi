@@ -33,6 +33,7 @@ const WizardTest = ({ setMostrarDenuncia }) => {
   const [totalScore, setTotalScore] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const totalSteps = 8;
+  const [setIdTest] = useState(null);
 
   const variants = {
     enter: (direction) => ({
@@ -250,6 +251,39 @@ const WizardTest = ({ setMostrarDenuncia }) => {
   // Usamos useEffect para recalcular el puntaje cada vez que cambian las respuestas
   useEffect(() => {
     calculateTotalScore(); // Recalcular puntaje cuando cambian las respuestas
+
+    if (step === 8) {
+      const resumenPlano = {
+        "¿Cómo empezó la situación que estás viviendo?": labelP1,
+        "¿Dónde suele ocurrir lo que está pasando?": Array.isArray(labelsP2)
+          ? labelsP2.join(", ")
+          : labelsP2,
+        "¿Qué tipo de cosas hacen esas personas?": Array.isArray(labelsP3)
+          ? labelsP3.join(", ")
+          : labelsP3,
+        "¿Con qué frecuencia ocurre lo que está pasando?": labelP4,
+        "¿Cómo reaccionan los demás compañeros cuando ocurre?": Array.isArray(labelsP5)
+          ? labelsP5.join(", ")
+          : labelsP5,
+        "¿Has intentado pedir que se detuviera la situación?": labelP6,
+        "¿Cómo te sientes por lo que está pasando?": Array.isArray(labelsP7)
+          ? labelsP7.join(", ")
+          : labelsP7,
+      };
+
+      const resumenString = JSON.stringify(resumenPlano);
+      const nivelRiesgo = calcularNivelRiesgo(totalScore);
+      const token = Cookies.get("token");
+
+      const guardarDatos = async () => {
+        const response = await guardarTest(token, resumenString, nivelRiesgo.toString());
+        const idTest = response.id_test;
+        setIdTest(idTest);
+        console.log("Solo el ID:", idTest);
+      };
+
+      guardarDatos();
+    }
   }, [
     selectedPregunta1,
     selectedPregunta2,
@@ -258,7 +292,8 @@ const WizardTest = ({ setMostrarDenuncia }) => {
     selectedPregunta5,
     selectedPregunta6,
     selectedPregunta7,
-  ]); // Se vuelve a calcular cuando se cambia la selección
+    step,
+  ]);
 
   const next = () => {
     if (step < totalSteps) {
@@ -349,38 +384,11 @@ const WizardTest = ({ setMostrarDenuncia }) => {
                   {step === 8 && (
                     <>
                       <Total
-                        totalScore={totalScore}
+                        totalScore={totalScore.toString()}
                         nivelRiesgo={nivelRiesgo}
                         onDenunciaClick={() => setMostrarDenuncia(true)}
                       />
-                      {(() => {
-                        const resumenPlano = {
-                          "¿Cómo empezó la situación que estás viviendo?": labelP1,
-                          "¿Dónde suele ocurrir lo que está pasando?": Array.isArray(labelsP2)
-                            ? labelsP2.join(", ")
-                            : labelsP2,
-                          "¿Qué tipo de cosas hacen esas personas?": Array.isArray(labelsP3)
-                            ? labelsP3.join(", ")
-                            : labelsP3,
-                          "¿Con qué frecuencia ocurre lo que está pasando?": labelP4,
-                          "¿Cómo reaccionan los demás compañeros cuando ocurre?": Array.isArray(
-                            labelsP5
-                          )
-                            ? labelsP5.join(", ")
-                            : labelsP5,
-                          "¿Has intentado pedir que se detuviera la situación?": labelP6,
-                          "¿Cómo te sientes por lo que está pasando?": Array.isArray(labelsP7)
-                            ? labelsP7.join(", ")
-                            : labelsP7,
-                        };
-
-                        const resumenString = JSON.stringify(resumenPlano);
-                        // Llama a la función y guarda el resultado
-                        const nivelRiesgo = calcularNivelRiesgo(totalScore);
-                        const token = Cookies.get("token");
-                        void guardarTest(token, resumenString, nivelRiesgo.toString());
-                        return null;
-                      })()}
+                      {(() => {})()}
                     </>
                   )}
                 </>

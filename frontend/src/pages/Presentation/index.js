@@ -15,7 +15,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/bg.gif";
+import bgImage from "assets/bg.webp";
 import Index from "./components/chat/SimuladorFlow";
 import publicRoutes from "../../routes/publicRoutes";
 import { getSession } from "utils/session";
@@ -33,7 +33,7 @@ function Presentation() {
     <>
       <DefaultNavbar brand="Llumí" routes={publicRoutes} sticky />
       <MKBox
-        minHeight="80vh"
+        minHeight="140vh"
         width="100%"
         sx={{
           position: "relative",
@@ -41,9 +41,10 @@ function Presentation() {
           backgroundSize: "cover",
           backgroundPosition: "top",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start", // Esto los sube hacia arriba
           justifyContent: "center",
           overflow: "hidden",
+          pt: { xs: 12, md: 25 }, //  Ajusta cuánto los subes con padding
           "&::before": {
             content: '""',
             position: "absolute",
@@ -51,7 +52,7 @@ function Presentation() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.3)", // Negro semitransparente
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
             zIndex: 1,
           },
         }}
@@ -91,18 +92,20 @@ function Presentation() {
           zIndex: 10,
           p: 2,
           mx: { xs: 2, lg: 3 },
-          mt: -8,
+          mt: -68,
           mb: 4,
-          backgroundColor: ({ palette: { white }, functions: { rgba } }) => rgba(white.main, 0.9),
-          backdropFilter: "saturate(200%) blur(30px)",
-          boxShadow: ({ boxShadows: { xxl } }) => xxl,
+          background: "rgba(255, 255, 255, 0.25)",
+          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderRadius: "10px",
+          border: "1px solid rgba(255, 255, 255, 0.18)",
         }}
       >
         <Index />
-        <div />
       </Card>
 
-      <MKBox pt={6} px={1} mt={6}>
+      <MKBox pt={4} px={1} mt={2}>
         <DefaultFooter content={footerRoutes} />
       </MKBox>
     </>

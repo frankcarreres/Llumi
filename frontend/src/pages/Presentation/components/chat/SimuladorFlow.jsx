@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, TextField, Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 
 import TypingIndicator from "components/ChatComponents/TypingIndicator";
 
@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { getHistory, getSessionId, saveHistory, saveSessionId } from "utils/chatStorage";
 import OptionAnimada from "components/ChatComponents/OpcionAnimada";
 import BurbujaMensaje from "components/ChatComponents/BurbujasMensaje";
+import SendIcon from "@mui/icons-material/Send";
+import Mkbox from "components/MKBox";
 
 function SimuladorFlujo() {
   const [faseLogin, setFaseLogin] = useState("email");
@@ -193,29 +195,39 @@ function SimuladorFlujo() {
   };
 
   return (
-    <Box
+    <Mkbox
       sx={{
         width: "100%",
-        maxWidth: "1300px",
+        maxWidth: "1400px",
         height: "600px",
         display: "flex",
         flexDirection: "column",
         borderRadius: 2,
-        boxShadow: 3,
         overflow: "hidden",
         mx: "auto",
         my: 4,
       }}
     >
-      <Box
+      <Mkbox
         ref={scrollRef}
         sx={{
           flex: 1,
           overflowY: "auto",
           p: 2,
-          backgroundColor: "#f9f9fb",
+          backgroundColor: "transparent",
           display: "flex",
           flexDirection: "column",
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "transparent",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "transparent",
+          },
+          scrollbarWidth: "thin",
+          scrollbarColor: "transparent transparent",
         }}
       >
         {mensajes.map(
@@ -226,7 +238,7 @@ function SimuladorFlujo() {
         {escribiendo && <TypingIndicator />}
 
         {mensajes.some((m) => m.tipo === "opcion") && (
-          <Box display="flex" flexDirection="column" alignItems="flex-start" gap={1} mt={1}>
+          <Mkbox display="flex" flexDirection="column" alignItems="flex-start" gap={1} mt={1}>
             {mensajes
               .filter((m) => m.tipo === "opcion")
               .map((m, i) => (
@@ -248,17 +260,16 @@ function SimuladorFlujo() {
                   selected={opcionesActivas.includes(m.texto)}
                 />
               ))}
-          </Box>
+          </Mkbox>
         )}
-      </Box>
+      </Mkbox>
 
-      <Box
+      <Mkbox
         sx={{
           display: "flex",
           gap: 1,
           p: 2,
-          borderTop: "1px solid #ddd",
-          backgroundColor: "#fff",
+          backgroundColor: "transparent",
         }}
       >
         <TextField
@@ -270,24 +281,40 @@ function SimuladorFlujo() {
           type={faseLogin === "password" && !token ? "password" : "text"}
           variant="outlined"
           disabled={inputDisabled}
-          InputProps={{
-            sx: {
-              borderRadius: "20px",
-              backgroundColor: "#f5f5f5",
-              "&.MuiOutlinedInput-root": {
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid #ccc",
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "transparent",
+              },
+              "&:hover fieldset": {
+                borderColor: "transparent",
+              },
+              "&.Mui-focused": {
+                "& .MuiOutlinedInput-notchedOutline, &:after": {
+                  borderColor: "none",
                 },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "2px solid #f08636",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid #f08636",
-                },
+                borderColor: "none",
+                transform: "scale(1.008)",
+              },
+              boxShadow: "none",
+              borderRadius: "15px",
+            },
+            "& input": {
+              zIndex: 1,
+              border: "none",
+              outline: "none",
+              borderRadius: "15px",
+              bgcolor: "rgba(224,227,228,255)",
+              boxShadow: "inset 2px 5px 10px rgba(0,0,0,0.3)",
+              transition: "300ms ease-in-out",
+              "&:focus": {
+                bgcolor: "#fff",
+                transform: "scale(1.005)",
               },
             },
           }}
         />
+        <Mkbox></Mkbox>
         <Button
           variant="contained"
           onClick={() => manejarEnvio()}
@@ -302,10 +329,10 @@ function SimuladorFlujo() {
             },
           }}
         >
-          {cargando ? <CircularProgress size={24} sx={{ color: "#fff" }} /> : "Enviar"}
+          {cargando ? <CircularProgress size={24} sx={{ color: "#fff" }} /> : <SendIcon />}
         </Button>
-      </Box>
-    </Box>
+      </Mkbox>
+    </Mkbox>
   );
 }
 

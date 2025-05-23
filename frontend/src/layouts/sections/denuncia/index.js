@@ -24,6 +24,7 @@ function DenunciaUsuari() {
   const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
   const [resultadoTest, setResultadoTest] = useState(null);
   const [denunciaPendiente, setDenunciaPendiente] = useState(false);
+  const [idTest, setIdTest] = useState(null);
 
   useEffect(() => {
     const session = getSession("token");
@@ -64,17 +65,18 @@ function DenunciaUsuari() {
   const mostrar =
     location.pathname.includes("wizardDenuncia") || mostrarDenuncia ? (
       denunciaPendiente ? (
-        <WizardDenunciaSol />
+        <WizardDenunciaSol idTest={idTest} />
       ) : (
-        <WizardDenuncia />
+        <WizardDenuncia idTest={idTest} />
       )
     ) : resultadoTest && resultadoTest.resultado ? (
       <WizardTestSol
         resultadoTest={resultadoTest.resultado}
         setMostrarDenuncia={setMostrarDenuncia}
+        setIdTest={setIdTest} // si quieres que WizardTestSol también pase idTest
       />
     ) : (
-      <WizardTest setMostrarDenuncia={setMostrarDenuncia} />
+      <WizardTest setMostrarDenuncia={setMostrarDenuncia} setIdTest={setIdTest} />
     );
 
   const mostrarBotonDenuncia = !location.pathname.includes("wizardDenuncia") && !mostrarDenuncia;
