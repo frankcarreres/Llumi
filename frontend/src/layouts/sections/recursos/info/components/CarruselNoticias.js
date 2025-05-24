@@ -1,3 +1,6 @@
+// Función que retorna la URL de una imagen aleatoria agregando un parámetro dinámico
+const getImagenRandom = (id) => `https://picsum.photos/800/600?random=${id}`;
+
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
@@ -9,7 +12,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { IconButton } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import bgDefault from "../../../../../assets/images/bg-not-img.jpeg";
 
 function CarruselNoticias({ destacadas }) {
   const [noticias, setNoticias] = useState([]);
@@ -45,7 +47,7 @@ function CarruselNoticias({ destacadas }) {
     slidesToScroll: destacadas ? 3 : 4,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 10000, // 10s
+    autoplaySpeed: 10000, // 10 segundos
     responsive: [
       {
         breakpoint: 960,
@@ -89,7 +91,6 @@ function CarruselNoticias({ destacadas }) {
         mt: 2,
       }}
     >
-      {" "}
       <IconButton
         onClick={() => sliderRef.current?.slickPrev()}
         sx={{
@@ -107,7 +108,7 @@ function CarruselNoticias({ destacadas }) {
               <TarjetaNoticia
                 titulo={noticia.titulo}
                 descripcion={noticia.contenido}
-                imagen={noticia.img || bgDefault} // Cargar imagen default
+                imagen={noticia.img ? noticia.img : getImagenRandom(index)}
                 url={noticia.url}
               />
             </MKBox>

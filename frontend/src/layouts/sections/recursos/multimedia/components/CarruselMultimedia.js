@@ -12,6 +12,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 function CarruselMultimedia({ destacados, tipo }) {
   const [recursos, setRecursos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -40,14 +41,18 @@ function CarruselMultimedia({ destacados, tipo }) {
     void fetchRecursos();
   }, [destacados, tipo]);
 
+  // Cantidad de slides visibles (ajústala en función de tus necesidades/responsive)
+  const slidesVisible = 3;
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: slidesVisible,
+    slidesToScroll: slidesVisible,
     arrows: false,
     autoplay: false,
+    afterChange: (current) => setCurrentSlide(current),
     responsive: [
       {
         breakpoint: 960,
@@ -104,24 +109,29 @@ function CarruselMultimedia({ destacados, tipo }) {
 
       <MKBox sx={{ width: "101%" }}>
         <Slider ref={sliderRef} {...settings}>
-          {recursos.map((item, index) => (
-            <MKBox
-              key={index}
-              mx={1}
-              sx={{ height: "100%", display: "flex", justifyContent: "center" }}
-            >
-              <iframe
-                width="98%"
-                height="300"
-                src={item.url}
-                title={item.titulo}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                style={{ borderRadius: "16px" }} // <-- Añade esto
-              ></iframe>
-            </MKBox>
-          ))}
+          {recursos.map((item, index) => {
+            // Verifica si el slide está visible
+            const isActive = index >= currentSlide && index < currentSlide + slidesVisible;
+            return (
+              <MKBox
+                key={index}
+                mx={1}
+                sx={{ height: "100%", display: "flex", justifyContent: "center" }}
+              >
+                <iframe
+                  width="98%"
+                  height="300"
+                  // Se carga el src solo si el slide es activo
+                  src={isActive ? item.url : ""}
+                  title={item.titulo}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  style={{ borderRadius: "16px" }}
+                ></iframe>
+              </MKBox>
+            );
+          })}
         </Slider>
       </MKBox>
 
