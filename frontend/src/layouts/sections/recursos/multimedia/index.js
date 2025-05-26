@@ -1,15 +1,26 @@
+import React from "react";
 // Sections components
 import BaseLayout from "../../components/BaseLayout";
 import CarruselMultimedia from "./components/CarruselMultimedia";
 import MKBox from "../../../../components/MKBox";
 import MKTypography from "../../../../components/MKTypography";
-import React from "react";
+import { keyframes } from "@mui/system";
 
-// PageHeaders page components code
+// Animación de fade-in y slide-up
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 function RecursMultimedia() {
   return (
     <BaseLayout
-      // title="recursos multimedia"
       breadcrumb={[
         { label: "Inicio", route: "/pages/presentation" },
         { label: "Recursos", route: "/sections/recursos/inici" },
@@ -29,12 +40,15 @@ function RecursMultimedia() {
           px: 2,
           py: 1,
           borderRadius: "3px",
+          animation: `${fadeInUp} 1s ease-out`,
         }}
       >
         VIDEOS FORMATIVOS
       </MKTypography>
+
       <CarruselMultimedia tipo="video" />
       <MKBox mt={6} />
+
       <MKTypography
         variant="h4"
         fontWeight="light"
@@ -47,10 +61,14 @@ function RecursMultimedia() {
           px: 2,
           py: 1,
           borderRadius: "3px",
+          animation: `${fadeInUp} 1s ease-out`,
+          animationDelay: "0.5s",
+          animationFillMode: "both",
         }}
       >
         PODCASTS/ENTREVISTAS
       </MKTypography>
+
       <CarruselMultimedia tipo="podcast" />
     </BaseLayout>
   );
