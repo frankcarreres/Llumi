@@ -5,18 +5,18 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import DefaultFooter from "examples/Footers/DefaultFooter";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
+import DefaultFooter from "components/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 import bgImage from "assets/bg.gif";
-import WizardTest from "./components/wizardTest/wizardTest";
-import WizardDenuncia from "./components/wizardDenuncia/wizardDenuncia";
-import BotoDenuncia from "components/botoDenuncia";
-import { WizardTestSol } from "./components/wizardTest/wizardTestSol";
+import BotoDenuncia from "components/DenunciaComponents/botoDenuncia";
 import publicRoutes from "../../../routes/publicRoutes";
 import { getDenunciaPorId } from "services/api";
-import { WizardDenunciaSol } from "./components/wizardDenuncia/wizardDenunciaSol";
 import { getSession } from "utils/session";
+import { WizardDenunciaSol } from "../denuncia/wizardDenuncia/wizardDenunciaSol";
+import WizardDenuncia from "../denuncia/wizardDenuncia/wizardDenuncia";
+import { WizardTestSol } from "../denuncia/wizardTest/wizardTestSol";
+import WizardTest from "../denuncia/wizardTest/wizardTest";
 
 function DenunciaUsuari() {
   const location = useLocation();

@@ -1,5 +1,5 @@
 import BaseLayout from "../components/BaseLayout";
-import CarruselTarjetes from "./components/CarruselTarjetes";
+import CarruselTarjetes from "components/RecursosComponents/CarruselTarjetes";
 
 function RecursIni() {
   return (

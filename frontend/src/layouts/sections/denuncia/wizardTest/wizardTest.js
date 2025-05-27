@@ -11,10 +11,10 @@ import {
   Pregunta5,
   Pregunta6,
   Pregunta7,
-} from "./components/preguntasTest";
-import { Inicio, Total } from "components/componentsDenuncia";
-import { calcularNivelRiesgo } from "utils/calculoRiesgo";
-import { guardarTest } from "services/api";
+} from "components/DenunciaComponents/preguntasTest";
+import { Inicio, Total } from "components/DenunciaComponents/componentsDenuncia";
+import { calcularNivelRiesgo } from "../../../../utils/calculoRiesgo";
+import { guardarTest } from "../../../../services/api";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 

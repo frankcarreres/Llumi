@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { exportToPDF } from "utils/exportToPDF";
+import { exportToPDF } from "../../utils/exportToPDF";
 import Icon from "@mui/material/Icon";
 import "./index.css";
 import Button from "@mui/material/Button";
@@ -15,7 +15,6 @@ const TarjetaArticle = ({ id, titulo, fecha_publicacion, contenido }) => {
     year: "numeric",
   });
 
-  // Al pinchar, navegamos a la ruta detalle pasando el contenido por state
   const openDetail = () => {
     navigate(`/sections/recursos/centre/${id}`, {
       state: { titulo, fecha_publicacion, contenido },

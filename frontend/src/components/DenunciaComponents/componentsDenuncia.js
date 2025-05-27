@@ -1,3 +1,4 @@
+// Importación de componentes de Material-UI, PropTypes para validaciones, React, y componentes personalizados.
 import { Box, IconButton, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
@@ -5,8 +6,10 @@ import BotoTest from "./botoTest";
 import BotoDenuncia from "./botoDenuncia";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+// Definición de los pasos utilizados para el seguimiento de la denunicación.
 const steps = ["pendiente", "en_progreso", "en_observacion", "resuelta"];
 
+// Objeto que define colores asociados a cada estado.
 const colors = {
   pendiente: "#f1c40f",
   en_progreso: "#2980b9",
@@ -15,10 +18,17 @@ const colors = {
   gris: "#ccc",
 };
 
+/*
+  Componente Total:
+  - Muestra un resumen del resultado del test basado en el score total.
+  - Según el puntaje, asigna un título, mensaje y color.
+  - Si el score es mayor a 13, muestra un botón para denunciar.
+*/
 export const Total = ({ totalScore, onDenunciaClick }) => {
   const score = parseFloat(totalScore);
+
   const handleDenunciar = () => {
-    if (onDenunciaClick) onDenunciaClick(); // Llamamos a la función del padre
+    if (onDenunciaClick) onDenunciaClick();
   };
 
   let titulo = "";
@@ -33,7 +43,7 @@ export const Total = ({ totalScore, onDenunciaClick }) => {
   } else if (score <= 13) {
     titulo = "Situación de riesgo medio";
     mensaje =
-      "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoran.";
+      "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoren.";
     color = "#FFC107";
   } else if (score <= 16) {
     titulo = "Situación grave";
@@ -70,6 +80,7 @@ export const Total = ({ totalScore, onDenunciaClick }) => {
         </Typography>
       </Box>
 
+      {/* Si el score es mayor a 13, se muestra el botón para denunciar */}
       {score > 13 && (
         <Box mt={4}>
           <BotoDenuncia onClick={handleDenunciar} color={color}>
@@ -86,9 +97,15 @@ Total.propTypes = {
   onDenunciaClick: PropTypes.func,
 };
 
+/*
+  Componente TotalSolucio:
+  - Recibe un resultado textual y muestra un título, mensaje y color basado en ese resultado.
+  - Utiliza un switch para determinar la presentación.
+  - Muestra un botón de denuncia solo para ciertos niveles de riesgo.
+*/
 export const TotalSolucio = ({ resultado, onDenunciaClick }) => {
   const handleDenunciar = () => {
-    if (onDenunciaClick) onDenunciaClick(); // Llamamos a la función del padre
+    if (onDenunciaClick) onDenunciaClick();
   };
 
   let titulo = "";
@@ -105,7 +122,7 @@ export const TotalSolucio = ({ resultado, onDenunciaClick }) => {
     case "Riesgo medio":
       titulo = "Situación de riesgo medio";
       mensaje =
-        "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoran.";
+        "Podrías estar enfrentando algunas situaciones que merecen atención. Parla con un profesor o una persona adulta de confianza. No estás solo/en, y es importante expresar como te sientes para evitar que las cosas empeoren.";
       color = "#FFC107";
       break;
     case "Riesgo alto":
@@ -150,6 +167,7 @@ export const TotalSolucio = ({ resultado, onDenunciaClick }) => {
         </Typography>
       </Box>
 
+      {/* Se muestra el botón denunciar solo para resultados de alto riesgo */}
       {["Riesgo alto", "Riesgo muy alto", "Riesgo crítico"].includes(resultado) && (
         <Box mt={4}>
           <BotoDenuncia onClick={handleDenunciar} color={color}>
@@ -166,6 +184,10 @@ TotalSolucio.propTypes = {
   onDenunciaClick: PropTypes.func,
 };
 
+/*
+  Componente Inicio:
+  - Muestra un mensaje introductorio invitando a realizar el test.
+*/
 export const Inicio = ({ onComenzar }) => (
   <Box textAlign="center">
     <Typography component="h4" fontSize="2rem" fontWeight={100} mb={4} sx={{ color: "#354667" }}>
@@ -181,6 +203,11 @@ Inicio.propTypes = {
   onComenzar: PropTypes.func.isRequired,
 };
 
+/*
+  Componente IniciSolucio:
+  - Similar a Inicio, muestra un mensaje indicando que el test ya fue realizado.
+  - Ofrece un botón para ver los resultados.
+*/
 export const IniciSolucio = ({ onComenzar }) => {
   return (
     <Box textAlign="center">
@@ -198,6 +225,11 @@ IniciSolucio.propTypes = {
   onComenzar: PropTypes.func.isRequired,
 };
 
+/*
+  Componente DenunciaSolucio:
+  - Indica que actualmente hay una denuncia activa.
+  - Ofrece un botón para ver el seguimiento del caso.
+*/
 export const DenunciaSolucio = ({ irASeguimiento }) => {
   return (
     <Box textAlign="center">
@@ -215,9 +247,16 @@ DenunciaSolucio.propTypes = {
   irASeguimiento: PropTypes.func.isRequired,
 };
 
+/*
+  Componente SeguimentDenuncia:
+  - Muestra el seguimiento del estado de la denuncia.
+  - Se muestra una barra de progreso que indica los pasos del seguimiento.
+*/
 export const SeguimentDenuncia = ({ estado, volver }) => {
   const currentStep = steps.indexOf(estado);
-  const estadosBonitos = {
+
+  // Mapea los estados a nombres
+  const estadosMostrar = {
     pendiente: "Pendiente",
     en_progreso: "En proceso",
     en_observacion: "En observación",
@@ -227,12 +266,11 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
 
   return (
     <Box sx={{ position: "relative", width: "100%" }}>
-      {/* Botón de volver flotante a la izquierda */}
       <IconButton
         onClick={volver}
         sx={{
           position: "absolute",
-          left: 32, // ajústalo según lo que necesites
+          left: 32,
           top: "50%",
           transform: "translateY(-50%)",
           backgroundColor: "#eee",
@@ -245,7 +283,6 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
         <ArrowBackIcon sx={{ fontSize: 48 }} />
       </IconButton>
 
-      {/* Contenedor blanco centrado */}
       <Box
         sx={{
           width: "100%",
@@ -277,10 +314,9 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
             mb: 8,
           }}
         >
-          Estado actual: {estadosBonitos[estado] || estado}
+          Estado actual: {estadosMostrar[estado] || estado}
         </Typography>
 
-        {/* Barra de seguimiento */}
         <Box
           display="flex"
           alignItems="center"
@@ -288,8 +324,11 @@ export const SeguimentDenuncia = ({ estado, volver }) => {
           sx={{ width: "100%", gap: 1 }}
         >
           {steps.map((step, index) => {
+            // Determina si el punto está activo
             const isActive = index <= currentStep;
+            // Color del punto activo o inactivo
             const pointColor = isActive ? colors[estado] : colors.gris;
+            // Color de la línea basado en si el paso ya ha sido completado
             const lineColor = index < currentStep ? colors[estado] : colors.gris;
 
             return (

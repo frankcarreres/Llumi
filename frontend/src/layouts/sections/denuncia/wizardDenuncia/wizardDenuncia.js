@@ -4,25 +4,30 @@ import { useNavigate } from "react-router-dom";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FormDenunciaAluVictima from "./components/formAluVictima";
-import FormDenunciaAluTestigo from "./components/formAluTestigo";
-import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
-import BotoTest from "components/botoTest";
-import { guardarDenuncia } from "services/api";
-import { getSession } from "utils/session";
 
+import FormDenunciaAluVictima from "components/DenunciaComponents/formAluVictima";
+import FormDenunciaAluTestigo from "components/DenunciaComponents/formAluTestigo";
+import imgDenuncia from "assets/images/img-denuncia.png";
+import BotoTest from "components/DenunciaComponents/botoTest";
+import { guardarDenuncia } from "../../../../services/api";
+import { getSession } from "../../../../utils/session";
+
+// Definición de las opciones para el primer paso del Wizard
 const optionsStep1 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },
   { label: "Testigo", icon: <VisibilityIcon sx={{ fontSize: 70 }} /> },
 ];
 
+// Componente principal del Wizard para denuncias
 function WizardDenuncia() {
+  // Estado para llevar el control del paso actual y la opción seleccionada
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
 
+  // Función para manejar la selección de una opción
   const handleSelect = (label) => {
-    setSelectedOption(label);
+    setSelectedOption(label); // Se guarda la opción (víctima o testigo)
     setStep(2);
   };
 
@@ -33,8 +38,10 @@ function WizardDenuncia() {
     }
   };
 
+  // Función asíncrona para enviar y guardar los datos de la denuncia
   const handleDenunciaRealizada = async (datos) => {
     try {
+      // Función interna para guardar la denuncia mediante API
       const guardarDatosDenuncia = async () => {
         const session = getSession("token");
         const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
@@ -53,13 +60,14 @@ function WizardDenuncia() {
     navigate("/sections/denuncia/components/wizardTest");
   };
 
+  // Función para renderizar las opciones del primer paso
   const renderOptions = (options, selected) => (
     <Grid container spacing={4} justifyContent="center">
       {options.map(({ label, icon }) => (
         <Grid item key={label} textAlign="center">
           <Paper
             elevation={3}
-            onClick={() => handleSelect(label)}
+            onClick={() => handleSelect(label)} // Al hacer clic, se selecciona la opción
             sx={{
               width: 70,
               height: 70,
@@ -129,7 +137,7 @@ function WizardDenuncia() {
             <Typography variant="h4" sx={{ fontSize: "2rem", fontWeight: 100, mb: 4 }}>
               ¿En qué posición te encuentras?
             </Typography>
-            {renderOptions(optionsStep1, selectedOption)}
+            {renderOptions(optionsStep1, selectedOption)} {/* Se renderizan las opciones */}
           </Box>
         )}
 
@@ -167,7 +175,7 @@ function WizardDenuncia() {
             >
               La denuncia se ha realizado correctamente
             </Typography>
-            <BotoTest onClick={handleReturn}>volver</BotoTest>
+            <BotoTest onClick={handleReturn}>volver</BotoTest>{" "}
           </Box>
         )}
       </Box>

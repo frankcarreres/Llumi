@@ -11,7 +11,7 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
 
 // Layout routes
 import { useNavigate } from "react-router-dom";

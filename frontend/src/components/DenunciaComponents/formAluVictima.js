@@ -11,18 +11,19 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import BotoDenuncia from "components/botoDenuncia";
+import BotoDenuncia from "components/DenunciaComponents/botoDenuncia";
 import PropTypes from "prop-types";
+import { getSession } from "../../utils/session";
 
-function FormDenunciaAluTestigo({ onDenunciar }) {
+function FormDenunciaAluVictima({ onDenunciar }) {
   const [descripcion, setDescripcion] = useState("");
   const [tiposAcoso, setTiposAcoso] = useState([]);
-  const [acosado, setAcosado] = useState("");
-  const [relacionAcosado, setRelacionAcosado] = useState("");
-  const [hayTestigos, setHayTestigos] = useState("");
+  const [acosador, setAcosador] = useState("");
+  const [hayTestigos, setHayTestigos] = useState(null); // Usar null en lugar de ""
   const [quienTestigo, setQuienTestigo] = useState("");
   const [intervinoDocente, setIntervinoDocente] = useState("");
   const [quienDocente, setQuienDocente] = useState("");
+  const session = getSession("token");
 
   const handleTipoAcosoChange = (event) => {
     const value = event.target.name;
@@ -45,7 +46,7 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
         gutterBottom
         sx={{ letterSpacing: 2, marginBottom: 6 }}
       >
-        Formulario de denuncia (Testigo)
+        Formulario de denuncia
       </Typography>
 
       <TextField
@@ -60,7 +61,7 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
 
       <FormControl component="fieldset" fullWidth style={{ marginBottom: 30 }}>
         <FormLabel component="legend" sx={{ fontSize: "1rem", color: "#333", fontWeight: 400 }}>
-          ¿Qué tipo de acoso has presenciado?
+          ¿Qué tipo de acoso has vivido?
         </FormLabel>
         <FormGroup>
           {["Físico", "Verbal", "Social", "Cibernético", "Sexual"].map((tipo) => (
@@ -71,7 +72,7 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
                   checked={tiposAcoso.includes(tipo)}
                   onChange={handleTipoAcosoChange}
                   name={tipo}
-                  sx={{ color: "lightgrey", "&.Mui-checked": { color: "#333" } }}
+                  sx={{ color: "lightgrey", "&.Mui-checked": { color: "#333" } }} // Cambiar color de texto a light
                 />
               }
               label={tipo}
@@ -81,18 +82,10 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
       </FormControl>
 
       <TextField
-        label="¿Quién está siendo acosado/a?"
+        label="¿Quién te está acosando?"
         fullWidth
-        value={acosado}
-        onChange={(e) => setAcosado(e.target.value)}
-        style={{ marginBottom: 30 }}
-      />
-
-      <TextField
-        label="¿Cuál es tu relación con la persona acosada?"
-        fullWidth
-        value={relacionAcosado}
-        onChange={(e) => setRelacionAcosado(e.target.value)}
+        value={acosador}
+        onChange={(e) => setAcosador(e.target.value)}
         style={{ marginBottom: 30 }}
       />
 
@@ -108,7 +101,7 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
 
       {hayTestigos === "si" && (
         <TextField
-          label="¿Nos puedes decir qué otras personas lo han presenciado?"
+          label="¿Nos puedes decir quién?"
           fullWidth
           value={quienTestigo}
           onChange={(e) => setQuienTestigo(e.target.value)}
@@ -146,10 +139,10 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
           onClick={() => {
             const datos = {
               descripcion: descripcion,
-              tipo_acoso: tiposAcoso,
-              nombre_victima: acosado,
-              relacion_victima: relacionAcosado,
-              es_testigo: "si",
+              tipo_acoso: tiposAcoso.join(", "),
+              nombre_victima: session?.data.nombre,
+              nombre_acosador: acosador,
+              es_testigo: "no",
               testigos: hayTestigos,
               nombre_testigo_extra: quienTestigo,
               intervencion_docente: intervinoDocente,
@@ -165,8 +158,8 @@ function FormDenunciaAluTestigo({ onDenunciar }) {
   );
 }
 
-FormDenunciaAluTestigo.propTypes = {
+FormDenunciaAluVictima.propTypes = {
   onDenunciar: PropTypes.func.isRequired,
 };
 
-export default FormDenunciaAluTestigo;
+export default FormDenunciaAluVictima;

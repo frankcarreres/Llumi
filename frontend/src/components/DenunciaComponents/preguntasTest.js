@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {
   Box,
   FormControl,
@@ -10,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
+// Opciones para las preguntas
 const opcionesPregunta1 = [
   { value: "p1s1", label: "No lo sé / No lo recuerdo" },
   { value: "p1s2", label: "De repente" },
@@ -134,11 +136,11 @@ export const Pregunta2 = ({ selected, setSelected }) => {
     if (!option) return;
 
     setSelected((prev) => {
-      const isSelected = prev.includes(value); // Cambiar 'option.label' a 'value'
+      const isSelected = prev.includes(value);
       if (isSelected) {
-        return prev.filter((item) => item !== value); // Filtrar por 'value'
+        return prev.filter((item) => item !== value);
       } else {
-        return [...prev, value]; // Añadir 'value' al estado
+        return [...prev, value];
       }
     });
   };
@@ -231,7 +233,7 @@ export const Pregunta3 = ({ selected, setSelected }) => {
               value={item.value}
               control={
                 <Checkbox
-                  checked={selected.includes(item.value)} // Ahora se compara con el value
+                  checked={selected.includes(item.value)}
                   onChange={handleChange}
                   value={item.value}
                   sx={{ transform: "scale(0.8)" }}
@@ -266,7 +268,7 @@ Pregunta3.propTypes = {
 export const Pregunta4 = ({ selected, setSelected }) => {
   const handleChange = (e) => {
     const selectedValue = e.target.value;
-    setSelected(selectedValue); // Guardamos solo el value
+    setSelected(selectedValue);
   };
 
   return (
@@ -277,7 +279,7 @@ export const Pregunta4 = ({ selected, setSelected }) => {
 
       <FormControl component="fieldset" fullWidth>
         <RadioGroup
-          value={selected} // Ahora usamos directamente el value
+          value={selected}
           onChange={handleChange}
           sx={{
             display: "flex",
@@ -329,11 +331,8 @@ export const Pregunta5 = ({ selected, setSelected }) => {
     const option = opcionesPregunta5.find((item) => item.value === value);
     if (!option) return;
 
-    setSelected(
-      (prev) =>
-        prev.includes(value)
-          ? prev.filter((item) => item !== value) // Usamos el value para filtrar
-          : [...prev, value] // Usamos el value para agregar
+    setSelected((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
 
@@ -358,13 +357,13 @@ export const Pregunta5 = ({ selected, setSelected }) => {
               value={item.value}
               control={
                 <Checkbox
-                  checked={selected.includes(item.value)} // Verificamos si el value está en el array selected
+                  checked={selected.includes(item.value)}
                   onChange={handleChange}
-                  value={item.value} // Usamos el value
+                  value={item.value}
                   sx={{ transform: "scale(0.8)" }}
                 />
               }
-              label={item.label} // El label sigue mostrando en la interfaz
+              label={item.label}
               sx={{
                 width: "540px",
                 alignItems: "center",
@@ -395,7 +394,7 @@ export const Pregunta6 = ({ selected, setSelected }) => {
     const value = event.target.value;
     const option = opcionesPregunta6.find((item) => item.value === value);
     if (option) {
-      setSelected(value); // Aquí solo se pasa el value
+      setSelected(value);
     }
   };
 

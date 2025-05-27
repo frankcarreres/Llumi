@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { DenunciaSolucio, SeguimentDenuncia } from "components/componentsDenuncia";
-import { getSession } from "utils/session";
-import { getDenunciaPorId } from "services/api";
+import {
+  DenunciaSolucio,
+  SeguimentDenuncia,
+} from "components/DenunciaComponents/componentsDenuncia";
+import { getSession } from "../../../../utils/session";
+import { getDenunciaPorId } from "../../../../services/api";
 
+// Definición del componente funcional para el Wizard de Denuncia de Solución
 export const WizardDenunciaSol = () => {
   const [paso, setPaso] = useState(1);
   const [estadoDenuncia, setEstadoDenuncia] = useState(null);
   const session = getSession("token");
 
+  // Hook useEffect para cargar denuncias al iniciar el componente o cuando el token de la sesión cambie
   useEffect(() => {
+    // Función asíncrona para cargar denuncias desde el servicio API
     const cargarDenuncias = async () => {
       try {
         const { denuncias } = await getDenunciaPorId(session?.token);
-
         const estadosActivos = ["pendiente", "en_progreso", "en_observacion"];
-
         const activas = denuncias.filter((d) => estadosActivos.includes(d.estado?.toLowerCase()));
 
+        // Si existen denuncias activas, se actualiza el estado de la denuncia con el primero encontrado
         if (activas.length > 0) {
           setEstadoDenuncia(activas[0].estado);
         } else {
@@ -29,6 +34,7 @@ export const WizardDenunciaSol = () => {
       }
     };
 
+    // Se llama a la función cargarDenuncias solo si existe un token en la sesión
     if (session?.token) {
       cargarDenuncias();
     }

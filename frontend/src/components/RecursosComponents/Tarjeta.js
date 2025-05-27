@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import MKBox from "../../../../components/MKBox";
-import MKButton from "../../../../components/MKButton";
-import MKTypography from "../../../../components/MKTypography";
+import MKBox from "../MKBox";
+import MKButton from "../MKButton";
+import MKTypography from "../MKTypography";
 
 function TarjetaRecurs({ titulo, descripcion, imagen, ruta }) {
   const navigate = useNavigate();

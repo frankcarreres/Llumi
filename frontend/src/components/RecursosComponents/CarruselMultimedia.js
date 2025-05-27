@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MKBox from "../../../../../components/MKBox";
+import MKBox from "../MKBox";
 import CircularProgress from "@mui/material/CircularProgress";
 import { IconButton } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -15,9 +15,11 @@ function CarruselMultimedia({ destacados, tipo }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
+  // useEffect para obtener los recursos desde la API al montar o cambiar los props 'destacados' o 'tipo'
   useEffect(() => {
     const fetchRecursos = async () => {
       try {
+        // Selección del endpoint según el tipo de recurso (podcast o multimedia)
         const endpoint =
           tipo === "podcast"
             ? "http://13.216.39.33:3001/recursos/podcast"
@@ -26,6 +28,7 @@ function CarruselMultimedia({ destacados, tipo }) {
         const response = await fetch(endpoint);
         const data = await response.json();
 
+        // Filtrado de recursos si se requiere mostrar sólo los destacados
         if (destacados) {
           setRecursos(data.filter((item) => item.destacada === 1));
         } else {
@@ -41,7 +44,6 @@ function CarruselMultimedia({ destacados, tipo }) {
     void fetchRecursos();
   }, [destacados, tipo]);
 
-  // Cantidad de slides visibles (ajústala en función de tus necesidades/responsive)
   const slidesVisible = 3;
 
   const settings = {
@@ -110,7 +112,6 @@ function CarruselMultimedia({ destacados, tipo }) {
       <MKBox sx={{ width: "101%" }}>
         <Slider ref={sliderRef} {...settings}>
           {recursos.map((item, index) => {
-            // Verifica si el slide está visible
             const isActive = index >= currentSlide && index < currentSlide + slidesVisible;
             return (
               <MKBox
@@ -118,10 +119,11 @@ function CarruselMultimedia({ destacados, tipo }) {
                 mx={1}
                 sx={{ height: "100%", display: "flex", justifyContent: "center" }}
               >
+                {/* Uso de un iframe para mostrar el contenido del recurso.
+                    Se carga la URL solo si el slide es activo */}
                 <iframe
                   width="98%"
                   height="300"
-                  // Se carga el src solo si el slide es activo
                   src={isActive ? item.url : ""}
                   title={item.titulo}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import BaseLayout from "../../components/BaseLayout";
 import MKBox from "components/MKBox";
-import TarjetaArticle from "./components/tarjetaArticle";
+import TarjetaArticle from "components/RecursosComponents/TarjetaArticle";
 
 function RecursCentre() {
   const [articulos, setArticulos] = useState([]);
 
   useEffect(() => {
+    // Función asíncrona para realizar la petición a la API y obtener los datos
     const fetchArticulos = async () => {
       try {
         const response = await fetch("http://13.216.39.33:3001/recursos/articulos");
         const data = await response.json();
 
-        // Ordenar por fecha_publicacion descendente (más reciente primero)
+        // Ordenar los artículos en orden descendente por fecha de publicación (más reciente primero)
         const articulosOrdenados = data.articulos.sort(
           (a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)
         );

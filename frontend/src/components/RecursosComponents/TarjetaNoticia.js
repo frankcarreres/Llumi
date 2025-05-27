@@ -1,15 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MKBox from "../../../../../components/MKBox";
-import MKTypography from "../../../../../components/MKTypography";
-import MKButton from "../../../../../components/MKButton";
+import MKBox from "../MKBox";
+import MKTypography from "../MKTypography";
+import MKButton from "../MKButton";
 
 function TarjetaNoticia({ titulo, imagen, url }) {
-  // Función para truncar el texto del título
   const truncateText = (text, limit) =>
     text.length > limit ? `${text.substring(0, limit)}...` : text;
 
-  // Función que abre el enlace en una nueva pestaña sin redireccionar en la pestaña actual
   const handleClick = () => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -33,7 +31,6 @@ function TarjetaNoticia({ titulo, imagen, url }) {
           overflow: "hidden",
         }}
       >
-        {/* Overlay para oscurecer la imagen */}
         <MKBox
           sx={{
             position: "absolute",

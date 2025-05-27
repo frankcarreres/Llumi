@@ -21,13 +21,13 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React example components
-import DefaultNavbarDropdown from "examples/Navbars/DefaultNavbar/DefaultNavbarDropdown";
-import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
+import DefaultNavbarDropdown from "components/Navbars/DefaultNavbar/DefaultNavbarDropdown";
+import DefaultNavbarMobile from "components/Navbars/DefaultNavbar/DefaultNavbarMobile";
 
 // Material Kit 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
-import { clearSession, getSession } from "utils/session";
-import { clearHistory } from "utils/chatStorage";
+import { clearSession, getSession } from "../../../../src/utils/session";
+import { clearHistory } from "../../../../src/utils/chatStorage";
 
 function DefaultNavbar({ brand, routes, transparent, light, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
