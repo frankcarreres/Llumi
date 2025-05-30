@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
   const { email, contrasena } = req.body;
 
   if (!email || !contrasena) {
-    return res.status(400).json({ error: "Faltan campos obligatorios." })
+    return res.status(400).json({ error: "Faltan campos obligatorios." });
   }
 
   try {
