@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import { VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
 import BotonLuminoso from "pages/LandingPages/SignIn/components/BotonLuminoso";
 import InputAnimado from "pages/LandingPages/SignIn/components/InputAnimado";
 import publicRoutes from "routes/publicRoutes";

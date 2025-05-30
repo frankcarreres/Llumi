@@ -1,7 +1,7 @@
 import React from "react";
 // Sections components
 import BaseLayout from "../../components/BaseLayout";
-import CarruselMultimedia from "./components/CarruselMultimedia";
+import CarruselMultimedia from "components/RecursosComponents/CarruselMultimedia";
 import MKBox from "../../../../components/MKBox";
 import MKTypography from "../../../../components/MKTypography";
 import { keyframes } from "@mui/system";

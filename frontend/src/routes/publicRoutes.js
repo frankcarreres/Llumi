@@ -7,9 +7,7 @@ const RecursMulti = lazy(() => import("layouts/sections/recursos/multimedia"));
 const RecursCentre = lazy(() => import("layouts/sections/recursos/centre"));
 const Denuncia = lazy(() => import("layouts/sections/denuncia"));
 const Perfil = lazy(() => import("pages/LandingPages/Profile"));
-const ArticleDetail = lazy(() =>
-  import("layouts/sections/recursos/centre/components/article_detaill")
-);
+const ArticleDetail = lazy(() => import("components/RecursosComponents/article_detaill"));
 const ResetPassword = lazy(() => import("layouts/pages/authentication/reset-password/index"));
 
 export default [

@@ -1,18 +1,18 @@
 import React from "react";
 import BaseLayout from "../../components/BaseLayout";
-import CarruselNoticias from "./components/CarruselNoticias";
+import CarruselNoticias from "components/RecursosComponents/CarruselNoticias";
 import MKBox from "../../../../components/MKBox";
 import MKTypography from "../../../../components/MKTypography";
 import { keyframes } from "@mui/system";
 
-// Animación de fade-in y slide-up
+// Definición de la animación fade-in y slide-up usando keyframes
 const fadeInUp = keyframes`
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 0; 
+    transform: translateY(20px); 
   }
   to {
-    opacity: 1;
+    opacity: 1; 
     transform: translateY(0);
   }
 `;
@@ -27,6 +27,7 @@ function RecursInfo() {
       ]}
     >
       <MKBox mt={2} />
+
       <MKTypography
         variant="h4"
         fontWeight="light"
@@ -46,7 +47,9 @@ function RecursInfo() {
       </MKTypography>
 
       <CarruselNoticias destacadas={true} />
+
       <MKBox mt={8} />
+
       <MKTypography
         variant="h4"
         fontWeight="light"
@@ -66,6 +69,7 @@ function RecursInfo() {
       >
         ÚLTIMAS NOTICIAS
       </MKTypography>
+
       <CarruselNoticias />
     </BaseLayout>
   );

@@ -10,12 +10,12 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import Breadcrumbs from "examples/Breadcrumbs";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
+import Breadcrumbs from "components/Breadcrumbs";
 
 // Routes
 import publicRoutes from "../../../../routes/publicRoutes";
-import CenteredFooter from "examples/Footers/CenteredFooter";
+import CenteredFooter from "components/Footers/CenteredFooter";
 
 function BaseLayout({ breadcrumb, title, children }) {
   return (
