@@ -1,9 +1,1 @@
-IP servidor API: 13.216.39.33
-
-
-Usuario: antonio   
-Pass: antonio12345
-
-
-Usuario: frank   
-Pass: frank12345
+Este projecte naix com una iniciativa col·laborativa per desenvolupar una plataforma digital contra l’assetjament escolar, amb l’objectiu de proporcionar eines eficaces per detectar, denunciar i fer seguiment de casos d’assetjament dins de l’àmbit educatiu. El desenvolupament s'ha dut a terme per Juan Perpiña, Frank Carreres y Antonio Tian.
