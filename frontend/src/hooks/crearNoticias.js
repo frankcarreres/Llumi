@@ -16,7 +16,6 @@ export default function useCrearNoticia() {
     formData.append("titulo", titulo);
     formData.append("tipo", "artículo");
     formData.append("contenido", contenido);
-    formData.append("id_usuario", 1);
     if (img) formData.append("img", img);
     if (url) formData.append("url", url);
     if (destacada) formData.append("destacada", destacada);

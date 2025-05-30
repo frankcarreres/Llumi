@@ -273,18 +273,11 @@ exports.postNoticias = async (req, res) => {
       tipo,
       contenido,
       fecha_publicacion,
-      id_usuario,
       url,
       destacada,
     } = req.body;
     const { id_centro } = req.user;
     const img = req.file ? req.file.filename : undefined;
-
-    if (!tipo || !id_usuario) {
-      return res.status(400).json({
-        error: "Campos requeridos: 'tipo' e 'id_usuario'",
-      });
-    }
 
     const cols = [];
     const marks = [];
@@ -302,7 +295,6 @@ exports.postNoticias = async (req, res) => {
     push("tipo", tipo);
     push("contenido", contenido);
     push("fecha_publicacion", fecha_publicacion);
-    push("id_usuario", id_usuario);
     push("url", url);
     push("img", img);
     push("destacada", destacada);
