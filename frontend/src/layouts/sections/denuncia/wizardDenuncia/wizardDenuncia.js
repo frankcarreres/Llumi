@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Typography, Box, Grid, Paper, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FormDenunciaAluVictima from "./components/formAluVictima";
-import FormDenunciaAluTestigo from "./components/formAluTestigo";
-import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
-import BotoTest from "components/botoTest";
+import imgDenuncia from "../../../../assets/images/img-denuncia.png";
 import { obtenerTests, guardarDenuncia, vincularDenuncia } from "services/api";
 import { getSession } from "utils/session";
-
 import FormDenunciaAluVictima from "components/DenunciaComponents/formAluVictima";
 import FormDenunciaAluTestigo from "components/DenunciaComponents/formAluTestigo";
-import imgDenuncia from "assets/images/img-denuncia.png";
 import BotoTest from "components/DenunciaComponents/botoTest";
-import { guardarDenuncia } from "../../../../services/api";
-import { getSession } from "../../../../utils/session";
 
-// Definición de las opciones para el primer paso del Wizard
+// Opciones disponibles en el paso 1 del wizard, incluyendo íconos y etiquetas
 const optionsStep1 = [
   { label: "Víctima", icon: <ReportProblemIcon sx={{ fontSize: 70 }} /> },
   { label: "Testigo", icon: <VisibilityIcon sx={{ fontSize: 70 }} /> },
 ];
 
-// eslint-disable-next-line react/prop-types
 function WizardDenuncia({ idTest }) {
+  // Se utiliza un estado interno para almacenar el id del test.
+  const [testId, setTestId] = useState(idTest);
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
-  const navigate = useNavigate();
   const [testsSinDenuncia, setTestsSinDenuncia] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cargarTests = async () => {
       try {
         const token = getSession("token")?.token;
         const allTests = await obtenerTests(token);
+        // Filtra los tests que no tienen denuncia vinculada
         setTestsSinDenuncia(allTests.filter((t) => !t.id_denuncia));
       } catch (err) {
         console.error("Error al obtener tests:", err);
@@ -45,9 +41,8 @@ function WizardDenuncia({ idTest }) {
     cargarTests();
   }, []);
 
-  // Función para manejar la selección de una opción
   const handleSelect = (label) => {
-    setSelectedOption(label); // Se guarda la opción (víctima o testigo)
+    setSelectedOption(label);
     setStep(2);
   };
 
@@ -58,24 +53,28 @@ function WizardDenuncia({ idTest }) {
     }
   };
 
-  // Función asíncrona para enviar y guardar los datos de la denuncia
+  // Función para manejar el registro cuando la denuncia ha sido realizada correctamente
   const handleDenunciaRealizada = async (datos) => {
     try {
       const session = getSession("token");
-      // Guardamos denuncia
+      // Se guarda la denuncia mediante la API
       const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
       const idDenuncia = response.id_denuncia;
-      const testPendiente = testsSinDenuncia.find((t) => !t.id_denuncia);
-      idTest = testPendiente.id_test;
-      if (!testPendiente) {
-        console.warn("No hay ningún test pendiente de denuncia");
-        alert("No se encontró ningún test al que vincular la denuncia.");
-        return;
+
+      // Se verifica si ya se tiene un idTest pasado como prop; de lo contrario se busca uno pendiente.
+      let testIdFinal = testId;
+      if (!testIdFinal) {
+        const testPendiente = testsSinDenuncia.find((t) => !t.id_denuncia);
+        if (!testPendiente) {
+          console.warn("No hay ningún test pendiente de denuncia");
+          alert("No se encontró ningún test al que vincular la denuncia.");
+          return;
+        }
+        testIdFinal = testPendiente.id_test;
+        setTestId(testIdFinal); // Actualiza el estado con el id del test pendiente.
       }
 
-      // 3) Vinculamos al test encontrado
-      await vincularDenuncia(session.token, idTest, idDenuncia);
-      console.log(`Denuncia ${idDenuncia} vinculada al test ${testPendiente.id_test}`);
+      await vincularDenuncia(session.token, testIdFinal, idDenuncia);
       setStep(3);
     } catch (error) {
       console.error("Error al registrar la denuncia:", error);
@@ -87,14 +86,13 @@ function WizardDenuncia({ idTest }) {
     navigate("/sections/denuncia/components/wizardTest");
   };
 
-  // Función para renderizar las opciones del primer paso
   const renderOptions = (options, selected) => (
     <Grid container spacing={4} justifyContent="center">
       {options.map(({ label, icon }) => (
         <Grid item key={label} textAlign="center">
           <Paper
             elevation={3}
-            onClick={() => handleSelect(label)} // Al hacer clic, se selecciona la opción
+            onClick={() => handleSelect(label)}
             sx={{
               width: 70,
               height: 70,
@@ -150,6 +148,7 @@ function WizardDenuncia({ idTest }) {
       )}
 
       <Box mt={3} sx={{ width: "100%", maxWidth: "900px", px: 2 }}>
+        {/* Paso 1: Selección de posición */}
         {step === 1 && (
           <Box
             sx={{
@@ -209,5 +208,9 @@ function WizardDenuncia({ idTest }) {
     </Box>
   );
 }
+
+WizardDenuncia.propTypes = {
+  idTest: PropTypes.number, // O PropTypes.string según corresponda
+};
 
 export default WizardDenuncia;

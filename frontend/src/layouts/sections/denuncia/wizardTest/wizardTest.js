@@ -33,8 +33,7 @@ const WizardTest = ({ setMostrarDenuncia }) => {
   const [totalScore, setTotalScore] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   const totalSteps = 8;
-  const [setIdTest] = useState(null);
-
+  const [, setIdTest] = useState(null);
   const variants = {
     enter: (direction) => ({
       x: direction > 0 ? 300 : -300,
@@ -311,8 +310,8 @@ const WizardTest = ({ setMostrarDenuncia }) => {
 
   // Función para comenzar el cuestionario
   const handleComenzar = () => {
-    setStarted(true); // Marcar que el cuestionario ha comenzado
-    setStep(1); // Comienza en la primera pregunta
+    setStarted(true);
+    setStep(1);
   };
 
   return (
@@ -326,7 +325,6 @@ const WizardTest = ({ setMostrarDenuncia }) => {
       flexDirection="column"
     >
       <Box display="flex" flex={1} alignItems="center" position="relative">
-        {/* Botón Back: solo visible si no estás en paso 1 ni en paso final, y ya comenzó */}
         {step !== 1 && step !== totalSteps && started && (
           <IconButton
             onClick={back}
@@ -397,7 +395,6 @@ const WizardTest = ({ setMostrarDenuncia }) => {
           </AnimatePresence>
         </Box>
 
-        {/* ✅ Botón Next: visible solo si no estás en paso final, y ya comenzó */}
         {step !== totalSteps && started && (
           <IconButton
             onClick={next}
@@ -423,7 +420,6 @@ const WizardTest = ({ setMostrarDenuncia }) => {
         )}
       </Box>
 
-      {/* Indicadores de pasos */}
       {step < totalSteps && started && (
         <Box display="flex" justifyContent="center" alignItems="center" mt={4} gap={1}>
           {Array.from({ length: totalSteps }, (_, i) => {
