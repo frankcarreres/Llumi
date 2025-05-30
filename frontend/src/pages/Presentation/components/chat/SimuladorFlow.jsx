@@ -44,9 +44,6 @@ function SimuladorFlujo() {
   const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
 
   const inputDisabled = cargando || hayOpciones || (sessionId && !testEnviado && !faseDenuncia);
-  // valores: `null` = ningún test; número = id de test a reanudar
-  // valores: "null" | "pending" | "observation"
-  // 3) Bloqueo para el <Button>
   const buttonDisabled =
     cargando ||
     (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) ||
