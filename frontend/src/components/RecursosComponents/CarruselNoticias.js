@@ -115,7 +115,6 @@ function CarruselNoticias({ destacadas }) {
               <TarjetaNoticia
                 titulo={noticia.titulo}
                 descripcion={noticia.contenido}
-                // Se usa la imagen definida o, en su defecto, se genera una imagen aleatoria
                 imagen={noticia.img ? noticia.img : getImagenRandom(index)}
                 url={noticia.url}
               />
