@@ -42,4 +42,28 @@
 | Test i proves    | Postman, navegador, usuaris reals   |
 | Altres eines     | Mermaid, Figma, WebStorm, DBeaver   |
 
+---
 
+## ⚙️ Configuració i proves en local
+
+Per a provar la plataforma en el teu entorn local, cal ajustar la `BASE_URL` i reemplaçar qualsevol referència a la IP pública per `localhost`:
+
+1. **Modificar l’API base**  
+   Obre el fitxer `services/API.js` i:
+   - Descomenta la línia amb `http://localhost:…`
+   - Comenta la línia amb `http://13.216.39.33:…`
+
+2. **Canviar referències de IP per localhost**  
+   Aquests arxius contenen enllaços a `13.216.39.33`; substitueix-los per `localhost`:
+   - `layouts/sections/recursos/info/components/CarrouselNoticias.js`
+   - `layouts/sections/recursos/multimedia/components/CarrouselMultimedia.js`
+   - `layouts/sections/recursos/centre/index.js`
+   - `layouts/sections/denuncia/index.js`
+   - `hooks/denunciasPeticiones.js`
+   - `hooks/seguimientos.js`
+   - `hooks/crearNoticias.js`
+
+3. **Executar l’entorn**  
+   # Tant en la carpeta backen com en la de frontend
+   npm install
+   npm start
