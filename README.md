@@ -33,12 +33,13 @@
 
 | Tipus             | Tecnologia                         |
 |------------------|-------------------------------------|
-| Frontend         | React, Material UI, Framer Motion   |
+| Frontend         | React, Material UI                  |
 | Backend          | Node.js, Express                    |
 | Base de dades    | MariaDB                             |
 | Chatbot          | Typebot API                         |
 | Autenticació     | JWT, Cookies                        |
 | Persistència     | sessionStorage, js-cookie           |
-| Test i proves    | Postman, navegador (devtools)       |
-| Altres eines     | Mermaid                             |
+| Test i proves    | Postman, navegador, usuaris reals   |
+| Altres eines     | Mermaid, Figma, WebStorm, DBeaver   |
+
 
