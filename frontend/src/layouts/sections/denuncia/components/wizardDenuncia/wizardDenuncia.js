@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Box, Grid, Paper, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
@@ -8,7 +8,7 @@ import FormDenunciaAluVictima from "./components/formAluVictima";
 import FormDenunciaAluTestigo from "./components/formAluTestigo";
 import imgDenuncia from "../../../../../assets/images/img-denuncia.png";
 import BotoTest from "components/botoTest";
-import { guardarDenuncia } from "services/api";
+import { obtenerTests, guardarDenuncia, vincularDenuncia } from "services/api";
 import { getSession } from "utils/session";
 
 const optionsStep1 = [
@@ -16,10 +16,26 @@ const optionsStep1 = [
   { label: "Testigo", icon: <VisibilityIcon sx={{ fontSize: 70 }} /> },
 ];
 
-function WizardDenuncia() {
+// eslint-disable-next-line react/prop-types
+function WizardDenuncia({ idTest }) {
   const [step, setStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
+  const [testsSinDenuncia, setTestsSinDenuncia] = useState([]);
+
+  useEffect(() => {
+    const cargarTests = async () => {
+      try {
+        const token = getSession("token")?.token;
+        const allTests = await obtenerTests(token);
+        setTestsSinDenuncia(allTests.filter((t) => !t.id_denuncia));
+      } catch (err) {
+        console.error("Error al obtener tests:", err);
+        setTestsSinDenuncia([]);
+      }
+    };
+    cargarTests();
+  }, []);
 
   const handleSelect = (label) => {
     setSelectedOption(label);
@@ -35,14 +51,30 @@ function WizardDenuncia() {
 
   const handleDenunciaRealizada = async (datos) => {
     try {
-      const guardarDatosDenuncia = async () => {
-        const session = getSession("token");
-        const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
-        setStep(3);
-        const idDenuncia = response.id_denuncia;
-        console.log("Denuncia:", idDenuncia);
-      };
-      await guardarDatosDenuncia();
+      // const guardarDatosDenuncia = async () => {
+      //   const session = getSession("token");
+      //   const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
+      //   setStep(3);
+      //   const idDenuncia = response.id_denuncia;
+      //   console.log("Denuncia:", idDenuncia);
+      // };
+      // await guardarDatosDenuncia();
+      const session = getSession("token");
+      // Guardamos denuncia
+      const response = await guardarDenuncia(session?.token, session?.data.id_centro, datos);
+      const idDenuncia = response.id_denuncia;
+      const testPendiente = testsSinDenuncia.find((t) => !t.id_denuncia);
+      idTest = testPendiente.id_test;
+      if (!testPendiente) {
+        console.warn("No hay ningún test pendiente de denuncia");
+        alert("No se encontró ningún test al que vincular la denuncia.");
+        return;
+      }
+
+      // 3) Vinculamos al test encontrado
+      await vincularDenuncia(session.token, idTest, idDenuncia);
+      console.log(`Denuncia ${idDenuncia} vinculada al test ${testPendiente.id_test}`);
+      setStep(3);
     } catch (error) {
       console.error("Error al registrar la denuncia:", error);
       alert("Hubo un error al registrar la denuncia. Inténtalo de nuevo.");

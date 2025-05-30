@@ -224,7 +224,6 @@ export async function enviarMensaje({
       if (esFinalDeDenuncia && resultId) {
         try {
           const variables = await obtenerVariablesTest(resultId);
-          console.table("🧩 Variables obtenidas para DENUNCIA:", variables);
           const respuestas = variables.respuestas || [];
           if (variables) {
             const datosDenuncia = {
@@ -327,17 +326,7 @@ export async function enviarMensaje({
                   break;
               }
             }
-
-            console.log("🚀 Enviando denuncia con:");
-            console.log("  🔑 token:", token);
-            console.log("  👤 id_usuario:", usuario?.id_usuario);
-            console.log("  🏫 id_centro:", usuario?.id_centro);
-            console.log("  📦 datosDenuncia:", datosDenuncia);
-
             const { id_denuncia } = await guardarDenuncia(token, usuario.id_centro, datosDenuncia);
-            console.log("📄 Denuncia guardada correctamente");
-            console.log(id_denuncia);
-
             await vincularDenuncia(token, idTestRef.current, id_denuncia);
             idTestRef.current = null;
             setFaseDenuncia(false);
