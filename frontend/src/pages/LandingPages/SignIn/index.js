@@ -67,8 +67,6 @@ function SignInBasic() {
         ? await login(email, contrasena)
         : await loginCentro(email, contrasena);
 
-      console.log(response);
-
       const { token, usuario, centro } = response;
       if (centro) centro.rol = "centro";
       const baseData = usuario ?? centro;

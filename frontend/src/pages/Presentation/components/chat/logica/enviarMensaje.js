@@ -195,7 +195,6 @@ export async function enviarMensaje({
       if (esFinalDeTest && !testEnviado && resultId) {
         try {
           const variables = await obtenerVariablesTest(resultId);
-          console.table("🧩 Variables obtenidas para TEST:", variables);
           if (variables && typeof variables.score !== "undefined") {
             const puntuacion = parseInt(variables.score);
             if (!isNaN(puntuacion)) {
@@ -215,10 +214,7 @@ export async function enviarMensaje({
               if (testsActivos.length > 0) {
                 // Asignamos el primer id_test disponible a la variable testActivo
                 testActivo = testsActivos[0].id_test;
-                console.log("✅ testActivo asignado automáticamente a:", testActivo);
               } else {
-                // Si no existe ningún test sin denuncia, podrías manejarlo:
-                // por ejemplo, lanzar un error, mostrar un mensaje o usar el testActivo que ya venía
                 console.warn(
                   "⚠️ No se encontró ningún test sin denuncia. Se usa testActivo original."
                 );
