@@ -5,6 +5,7 @@ import {
   obtenerVariablesTest,
   guardarDenuncia,
   vincularDenuncia,
+  obtenerTests,
 } from "services/api";
 import { calcularNivelRiesgo } from "utils/calculoRiesgo";
 import { sendMessageToBot } from "services/typebotAPI";
@@ -324,6 +325,27 @@ export async function enviarMensaje({
                 case "fin":
                   // Nada más que hacer
                   break;
+              }
+            }
+
+            if (!idTestRef.current) {
+              try {
+                // 1) Pido todos los tests existentes
+                const allTests = await obtenerTests(token);
+                // 2) Filtramos solo los que no tengan ninguna denuncia asociada (id_denuncia falsy)
+                const testsSinDen = allTests.filter((t) => !t.id_denuncia);
+                if (testsSinDen.length > 0) {
+                  // 3) Asigno el primer id_test disponible
+                  idTestRef.current = testsSinDen[0].id_test;
+                  console.log(
+                    "📝 Asignado idTestRef.current (sin denuncia previa):",
+                    idTestRef.current
+                  );
+                } else {
+                  console.warn("⚠️ No se encontró ningún test sin denuncia para vincular.");
+                }
+              } catch (err) {
+                console.error("❌ Error al traer tests para vincular denuncia:", err);
               }
             }
             const { id_denuncia } = await guardarDenuncia(token, usuario.id_centro, datosDenuncia);
