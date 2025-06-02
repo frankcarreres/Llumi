@@ -71,9 +71,8 @@ exports.getTestPorIdUsuario = async (req, res, next) => {
 
 // controllers/tests.js
 exports.actualizarTest = async (req, res) => {
-  const id_usuario = req.user;
+  const { id_usuario } = req.user;
   const { id_test, respuestas, resultado } = req.body;
-
   if (!id_usuario || !id_test || !respuestas || resultado == null) {
     return res.status(400).json({ error: "Faltan datos." });
   }
