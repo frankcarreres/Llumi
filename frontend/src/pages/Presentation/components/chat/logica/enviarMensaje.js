@@ -210,7 +210,7 @@ export async function enviarMensaje({
               });
               const todosLosTests = await obtenerTests(token);
               // Filtramos los que NO tengan ninguna denuncia asociada
-              const testsActivos = todosLosTests.filter((t) => !t.id_denuncia);
+              const testsActivos = todosLosTests.filter((t) => !t.Denuncia);
 
               if (testsActivos.length > 0) {
                 // Asignamos el primer id_test disponible a la variable testActivo

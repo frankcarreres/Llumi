@@ -189,8 +189,8 @@ export async function actualizarTest(token, id_test, respuestas, resultado) {
 
 // Helper: crea o actualiza dependiendo de si ya hay test activo
 export async function upsertTest(token, testActivo, respuestas, resultado) {
-  if (testActivo && testActivo.id_test) {
-    return actualizarTest(token, testActivo.id_test, respuestas, resultado);
+  if (testActivo !== null && testActivo !== undefined) {
+    return actualizarTest(token, testActivo, respuestas, resultado);
   } else {
     return guardarTest(token, respuestas, resultado);
   }
