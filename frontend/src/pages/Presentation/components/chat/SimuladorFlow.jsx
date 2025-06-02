@@ -41,15 +41,24 @@ function SimuladorFlujo() {
   const [preguntasMostradas, setPreguntasMostradas] = useState([]);
   const idTestRef = useRef(null);
   const scrollRef = useRef(null);
-  const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
-
-  const inputDisabled = cargando || hayOpciones || (sessionId && !testEnviado && !faseDenuncia);
+  // const hayOpciones = mensajes.some((m) => m.tipo === "opcion");
+  //
+  // const inputDisabled = cargando || hayOpciones || (sessionId && !testEnviado && !faseDenuncia);
+  // const buttonDisabled =
+  //   cargando ||
+  //   (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) ||
+  //   (isMultipleChoice && opcionesActivas.length === 0) ||
+  //   (!isMultipleChoice && !input.trim());
+  const opcionesPresentes = mensajes.some((m) => m.tipo === "opcion");
+  const hayOpcionesBloqueantes =
+    (!testEnviado && opcionesPresentes) || (faseDenuncia && opcionesPresentes);
+  const inputDisabled =
+    cargando || hayOpcionesBloqueantes || (sessionId && !testEnviado && !faseDenuncia);
   const buttonDisabled =
     cargando ||
-    (sessionId && !testEnviado && !faseDenuncia && !hayOpciones) ||
-    (isMultipleChoice && opcionesActivas.length === 0) ||
+    (sessionId && !testEnviado && !faseDenuncia && !opcionesPresentes) ||
+    ((isMultipleChoice || faseDenuncia) && opcionesActivas.length === 0) ||
     (!isMultipleChoice && !input.trim());
-
   useEffect(() => {
     scrollRef.current?.scrollTo({
       top: scrollRef.current.scrollHeight,

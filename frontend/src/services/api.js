@@ -177,7 +177,7 @@ export async function actualizarTest(token, id_test, respuestas, resultado) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ respuestas, resultado }),
+    body: JSON.stringify({ id_test, respuestas, resultado }),
   });
 
   if (!res.ok) {
