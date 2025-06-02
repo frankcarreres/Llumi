@@ -43,8 +43,8 @@ export async function enviarMensaje({
   setEscribiendo,
   idTestRef,
   setFaseDenuncia,
-  testActivo, // <-- nuevo
-  hasBlockingDenuncia, // <-- nuevo
+  testActivo,
+  hasBlockingDenuncia,
 }) {
   const texto =
     input || (isMultipleChoice && opcionesActivas.length > 0 ? opcionesActivas.join(", ") : "");
@@ -208,7 +208,21 @@ export async function enviarMensaje({
                 const respuesta = variables.respuestas[index + 1]?.content || "Sin respuesta";
                 respuestasTest[pregunta] = respuesta;
               });
+              const todosLosTests = await obtenerTests(token);
+              // Filtramos los que NO tengan ninguna denuncia asociada
+              const testsActivos = todosLosTests.filter((t) => !t.id_denuncia);
 
+              if (testsActivos.length > 0) {
+                // Asignamos el primer id_test disponible a la variable testActivo
+                testActivo = testsActivos[0].id_test;
+                console.log("✅ testActivo asignado automáticamente a:", testActivo);
+              } else {
+                // Si no existe ningún test sin denuncia, podrías manejarlo:
+                // por ejemplo, lanzar un error, mostrar un mensaje o usar el testActivo que ya venía
+                console.warn(
+                  "⚠️ No se encontró ningún test sin denuncia. Se usa testActivo original."
+                );
+              }
               const { id_test } = await upsertTest(token, testActivo, respuestasTest, nivel);
               idTestRef.current = id_test;
               setTestEnviado(true);
@@ -337,10 +351,6 @@ export async function enviarMensaje({
                 if (testsSinDen.length > 0) {
                   // 3) Asigno el primer id_test disponible
                   idTestRef.current = testsSinDen[0].id_test;
-                  console.log(
-                    "📝 Asignado idTestRef.current (sin denuncia previa):",
-                    idTestRef.current
-                  );
                 } else {
                   console.warn("⚠️ No se encontró ningún test sin denuncia para vincular.");
                 }
