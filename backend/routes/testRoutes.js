@@ -8,6 +8,6 @@ const verificarToken = require('../middlewares/verificarToken');
 router.post('/', verificarToken, testController.guardarTest);
 router.patch("/:id_test/denuncia", testController.vincularDenuncia);
 router.get("/usuario/me",verificarToken, testController.getTestPorIdUsuario);
-router.put("/test/:id_test",verificarToken, testController.actualizarTest);
+router.put("/test/update",verificarToken, testController.actualizarTest);
 
 module.exports = router;

@@ -171,7 +171,7 @@ export async function resetPassword(email, newPassword, confirmPassword) {
 }
 
 export async function actualizarTest(token, id_test, respuestas, resultado) {
-  const res = await fetch(`${BASE_URL}/api/test/${id_test}`, {
+  const res = await fetch(`${BASE_URL}/api/test/update`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
