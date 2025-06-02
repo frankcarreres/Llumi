@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import MKBox from "components/MKBox";
 
 // Material Kit 2 React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+import DefaultNavbar from "components/Navbars/DefaultNavbar";
 
 // Profile page sections
 import Profile from "pages/LandingPages/Profile/sections/Profile";
@@ -15,7 +15,7 @@ import publicRoutes from "../../../routes/publicRoutes";
 
 // Images
 import bgImage from "assets/bg.gif";
-import DefaultFooter from "examples/Footers/DefaultFooter";
+import DefaultFooter from "components/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 
 function Perfil() {
